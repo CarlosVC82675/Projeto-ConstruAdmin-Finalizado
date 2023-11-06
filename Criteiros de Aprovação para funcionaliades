@@ -1,0 +1,12 @@
+Critérios de Aprovação para funcionalidades
+
+1- A funcionalidade deve esta funcionando com as entradas e saidas esperadas
+
+2- A funcionalidade deve ser escalavel 
+
+3- Os caracteris(variaveis, funçoes e etc) devem ser escristas de forma entendivel para os demais usuarios do projeto(uso de comentarios e bem visto)
+
+4- Qualquer tipo de pacote, biblioteca externa deve ser documentada no relatorio de Ação
+
+5- Qualquer tipo de dependencia externa ou interna que a funcionalidade precise deve está documentada no relatoria de Ação
+
