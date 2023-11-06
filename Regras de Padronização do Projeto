@@ -18,6 +18,10 @@ Ex: //Carlos Vinicius
 
 8-Cada usuario deve admistrar seu proprio branch, nao devem ser feitas pulls em outros branch que nao sejam seus 
 
+9-Deve ser anexado junto a seu projeto um arquivo "relatoria de ação", nele deve ser feito o registro das funcionalidades: modificaçoes, testes, arquivos e pastas modificadas e criadas ou pacotes e dependencias externas
+e preferivel uma organização por data de modificaçao.
+
+
 
 
 
