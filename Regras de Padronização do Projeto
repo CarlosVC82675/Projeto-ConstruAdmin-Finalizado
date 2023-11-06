@@ -8,7 +8,7 @@ Ex: //Carlos Vinicius
 
 3-Todos os Controllers e models devem começar com a primeira letra maiuscula, caso seu controller tenha um segundo nome a primeira letra dele tambem deve ser maiusculas
 
-4-Todas os nome das rotas, migração e views devem ser minusculas
+4-Todas os nome das rotas o e views devem ser minusculas e Prefixo = primeira letra do seu nome e sobrenome(maiusculo)
 
 5-Pastas criadas tambem devem ser minusculas
 
