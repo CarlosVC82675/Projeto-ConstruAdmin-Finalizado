@@ -1,0 +1,111 @@
+No Laravel, ao usar migrações, você pode definir vários tipos de dados para as colunas do banco de dados. Abaixo estão alguns dos tipos de dados comuns disponíveis nas migrações do Laravel:
+
+Binary: Armazena dados binários.
+Boolean: Armazena valores booleanos, como 'true' ou 'false'.
+Char: Armazena uma string de comprimento fixo.
+Date: Armazena uma data.
+DateTime: Armazena data e hora.
+Decimal: Armazena um número decimal.
+Double: Armazena um número de ponto flutuante de precisão dupla.
+Enum: Armazena um valor de uma lista de valores predefinidos.
+Float: Armazena um número de ponto flutuante.
+Integer: Armazena um número inteiro.
+IpAddress: Armazena um endereço IP.
+Json: Armazena dados em formato JSON.
+Jsonb: Armazena dados em formato JSON binário.
+LongText: Armazena uma string de texto longa.
+MediumInteger: Armazena um número inteiro médio.
+MediumText: Armazena uma string de texto médio.
+SmallInteger: Armazena um número inteiro pequeno.
+String: Armazena uma string.
+Text: Armazena uma string de texto.
+Time: Armazena um horário.
+Timestamp: Armazena uma data e hora.
+
+Esses tipos de dados podem ser usados para definir colunas em suas tabelas de banco de dados ao criar migrações no Laravel. 
+Além desses tipos, o Laravel fornece suporte para vários modificadores que você pode usar com esses tipos para especificar restrições e comportamentos adicionais, 
+como 'unique', 'nullable', 'default', 'unsigned', entre outros. Certifique-se de consultar a documentação do Laravel para obter informações mais detalhadas sobre esses tipos de dados e seus modificadores.
+
+
+//EXEMPLOS 1 (Auto-relacionamento)
+
+ Schema::create('funcionarios', function (Blueprint $table) {
+
+            $table->id();
+            $table->string('nome');
+            $table->string('sobrenome');
+            $table->Integer('cep');
+            $table->string('cpf');
+            $table->string('logradouro');
+            $table->integer('numResidencia');
+
+
+  	    //exemplo de autorelacionamento
+            $table->unsignedBigInteger('id_gerente')->nullable();
+            $table->foreign('id_gerente')->references('id')->on('funcionarios');
+	    //
+		
+
+            $table->string('bairro');
+            $table->string('cidade');
+            $table->string('estado');
+            $table->Integer('telefone1');
+            $table->Integer('telefone2');
+            $table->Integer('telefone3')->nullable();
+            $table->string('email');
+            $table->string('atribuicao');
+            $table->timestamps();
+    });
+ }
+
+//EXEMPLOS 2 (Tabela-Associativa)
+
+
+  public function up(): void
+    {
+        Schema::create('funcionario_obras', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('funcionarios_id');
+            $table->unsignedBigInteger('obra_id');
+            $table->timestamps();
+            $table->foreign('funcionarios_id')->references('id')->on('funcionarios')->onDelete('cascade');
+            $table->foreign('obra_id')->references('id')->on('obras')->onDelete('cascade');
+        });
+    }
+
+//Anotação do Laravel artisan
+
+
+Artisan 
+
+Interface de linha de comando, para poder usa comandos pra agilizar processos de desenvolvimento
+
+php List = lista os comandos
+php artisan serve = vai roda o sevidor inbutido(util se nao tive utilizando xamp)
+php artisan down = coloca a aplicação em modo de manutenção
+php artisan up = liga a aplicação
+php artisan help[nome do comando] explicar oque o comando faz
+php artisan make:controller ProdutoController = criar um controller(Primeria letra maiuscula, sufixo controller)
+php artisan make:controller ProdutoController --resource = criar controller com metodos predefinidos
+php artisan route:list = lista todos as rotas
+route:cache = criar um arquivo de cash de rota, deixa a requisição mais rapida, mas se tive trabalhando em produção, nao execute
+route:clear = remove o arquivo de cash de rota
+php artisan migrate = criar as migrations
+php artisan migrate:rollback = desfazer a ultima migração
+php artisan migrate:status = ver os status dos migrations
+php artisan make:migration create_produtos_table = criar um migration
+php artisan make:migration produtos --create=[nome_da_tabela] = criar migration
+php artisan migrate:reset = defaz todas as migrações
+php artisan migrate:refresh = defaz todas as migrações e refaz
+php artisan migrate:fresh = dropar as tabelas e executa novamente
+php artisan make:model produto
+php artisan make:model Categoria --migration = criar o model e o migration
+php artisan make:model Categoria --migration --controller --resource = faz tudo
+php artisan make:model Categoria -m -cr = mesma coisa do de cima, so que mais simples
+php artisan make:model Categoria -mcr
+php artisan db:seed
+php artisan make:factory CategoriaFactory
+php artisan make:model teste -mfscr - criar tudo tudo mesmo, mi, factory, seed, controller
+php artisan view:clear = limpar cache das views que ficam amazenas
+view:cache = compilar as views no cache
+

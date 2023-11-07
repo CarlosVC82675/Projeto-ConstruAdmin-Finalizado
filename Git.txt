@@ -1,0 +1,181 @@
+
+---------------------------
+	GIT E GITHUB
+---------------------------
+
+
+
+
+
+
+---------------------
+	GIT
+---------------------
+Repositorio = local em que voce guarda os documentos de maneira segura
+Diretorio = lista de nomes e endereços desses documentos
+
+
+
+GIT = Ferramenta de versionamento ( maneira organizada de administrar
+mudanças, criando versões) de arquivos
+
+ex: num trabalho em grupo pode ocorrer mudanças mesmo quando o progeto 
+esta " pronto" ocasionando muitas modificações e atualizações, o git
+permite que voce controle essas alterações e essas atualizações sem a 
+complicação de duas pessoas alterando o mesmo arquivo ao mesmo tempo
+---------
+
+ARVORES DE TRABALHO GIT/WORKING TREE = sua area de trabalho/todo o processo de trabalho
+
+obs: tudo que esta na working tree se não for expecificado para ser notado pelo git
+vai ser completamente igorado pelo git
+
+git status = ver oque tem na sua working tree ( normalmente brenchs que voce
+não comittou) e ( vai te amostrar duas coisas, os files na sua working tree
+e os files na sua stanging area)
+---------
+
+STAGING AREA/INDEX: é a area que o git toma conhecimento sobre tal arquivo
+e começa a salvar as mudanças e as versões desse file dentro do git
+
+obs: o git não vai salvar as alterações ate que voce diga para ele salvar
+
+git add <file name>= adiciona um arquivo do seu working tree a sua staging area 
+
+git add .= adicionar todos os arquivos da working tree a sua staging area
+
+git status = ver oque tem na sua staging area
+--------
+
+LOCAL REPOSITORY= é tudo que esta no seu diretorio local do git
+como seus commits. é a area que salva tudo que voce comittou
+
+git commit= pega todas as mudanças da sua staging area, junta eles e coloca
+no seu repositorio local, esvaziando sua ataging area 
+--
+git ls-tree --full-tree -r HEAD= amostra todos os filer rastreados pelo seu git
+--
+git log = amostra todos os commits antigos no seu repositorio
+--
+git show <commit name> = amostra as mudanças ocorridas no commit
+------------
+
+GIT_termos
+
+--
+git --version = checar versão do git
+--
+.md no final do nome é tag "mark down" para arquivos readme( leia me )
+--
+git init = inicia um repositorio git vazio, onde ja começa na brench master/main
+--
+git config --global = cria uma conta local no repositorio git local
+git config --global user.name
+git config --global user.email
+--
+git add <nome do arquivo>= manda o arquivo para a area de stading
+--
+git add .= adicionar todos os arquivos da working tree a sua staging area
+--
+git commit -m <titulo do commit em aspas duplas "qualquer coisa">= faz um comit no repositorio da sua maquina
+--
+git status = ver oque tem na sua staging area
+--
+git branch -M <nome qualquer em aspas duplas> = serve para trocar o nome da sua branch atual
+--
+git remote add origin(apelido do repositorio local) <link do repositorio do git 
+sem aspas> = cria uma conexao entre 
+o repositorio local com o repositorio do git, se voce n mudar de repositorio github
+so precisa conectar uma vez
+--
+git push -u origin <nome da branch q quer mandar, ex: main> 
+= dar um push nos commits do repositorio local para o github
+--
+git checkout <nome em aspas duplas>= trocar de branch
+-- 
+git checkout -b <nome em aspas duplas>= cria uma branch nova e ja entra nela
+--
+git merge <nome da branch que quer juntar com a main>= na branch main, voce pode juntar as branchs com a branch main
+--
+git clone <link do repositorio github>
+=pega todos os aquivos do repositorio github e joga no repositorio local na pasta em q vc esta
+--
+git fetch = copia para o repositorio local todo o conteudo do repositorio remoto, sendo normalmente seguido pelo merge
+copia um novo
+--
+git pull = pega a atualizacao  do repositorio github e passa
+para o diretorio local, atualiza ou muda o ja existente
+--
+git reset = reseta a versão da commit atual e apaga todas as outras commits
+obs: existem varios metodos
+
+1 - git reset <ID commit>, voce pode ver o id da commit usando o git log, o ID são os 7
+primeiros numeros apos o "commit", ou voce pode usar git log --oneline, usando esse metodo
+voce reseta ate o commit que voce quiser
+
+2 - git reset head~1= reseta a quantidade de versoes desejadas pelo numero apos o ~
+exemplo: git reset head~2 = volta duas versoes, git reset head~3 = 3 versoes
+
+3 - git revert = desfaz as mudancas, mas sem apagar os commits anteriores, ele apenas
+cria um commit novo com as mesmas caracteristicas do commit q vc quer voltar 
+
+
+
+
+
+
+----------------------
+	GITHUB
+----------------------
+GITHUB = plataforma que voce usa para hospedar os arquivos que voce esta
+usando o git ( fazendo controle de versionamento) 
+--------------------------------------
+
+
+
+repositorio: diretorios( subdivisão logica de um sistema de arquivo
+que permite o agrupamento de arquivos que se relacionam)
+do git que voce usa para armazenar os seus projetos 
+-----------------------------------
+
+BRANCH: ramificação que voce pode fazer no seu projeto
+
+ex: num trabalho voce pode separar num branch as coisas que voce vai fazer
+antes de colocar na linha do tempo principal ( main), 
+tanto para ter o controle maior de versionamento,
+quanto para voce organizar cada tarefa separadamente antes de juntar
+tudo na linha principal
+--------------------------------------
+
+COMMIT: postar/salvar as versões e mudanças do projeto ( podendo salvar o main
+ou salvar o branch antes de juntar tudo e salvar o main )
+---------------------------------------
+
+MERGE: juntar a Brench(linha alternativa) com a sua main(linha principal)
+
+ex: num trabalho de um site voce cria uma brench para fazer o codigo de um
+botão, enquanto na linha principal outra pessoa cria um input para esse 
+mesmo trabalho e da um commit ( salva a alteração), assim, para que voce 
+possa "colocar " oque voce fez no projeto salvo no main voce precisa fazer
+um merge, isso se oque voce fez apenas acrescenta ou seja, nao retira e nem
+sobrepõe nada que ja foi alterado, apenas coloca, ex: nav + input, e não
+nav sobrepõe input
+-------------------------------------------
+
+REMOTE: vai ser responsavel por jogar oque tem no repositorio da sua maquina
+para o repositorio da plataforma (github)
+
+ex: <link do repositorio do git> o repositorio que eu tenho aqui na minha ma
+quina criado só usando o git, vai ser colocado nesse repositorio do github( link)
+-----------------------------------------------
+
+PUSH: vai ser reponsavel por colocar o commit no seu remote
+ou seja, o github não salva automaticamente as alterações, então voce pre
+cisa dar esse PUSH para salvar as alterações no  repositorio do github
+-------------------------------------------------
+
+PULL: vai ser reponsavel por puxar algo que esta no repositorio do github
+para o repositorio da sua maquina, voce basicamente vai vaixar o repositorio
+
+
+
