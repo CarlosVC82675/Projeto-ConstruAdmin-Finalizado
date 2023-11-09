@@ -12,19 +12,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('projetos', function (Blueprint $table) {
-            $table->id();
-            $table->char('titulo',80);
+          
             
+            $table->unsignedBigInteger('obras_id_obras');
             $table->unsignedBigInteger('id_fotos');
-            $table->foreign('id_fotos')->references('id')->on('fotos')->onDelete('cascade')->onUpdate('cascade');;
-
             $table->unsignedBigInteger('id_2d3d');
-            $table->foreign('id_2d3d')->references('id')->on('2d3d')->onDelete('cascade')->onUpdate('cascade');;
 
-            
+            $table->primary(['obras_id_obras', 'id_fotos','id_2d3d']);
+           
+            $table->foreign('obras_id_obras')->references('idObras')->on('obras')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_fotos')->references('idfoto')->on('fotos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_2d3d')->references('id2d3d')->on('2d3d')->onDelete('cascade')->onUpdate('cascade');
+
+
         });
     }
-    
+
 
     /**
      * Reverse the migrations.
