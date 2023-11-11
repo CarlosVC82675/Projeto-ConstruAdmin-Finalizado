@@ -1,21 +1,22 @@
-Data de Modificação: 07/11/2023
+Data de Modificação: 11/11/2023
 
-1-Criado migrate usuarios
-2-Criado migrate vinculo usuarios
-3-Criado migrate telefone usuarios
-4-Criado migrate lista obras
-5-Modificado tabela de auto-relacionamento lista usuarios para atributos chave estrageira na tabela usuarios
-6-Criado migrate adicionar_atributos_tabela_usuarios
+ATENÇAO
+-Thauan e qualquer pessoa, se estive lendo isso saiba que existem algumas mudanças de nomeclatura nos migrations
+irei listar elas:
 
+1-O auto relacionamento de usuarios: Usuario_Fk(antigo) -> Superior_idUsuario
+(adotei essa nomeclatura porque achei mais auto explicativa, mas posso alterar se necessario)
 
-Teste Feitos:
+2-A chave estrangeira e primaria de atribuição, como nao estava listado na versao logica do banco que esta atualmente no git
+e como conversamos na reuniao passado sobre a existencia dessa chave, eu adotei um nome temporario para poder terminar com os models
 
-1- migrate usuarios: Tabela criada e testada
-2- migrate vinculo usuarios: Tabela criada e testada
-3- migrate telefone usuarios: Tabela criada e testada
-4- migrate lista obras : Nao testado(falta de objetos)
-5-migrate adicionar_atributos_tabela_usuarios : Nao testado(falta de objetos)
+2.1-chave estrageira de atribuição na tabela usuarios = atribuicao_idAtribuicao
+2.2-chave primaria de atribuição = id_atribuicao
 
+OBS:NOME TEMPORARIO, QUALQUER COISA ME PROCURE
 
+3-Adição de 2 atributos na tabela usuarios:
+
+3.1- password(esta como string mas pode ser utilizar a tipagem que preferir)
 
 

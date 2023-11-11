@@ -15,6 +15,14 @@ return new class extends Migration
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id('idUsuario');
 
+            //chave estrageira de atribuiçao
+            $table->unsignedBigInteger('atribuicao_idAtribuicao');
+            $table->foreign('atribuicao_idAtribuicao')->references('id_atribuicao')->on('atribuicao_usuario');
+
+             //Chave estrangeira de estoque
+            $table->unsignedBigInteger('Estoque_idEstoque');
+            $table->foreign('Estoque_idEstoque')->references('idEstoque')->on('estoque');
+
              //auto Relacionamento
             $table->unsignedBigInteger('Superior_idUsuario')->nullable();
             $table->foreign('Superior_idUsuario')->references('idUsuario')->on('usuarios');
@@ -29,9 +37,6 @@ return new class extends Migration
             $table->string('cidade')->nullable();
             $table->string('estado')->nullable();
             $table->string('email')->unique()->nullable(false);
-            $table->enum('atribuição',['USUARIO_COMUM','EMPRESA','SUPEVISOR','APONTADOR'])->nullable(false);
-            $table->rememberToken();
-
             $table->timestamps();
 
         });

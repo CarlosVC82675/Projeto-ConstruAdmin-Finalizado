@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('telefone_usuarios', function (Blueprint $table) {
             $table->Integer('telefone')->nullable(false);
 
-            //Chave estrangeira
+            //Chave estrangeira de usuarios
             $table->unsignedBigInteger('Usuarios_idUsuario');
             $table->foreign('Usuarios_idUsuario')->references('idUsuario')->on('usuarios');
             $table->timestamps();

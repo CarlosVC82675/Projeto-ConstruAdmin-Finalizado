@@ -12,16 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lista_obras', function (Blueprint $table) {
-            //Chave estrangeira
+
+            //Chave estrangeira de obras
             $table->unsignedBigInteger('Obras_idObras');
 
-            //Chave estrangeira
+            //Chave estrangeira de usuarios
             $table->unsignedBigInteger('Usuario_idUsuario');
-            
+
             $table->foreign('Obras_idObras')->references('idObras')->on('obras');
             $table->foreign('Usuario_idUsuario')->references('idUsuario')->on('usuarios');
-
-            $table->string('nome');
 
             $table->timestamps();
         });
