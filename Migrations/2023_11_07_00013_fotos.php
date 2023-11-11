@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('fotos', function (Blueprint $table) {
           
-            $table->id('idfoto');
+            $table->id('idFoto');
             $table->char('titulo',80);
             $table->string('arquivo');
 
