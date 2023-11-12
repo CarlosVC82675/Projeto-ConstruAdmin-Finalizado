@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('arquivos', function (Blueprint $table) {
-            
-            $table->id('idArquivo');
+        Schema::create('fotos', function (Blueprint $table) {
+          
+            $table->id('idFoto');
+            $table->unsignedBigInteger('Projeto_idProjeto');
+            $table->foreign('Projeto_idProjeto')->references('idProjeto')->on('projeto')->onDelete('cascade')->onUpdate('cascade');
+           
             $table->char('titulo',80);
             $table->string('arquivo');
 

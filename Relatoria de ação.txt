@@ -1,23 +1,8 @@
-Commit dos Migrations e Models
+Alteração de nomes
+Ids trocadas agora são do tipo Obras_idObras
+Projetos agora é projeto
+CamelCase revisado e utilizado em casos que passaram despercebido
+agora projeto não tem as chaves estrageiras de fotos e arquivo
+fotos e arquivos que tem a chave estrangeira do projeto
 
-Em relação aos Migratios
-
--Tabela projetos agora é uma tabela normal, com id proprio que se relaciona com obras,fotos e arquivos
--Uma obra tem um projeto,um projeto tem varias fotos, um projeto tem varios arquivos
--Id nomeados com CamelCase
--Chave estrangeira "obras_id_obras" de projetos foi renomeada para "id_obras" (assim ficou mais no padrão, se eu tiver cometendo um crime, me avise)
--Testado e funcionado
-
-Em relação aos Models
-
--Criados os Models Obras,Projetos,Arquivos e Fotos
--Inserido o relacionamento em cada Model
-	obras tem varios usuario
-	obras tem varios atividades
-	obras tem varios materias necessarios
-	obras tem um projetos
-	projetos tem varios 2d3d
-	projetos tem varios fotos
-	2d3d pertence a um projetos
-	fotos pertence a um projetos
--Passivel de mudança na relação Obras-Usuarios devido a tabela lista_materiais_necessarios
+pensamento do dia : 🤓☝

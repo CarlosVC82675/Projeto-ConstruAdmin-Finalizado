@@ -11,7 +11,7 @@ class arquivo extends Model
     protected $table = "arquivos";
     protected $primaryKey = "idArquivo";
 
-    public function projetos(){
+    public function projeto(){
         return $this->belongsTo(Projetos::class,'idProjeto');
     }
 }

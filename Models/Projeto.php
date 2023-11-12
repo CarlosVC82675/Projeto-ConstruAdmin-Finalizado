@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class projetos extends Model
 {
     use HasFactory;
-    protected $table = "projetos";
+    protected $table = "projeto";
     protected $primaryKey = "idProjeto";
 
 
@@ -16,11 +16,11 @@ class projetos extends Model
         return $this->belongsTo(Obras::class,'idObras');
     }
 
-    public function arquivo(){
-        return $this->hasMany(Arquivos::class,'arquivo_idaqruivo','idarquivo');
+    public function arquivos(){
+        return $this->hasMany(Arquivos::class,'Projeto_idProjeto','idArquivo');
     }
 
     public function fotos(){
-        return $this->hasMany(Fotos::class,'foto_idfoto','idfoto');
+        return $this->hasMany(Fotos::class,'Projeto_idProjeto','idFoto');
     }
 }

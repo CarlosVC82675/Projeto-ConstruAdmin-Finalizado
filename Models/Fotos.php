@@ -12,7 +12,7 @@ class fotos extends Model
     protected $primaryKey = "idFoto";
 
 
-    public function projetos(){
+    public function projeto(){
         return $this->belongsTo(Projetos::class,'idProjeto');
     }
 

@@ -13,18 +13,18 @@ class obras extends Model
 
 
     public function usuario(){
-        return $this->belongsToMany(Usuarios::class,'lista_obras','obras_id_obras','idUsuario');
+        return $this->belongsToMany(Usuarios::class,'lista_obras','Obras_idObras','idUsuario');
     }
 
     public function atividades(){
-        return $this->hasMany(Atividades::class,'obras_id_obras','idAtividade');
+        return $this->hasMany(Atividade::class,'Obras_idObras','idAtividade');
     }
 
     public function materiais(){
-        return $this->belongsToMany(Materiais::class,'lista_materias_necessarios','obras_id_obras','materiais_idmaterias');
+        return $this->belongsToMany(Materiais::class,'lista_materias_necessarios','Obras_idObras','Materiais_idMaterias');
     }
 
-    public function projetos(){
+    public function projeto(){
         return $this->hasOne(Projetos::class);
     }
 }
