@@ -1,0 +1,3 @@
+11/11/2023
+
+foram atualizados os migrations e os models de acordo com a solicitação.

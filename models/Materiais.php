@@ -9,11 +9,18 @@ class Materiais extends Model
 {
     use HasFactory;
 
+    protected $table = 'materiais';
+    protected $primaryKey = 'idMateriais';
+
     public function materiaisDevolvidos(){
-        return $this->belongsTo(materiaisDevolvidos::class);
+        return $this->belongsTo(MaterialDevolvido::class);
+    }
+
+    public function obras(){
+        return $this->belongsToMany(Obra::class, 'lista_materiais_necessarios', 'id_materiais', 'id_obras');
     }
     
     public function estoque(){
-        return $this->belongsTo(estoque::class);
+        return $this->belongsTo(Estoque::class);
     }
 }

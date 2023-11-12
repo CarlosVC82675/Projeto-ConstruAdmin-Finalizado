@@ -9,11 +9,18 @@ class Estoque extends Model
 {
     use HasFactory;
 
+    protected $table = 'estoque';
+    protected $primaryKey = 'idEstoque';
+
     public function materiaisDevolvidos(){
-        return $this->hasOne(materiaisDevolvidos::class);
+        return $this->hasOne(MaterialDevolvido::class);
+    }
+
+    public function usuario(){
+        return $this->hasMany(Usuario::class);
     }
 
     public function materiais(){
-        return $this->hasOne(materiais::class);
+        return $this->hasOne(Material::class);
     }
 }

@@ -9,11 +9,14 @@ class Materiais_Devolvidos extends Model
 {
     use HasFactory;
 
+    protected $table = 'materiais_devolvidos';
+    protected $primaryKey = 'idEntrada_Devolu';
+
     public function estoque(){
-        return $this->belongsTo(estoque::class);
+        return $this->belongsTo(Estoque::class);
     }
 
     public function materiais(){
-        return $this->hasMany(materiais::class);
+        return $this->hasMany(Material::class);
     }
 }
