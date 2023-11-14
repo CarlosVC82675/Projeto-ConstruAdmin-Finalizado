@@ -12,15 +12,11 @@ class Estoque extends Model
     protected $table = 'estoque';
     protected $primaryKey = 'idEstoque';
 
-    public function materiaisDevolvidos(){
-        return $this->hasOne(MaterialDevolvido::class);
-    }
-
     public function usuario(){
         return $this->hasMany(Usuario::class);
     }
 
-    public function materiais(){
-        return $this->hasOne(Material::class);
+    public function materiaisEstoque(){
+        return $this->hasMany(Material::class);
     }
 }
