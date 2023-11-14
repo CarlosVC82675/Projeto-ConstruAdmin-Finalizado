@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class arquivo extends Model
 {
     use HasFactory;
-    protected $table = "arquivos";
+    protected $table = "arquivo";
     protected $primaryKey = "idArquivo";
 
-    public function projeto(){
-        return $this->belongsTo(Projetos::class,'idProjeto');
+    public function obras(){
+        return $this->belongsTo(Obras::class,'idProjeto');
     }
 }

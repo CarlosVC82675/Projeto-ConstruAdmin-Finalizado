@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('proposito');
             $table->date('dtFinal');
             $table->date('dtInicial');
+            $table->timestamps();
         });
     }
 
