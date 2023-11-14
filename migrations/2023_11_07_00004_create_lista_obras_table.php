@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('lista_obras', function (Blueprint $table) {
 
             //Chave estrangeira de obras
-            $table->unsignedBigInteger('Obras_idObras');
+           $table->unsignedBigInteger('Obras_idObras');
 
             //Chave estrangeira de usuarios
             $table->unsignedBigInteger('Usuario_idUsuario');

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id('idUsuario');
 
             //chave estrageira de atribuiçao
-            $table->unsignedBigInteger('atribuicao_idAtribuicao');
-            $table->foreign('atribuicao_idAtribuicao')->references('id_atribuicao')->on('atribuicao_usuario');
+            $table->unsignedBigInteger('atribuicao_Usuario_id_Atribuicao');
+            $table->foreign('atribuicao_Usuario_id_Atribuicao')->references('id_atribuicao')->on('atribuicao_usuario');
 
              //Chave estrangeira de estoque
             $table->unsignedBigInteger('Estoque_idEstoque');

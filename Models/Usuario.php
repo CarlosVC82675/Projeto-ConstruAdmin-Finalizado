@@ -9,6 +9,32 @@ class Usuario extends Model
 {
     use HasFactory;
 
+    //tabela que faz parte
+    protected $table = 'usuarios';
+
+    //Chave primaria
+    protected $primaryKey = 'idUsuario';
+
+
+    //Metodo Fillable
+    protected $fillable = [
+        'atribuicao_Usuario_id_Atribuicao',
+        'Estoque_idEstoque',
+        'Superior_idUsuario',
+        'password',
+        'name',
+        'lastName',
+        'genero',
+        'cep',
+        'cpf',
+        'pais',
+        'cidade',
+        'estado',
+        'email',
+    ];
+
+
+    //Relacionamentos
     public function telefones(){
 
         return $this->hasMany(TelefoneUsuario::class,'Usuarios_idUsuario','idUsuario');
@@ -16,13 +42,13 @@ class Usuario extends Model
     }
 
     public function atribuição(){
-        return $this->belongsTo(Atribuicao_Usuario::class,'atribuicao_idAtribuicao','id_atribuicao');
+
+        return $this->belongsTo(AtribuicaoUsuario::class,'atribuicao_Usuario_id_Atribuicao','id_atribuicao');
     }
 
     public function estoque(){
 
         return $this->belongsTo(Estoque::class,'Estoque_idEstoque','idEstoque');
-
     }
 
     public function obras(){
