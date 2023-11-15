@@ -13,15 +13,23 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('atividade', function (Blueprint $table) {
+            //BEGIN ATRI
            $table->id('idAtividade');
-          $table->String('nome')->nullable(false);
-          $table->String('etiqueta')->nullable(true);
+           $table->String('nome')->nullable(false);
+           $table->String('etiqueta')->nullable(true);
            $table->String('anexo')->nullable(true);
-           $table->longText('descrição')->nullable(true); 
+           $table->longText('descrição')->nullable(true);
            $table->Date('dtFinal')->nullable(false) ;
            $table->Date('dtInicial') ->nullable(false);
-           $table->enum( 'status',['COMEÇANDO','ANDAMENTO','FINALIZADO'])->default ('COMEÇANDO'); 
-          $table->String('responsavel')->nullable(false) ;   
+           $table->enum( 'status',['COMEÇANDO','ANDAMENTO','FINALIZADO'])->default ('COMEÇANDO');
+          $table->String('responsavel')->nullable(false) ;
+          //END ATRI
+
+//BEGIN FK
+          $table->unsignedBigInteger('Obras_idObras');
+
+          $table->foreign('Obras_idObras')->references('idObras')->on('obras');
+// END FK
             $table->timestamps();
         });
     }

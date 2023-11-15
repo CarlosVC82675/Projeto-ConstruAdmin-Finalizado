@@ -11,13 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('materiais', function (Blueprint $table) {
+        Schema::create('materiais_estoque', function (Blueprint $table) {
             $table->id('idMateriais');
+            $table->unsignedBigInteger('Estoque_idEstoque');
+            $table->foreign('Estoque_idEstoque')->references('idEstoque')->on('estoque')->onDelete('cascade')->onUpdate('cascade');
             $table->decimal('kg', 5,2)->nullable(false);
             $table->string('nomeM', 50)->nullable(false);
             $table->decimal('metros', 38,4)->nullable(false);
             $table->decimal('quantidade', 10,2)->nullable(false);
             $table->date('dtVencimento',)->nullable(false);
+            $table->date('dtEntrada',)->nullable(false);
+            $table->date('dtSaida',)->nullable(false);
+            $table->enum('Status_2',['usado', 'novo'])->nullable(false);
             $table->timestamps();
         });
     }

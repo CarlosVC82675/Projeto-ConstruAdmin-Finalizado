@@ -15,15 +15,11 @@ return new class extends Migration
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id('idUsuario');
 
-            //ERRO: Referencia errada (s)
-            $table->unsignedBigInteger('Lista_Atividades_Atividade_Obras_IdObras');
-            $table->foreign('Lista_Atividades_Atividade_Obras_IdObras')->references('Atividade_Obras_idObras')->on('lista_atividade');
+            //chave estrageira de atribuiçao
+            $table->unsignedBigInteger('atribuicao_Usuario_id_Atribuicao');
+            $table->foreign('atribuicao_Usuario_id_Atribuicao')->references('id_atribuicao')->on('atribuicao_usuario');
 
-             //Chave estrangeira
-            $table->unsignedBigInteger('Lista_Atividades_Atividade_idAtividade');
-            $table->foreign('Lista_Atividades_Atividade_idAtividade')->references('Atividade_idAtividade')->on('lista_atividade');
-
-             //Chave estrangeira
+             //Chave estrangeira de estoque
             $table->unsignedBigInteger('Estoque_idEstoque');
             $table->foreign('Estoque_idEstoque')->references('idEstoque')->on('estoque');
 
@@ -41,9 +37,6 @@ return new class extends Migration
             $table->string('cidade')->nullable();
             $table->string('estado')->nullable();
             $table->string('email')->unique()->nullable(false);
-            $table->enum('atribuição',['USUARIO_COMUM','EMPRESA','SUPEVISOR','APONTADOR'])->nullable(false);
-            $table->rememberToken();
-
             $table->timestamps();
 
         });

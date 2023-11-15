@@ -15,11 +15,6 @@ return new class extends Migration
        Schema::create('lista_materiais_necessarios', function (Blueprint $table) {
 
 
-//own atributtes
-        $table->String('nome');
-        $table->decimal('quantidade',10,2);
-
-
 //atributes to foreing key
 
 $table->unsignedBigInteger('Obras_idObras');
@@ -28,9 +23,9 @@ $table->unsignedBigInteger('Materiais_idMateriais');
 //foreing key set
 
 $table->foreign('Obras_idObras')->references('idObras')->on('obras')->onDelete('cascade');
-$table->foreign('Materiais_idMateriais')->references('idMateriais')->on('materiais');
+$table->foreign('Materiais_idMateriais')->references('idMateriais')->on('materiais_estoque');
 
-
+$table->timestamps();
 
 
     });

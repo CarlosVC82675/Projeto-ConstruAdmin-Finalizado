@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fotos', function (Blueprint $table) {
-           //ERRO: ID nao nomeada
-            $table->id('idfoto');
-
-
-
+        Schema::create('atribuicao_usuario', function (Blueprint $table) {
+            $table->id('id_atribuicao');
+            $table->enum('atribuição',['COMUM','EMPRESA','SUPEVISOR','APONTADOR','ENGENHEIRO'])->nullable(false);
+            $table->timestamps();
         });
     }
 
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('atribuicao_usuario');
     }
 };

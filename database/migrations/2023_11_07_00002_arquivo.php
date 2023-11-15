@@ -11,13 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('telefone_usuarios', function (Blueprint $table) {
-            $table->Integer('telefone')->nullable(false);
-
-            //Chave estrangeira
-            $table->unsignedBigInteger('Usuarios_idUsuario');
-            $table->foreign('Usuarios_idUsuario')->references('idUsuario')->on('usuarios');
+        Schema::create('arquivo', function (Blueprint $table) {
+            
+            $table->id('idArquivo');
+            $table->string('arquivo');
+            $table->unsignedBigInteger('Obras_IdObras');
+            $table->foreign('Obras_IdObras')->references('idObras')->on('obras')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
+    
+           
+
+
+
         });
     }
 
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('telefone_usuarios');
+        //
     }
 };

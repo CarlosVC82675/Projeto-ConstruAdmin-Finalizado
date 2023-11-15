@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vinculo_usuario', function (Blueprint $table) {
-            $table->id('idVinculoUsuario');
+        Schema::create('telefone_usuarios', function (Blueprint $table) {
+            $table->Integer('telefone')->nullable(false);
 
-            //Chave estrangeira
+            //Chave estrangeira de usuarios
             $table->unsignedBigInteger('Usuarios_idUsuario');
             $table->foreign('Usuarios_idUsuario')->references('idUsuario')->on('usuarios');
-
-            $table->text('vinculo')->nullable(false);
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vinculo_usuario');
+        Schema::dropIfExists('telefone_usuarios');
     }
 };

@@ -13,22 +13,21 @@ return new class extends Migration
     {
         Schema::create('lista_atividade', function (Blueprint $table) {
 
-//ERRO: Comentario com Linguagem irregular
-//own_atributtes is not necessary, considere use withpivot instead
-
-
-
 
 //foreing_key
 $table->unsignedBigInteger('Atividade_idAtividade');
 
-$table->unsignedBigInteger('Atividade_Obras_idObras');
+
+$table->unsignedBigInteger('Usuarios_idUsuario');
 
 
 //Foreing_key_set
 $table->foreign('atividade_idAtividade')->references('idAtividade')->on('atividade');
-$table->foreign('Atividade_Obras_idObras')->references('idObras')->on('obras');
 
+$table->foreign('Usuarios_idUsuario')->references('idUsuario')->on('usuarios');
+
+
+$table->primary(['Atividade_idAtividade','Usuarios_idUsuario']);
     });
 }
 

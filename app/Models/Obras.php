@@ -1,22 +1,31 @@
 <?php
-
+// Diego Oliveira
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Obras extends Model
+class obras extends Model
 {
     use HasFactory;
+    protected $fillable = ['nome','status','descricao','tamanho','tipo','logradouro','numResidencial','bairro','cidade','estado','cep','estrutura','proposito','dtFinal','dtInicial'];
+    protected $table = "obras";
+    protected $primaryKey = "idObras";
 
-     //indicando o nome da tabela ao qual esta relacionado
-     protected $table = 'obras';
 
-     public function Employee()
-    {
-        return $this->belongsToMany(Employee::class,'lista_obras', 'obra_id', 'employee_id');
+    public function usuarios(){
+        return $this->belongsToMany(Usuarios::class,'lista_obras','Obras_idObras','idUsuario');
     }
 
+    public function atividade(){
+        return $this->hasMany(Atividade::class,'Obras_idObras','idAtividade');
+    }
 
+    public function materiais(){
+        return $this->belongsToMany(Materiais_Estoque::class,'lista_materias_necessarios','Obras_idObras','Materiais_idMaterias');
+    }
 
+    public function arquivo(){
+        return $this->hasMany(Arquivo::class);
+    }
 }
