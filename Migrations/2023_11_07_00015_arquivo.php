@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('arquivo', function (Blueprint $table) {
             
             $table->id('idArquivo');
+            $table->string('arquivo');
             $table->unsignedBigInteger('Obras_IdObras');
             $table->foreign('Obras_IdObras')->references('idObras')->on('obras')->onDelete('cascade')->onUpdate('cascade');
-
-            $table->char('titulo',80);
-            $table->string('extensao');
+            $table->timestamps();
+    
+           
 
 
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class obras extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome'];
+    protected $fillable = ['nome','status','descricao','tamanho','tipo','logradouro','numResidencial','bairro','cidade','estado','cep','estrutura','proposito','dtFinal','dtInicial'];
     protected $table = "obras";
     protected $primaryKey = "idObras";
 

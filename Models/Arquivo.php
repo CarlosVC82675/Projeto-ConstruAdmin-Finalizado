@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class arquivo extends Model
 {
     use HasFactory;
+    protected $fillable = ['arquivo','Obras_IdObras'];
     protected $table = "arquivo";
     protected $primaryKey = "idArquivo";
 
