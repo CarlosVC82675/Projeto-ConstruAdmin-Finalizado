@@ -13,6 +13,4 @@ Observações:
 
 - Thauan, seu migration lista_materiais_ne... fazia referencia a tabela materiais, que como ja dito tinha mudado de nome
 
-
-
-- 
+ATENÇÃO: A PASTA VENDOR DO LARAVEL NAO CONSEGUE SER PASSADA PARA O GIT PELO SEU TAMANHO, ENTAO QUANDO FOREM BAIXAR ESSE PROJETO COLOQUE ELE EM ALGUM PROJETO JA FEITO COM A PASTA VENDOR, OU APENAS PEGA A PASTA VENDOR E COLOQUE NELE 
