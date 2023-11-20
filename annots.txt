@@ -1,0 +1,71 @@
+CANVAS
+- rever cores diferentes
+- otimização de planejamento é um beneficio( precisa ter somente problematicas ali)
+- colocar " no final do semestre de 2023 " no objetivo smart -> rever a gramatica
+- colocar as fases do produto no objetivo smart
+- especificar e encurtar mais oque esta no produto
+- 2D vem antes de 3D
+- definir o nivel de equipamentos necessario nos requisitos ( tipo oque tem na steam requisitos minimos )
+- mudar de rastreamento para " controle de estoque "
+- repensar o uso de email nas notificações, trocar por SMS ou sla...whats
+- colocar ricardo nos stakeholders junto com almenisio batista
+-  colocar a prototipagem no grupo de entrega( desenvolvimento de plataforma e etc )
+- colocar a parter de testes no grupo de entrega
+- especificar os problemas tecnicos nos riscos ( falar como isso ai é um risco )
+- pensar na inclusão de tutoriais para pessoas que não sabem PORRA NENHUMA
+- na parte de restrições especificar falta de recurso ( que recurso nenge ? )
+- remover orçamento baixo
+- remover o custo da impressão
+- colocar ano na linha do tempo
+- atrelar o grupo de entrega a linha do tempo, linha do tempo é o grupo de entrega so que com a data estipulada em mes e ano
+
+
+
+DOCUMENTO
+
+- diminuir a logo do senai
+- dados do senai e etc
+- dar 4 enters  entre logo e o resto
+- mudar a data para 2023
+- mudar o nome de ricardo...ta errado ( ricardo santana veiga - orientador)
+- tirar virgulas no final dos nomes na contra capa
+- não é necessario a folha de aprovação
+- sumario esta com fontes diferentes, rever isso
+- quando for enviar o arquivo, enviar em DOCS, e na entrega final, enviar em PDF
+- colocar um capitulo de METODOLOGIA para o scrum, kanban e etc
+- colocar um capitlo de FERRAMENTAS DE DESENVOLVIMENTO para php, laravel e etc
+- EX: 1.1 - Metodologias, 1.2 - Linguagens
+- Descricao sempre vai ser ( OQUE É e COMO FEZ( brevemente) )
+- especificar o ano na etapa do projeto
+- iniciar a paginação a partir da apresentação do projeto( superior direita )
+-  espaçamento entre as numerações de perguntas, EX: "2)bla bla bla " para = " 2) bla bla bla "
+- o espaçamento entre paragrafos em alguns lugares estão muito largos, encurtar espaçamento
+- Colocar PONTO FINAL no fim dos paragrafos
+* CAPITULO PRINCIPAL = maisculo negrito
+* secundario = minusculo negrito
+* terceario = minusculo
+- na parte de metodologia, referenciar a entrevista " foi feita uma entrevista tal tal tal " sem muitos detalhes, só deixa claro que isso existiu
+Fazendo uma analise sintetica da entrevista em no maximo meio laldo(pagina)
+- Colocar a entrevista ( como ela esta atulamente ) no Apendice
+- Rever a numeração de topicos, ta muito extenso, EX: 1.2.3 ( terceira versão da segunda versão da primeira versão.....TENSO )
+- Rever pontuação
+- Rever acentos
+- Evitar repetição de palavra uma atras da outra no mesmo paragrafo
+-Colocar as imagens em paisagem
+- Colocar titulo -> desc em baixo ( EM TUDO )
+ou Titulo-> desc em cima ( EM TUDO) 
+- titulos das fotos muito extenso
+- separar por etapas ( entre a 5 e 6 tem a descricao da foto
+- Descreve oque esta acontecendo na imagem atraves de paragrafos e tauz ( ela não saber ler um MER...foda)
+- FORMATAR O REFERENCIAL
+- tirar o 7 de referencias, colocar em negrito e etc
+- REGRA PARA TUDO = O MAIS SINTETICO MELHOR
+- colocar no referenciar os tipos de pesquisa feitas e entrevistas feitas
+
+iuntriducao
+- 1.1 justificativa
+- 1.2 metodologia
+- 1.3 linguagens
+
+etc...0,
+
