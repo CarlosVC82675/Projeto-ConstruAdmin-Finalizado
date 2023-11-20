@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ListaObrasController;
+use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +17,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Views
+Route::get('/usuario/lista',[UsuariosController::class, 'index'])->name("lista.usuarios");
+
+Route::get('/usuario/cadastro',[UsuariosController::class, 'create'])->name("cadastro.usuarios");
+
+Route::get('/usuario/show/{id}',[UsuariosController::class, 'show'])->name("ver.usuarios");
+
+Route::get('/usuario/edit/{id}',[UsuariosController::class, 'edit'])->name("editar.usuarios");
+
+//Cadastrar
+Route::post('/usuario/store',[UsuariosController::class, 'store'])->name("cadastrar.usuarios");
+
+//Atualizar
+Route::put('/usuario/update/{id}',[UsuariosController::class, 'update'])->name("atualizar.usuario");
+
+//Deletar
+Route::delete('/usuario/delete/{id}/{$condicional}',[UsuariosController::class, 'destroy'])->name("deletar.usuarios");
 
 
-Route::resource('usuarios',UserController::class);
+
+
+
 
