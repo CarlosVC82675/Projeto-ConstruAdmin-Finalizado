@@ -1,5 +1,0 @@
-Log de Erros
-
-Erro:                                        | Localização:        | Membro:          | Resolução:
-Referencia a tabela com nome desatualizado     Lista_materias_ne..   Thauan             Troquei a referencia
-a tabela materias agora é materias_estoque 
