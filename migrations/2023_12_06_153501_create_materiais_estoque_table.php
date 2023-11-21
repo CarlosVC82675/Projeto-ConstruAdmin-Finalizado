@@ -17,11 +17,11 @@ return new class extends Migration
             $table->foreign('Estoque_idEstoque')->references('idEstoque')->on('estoque')->onDelete('cascade')->onUpdate('cascade');
             $table->decimal('kg', 5,2)->nullable(false);
             $table->string('nomeM', 50)->nullable(false);
-            $table->decimal('metros', 38,4)->nullable(false);
-            $table->decimal('quantidade', 10,2)->nullable(false);
-            $table->date('dtVencimento',)->nullable(false);
+            $table->decimal('metros', 38,4)->nullable();
+            $table->integer('quantidade')->nullable(false);
+            $table->date('dtVencimento',)->nullable();
             $table->date('dtEntrada',)->nullable(false);
-            $table->date('dtSaida',)->nullable(false);
+            $table->date('dtSaida',)->nullable();
             $table->enum('Status_2',['usado', 'novo'])->nullable(false);
             $table->timestamps();
         });
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('materiais');
+        Schema::dropIfExists('materiais_estoque');
     }
 };
