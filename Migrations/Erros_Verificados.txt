@@ -1,0 +1,12 @@
+Log de Erros
+
+Erro:                                | Localização:        | Membro:          | Resolução:
+Id nao nomeada                         Obras                 Diego              Resolvido
+Comentarios com Linguagem irregular    Lista_Atividades      Thauan             Nao Resolvido
+Referencia Errada                      Usuarios              Carlos             Resolvido
+Id nao nomeada                         fotos                 Diego              Resolvido
+Id nao nomeada                         2d3d                  Diego              Resolvido
+Id nao nomeada                         projetos              Diego              Resolvido
+Referencia Errada                      projetos              Diego              Resolvido
+Referencia Errada                      obras_projeto         Diego              Resolvido
+Tipagem com Erro(File)                 obras_projeto         Diego              Nao Resolvido

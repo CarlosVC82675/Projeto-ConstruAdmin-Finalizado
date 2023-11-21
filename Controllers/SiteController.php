@@ -18,6 +18,10 @@ class SiteController extends Controller
        return view('site.criarobra');
     
     }
+    public function desativadas(){
+      $obras = Obras::all(); 
+      return view('site.desativadas',compact('obras'));
+    }
 
    
 

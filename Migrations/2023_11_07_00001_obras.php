@@ -13,20 +13,20 @@ return new class extends Migration
     {
         Schema::create('obras', function (Blueprint $table) {
             $table->id('idObras');
-            $table->char('nome',100);
-            $table->enum('status',['COMEÇANDO','ANDAMENTO','FINALIZADO']);
+            $table->string('nome',50);
+            $table->enum('status',['Andamento','Finalizado']);
             $table->string('descricao');
-            $table->decimal('tamanho');
-            $table->enum('tipo',['RESIDENCIAL','COMERCIAL','INDUSTRIAL','INFRAESTRUTURA','SANEAMENTO','RESTAURO']);
-            $table->char('logradouro',100);
-            $table->char('numResidencial',100);
-            $table->char('bairro',100);
-            $table->char('cidade',80);
-            $table->char('estado',80);
-            $table->char('cep',8);
-            $table->enum('estrutura',['METALICA','CONCRETO','MADEIRA']);
+            $table->string('tamanho');
+            $table->enum('tipo',['Residencial','Comercial','Industrial','Infraestrutura','Saneamento','Restauro']);
+            $table->string('logradouro',100);
+            $table->string('numResidencial',100);
+            $table->string('bairro',100);
+            $table->string('cidade',80);
+            $table->string('estado',80);
+            $table->string('cep',9);
+            $table->enum('estrutura',['Metálica','Concreto','Madeira']);
             $table->string('proposito');
-            $table->date('dtFinal');
+            $table->date('dtFinal')->nullable(true);
             $table->date('dtInicial');
             $table->timestamps();
         });

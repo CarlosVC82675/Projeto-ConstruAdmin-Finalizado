@@ -1,20 +1,19 @@
-Models
-Campo fillable preenchido para fazer o cadastro com o banco
+Mudei coisa para kct não vou lembrar de tudo porque só começei a anotar anteontem
 
-Migrations
+Resumindo terminei as funçoes de obra e projeto(foto e arquivo)
+Mudei alguns coisas no migrations para satifazer algumas funçoes, principalmente do arquivo, por exemplo tipo(para saber se é foto ou arquivo) e extensao para pegar a extensao do arquivo
+Models eu apenas coloquei os fillables novos para cadastro
+Validação back e front de obras e projeto feitas e testadas
+Fiz alguns ajuste no filesystem no meu projeto, para alocar os arquivos e criar link para o meu storage de arquivos, possivel de configuração na integração
+Alterei também o fuso horario do laravel, nas config -> timezone, onde coloquei Sao paulo, para que o timestamp pegue o horario de sao paulo, possivel de mudança
 
-Adicionado timestamps em arquivos (motivo, meu laravel da erro se cadastrar obra sem o timestamps)
+Anotações de mudanças que fiz
+-Configuração do file-> campos hidden tipo e Obras_IdObras adicionados
+-Migration Arquivo adicionado caminho,tipo e extensao
+-extensões aceitas (possivel de mudanças):Fotos: png,jpg,jpeg | Arquivos: pdf,rvt,dwg
+-Enum trocados de CAIXA ALTA para caixa pequena? sei lá se é caixa pequena, agora ta normal
+-Validações para required,max,regex e unique feitas em obras e arquivos
+-Problema da edição de obras com mesmo valor resolvido Eu🤝Carlos
+-Deletar arquivos agora são deletados também na pasta storage/arquivos para evitar lentidão
 
-Controllers,routes, view
 
-funçoes de create e read feita para obras e arquivo
-views feitas apenas para testes
-Mudanças futuras:
-Validações nos inputs não foram feitas
-Troca do campo status para hidden, tendo valor padrão como iniciando, quando ele cadastrar uma obra(obvio se começou a obra, ela ta começando)
-Possiveis mudanças no upload de arquivo, como adicionar mais campos para arquivos,identificar foto de arquivo, validar imagem no backend e ajustar tamanho no front(isso é la na view no caso)
-
-Teste feito no arquivo geral que esta na minha outra branch
-Testado e funcionado
-
-Pensamento do dia : Meu deus cristiane que poha de atividade é essa, ai vc tira a graça do palhaço

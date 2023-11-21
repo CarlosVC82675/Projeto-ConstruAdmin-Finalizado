@@ -3,14 +3,16 @@
 @section('conteudo')
 
 
-<h1>Dashboard da Obra</h1>
-
-<strong>ID da Obra:</strong> {{ $obra->idObras }} <br>
-<strong>Nome da Obra:</strong> {{ $obra->nome }} <br>
-
-
-<a href="{{route('obra.arquivo', ['id' => $obra->idObras])}}">Projeto</a>
 
 
 
+
+
+
+<div>
+@if($obra->status !== 'Finalizado')
+<a href="{{route('obra.editar', ['id' => $obra->idObras])}}">Editar Obra</a>
+<a href="{{route('obra.desativar', ['id' => $obra->idObras])}}">desativar Obra</a>
+@endif
+</div>
 @endsection

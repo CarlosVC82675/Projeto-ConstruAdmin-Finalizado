@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Arquivo;
-
+use Illuminate\Support\Facades\File;
 class ArquivoController extends Controller
 {
     /**
@@ -28,18 +28,31 @@ class ArquivoController extends Controller
      */
     public function store(Request $request,$id)
     {
-        $file = $request->file('arquivo');
-        $file->store('arquivo','public');
 
-        $data = $request->all();
-        $data['arquivo'] = $file->store('arquivo','public');
-        $data['Obras_IdObras'] = $id;
+       
 
+        $file = $request->file('caminho');
         
 
-        arquivo::create(['arquivo'=>$data['arquivo'],'Obras_IdObras'=>$data['Obras_IdObras']]);
-        return redirect()->route('site.index');
-
+        $data = $request->validate([
+            'nome'=>['required','max:50'],
+            'caminho'=>['required']
+        ],[
+            'nome.required'=>'Prencha o campo Nome',
+            'caminho.required'=>'Prencha o campo do arquivo',
+            'nome.max' => 'O limite de caracteres para Nome é 50'
+        ]);
+        $data['caminho'] = $file->store('arquivo','public');
+        $data['Obras_IdObras'] = $id;
+        $data['nome'] = $request->nome;
+        $data['extensao'] = $file->getClientOriginalExtension();
+        $data['tipo'] = $request->tipo;
+        $file->store('arquivo','public');
+      
+        arquivo::create(['caminho'=>$data['caminho'],'Obras_IdObras'=>$data['Obras_IdObras'],'nome'=>$data['nome'],'tipo'=>$data['tipo'],'extensao'=>$data['extensao']]);
+        if($request->tipo == 1){
+        return redirect()->route('obra.foto', ['id' => $id]);
+        }else{return redirect()->route('obra.arquivo', ['id' => $id]);}
         
 
 
@@ -71,8 +84,27 @@ class ArquivoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id,$ida)
     {
-        //
+        
+       $arquiv = Arquivo::find($ida);
+       
+       $arquiv->delete();
+       File::delete(storage_path("app/public/{$arquiv->caminho}"));
+       if($arquiv->tipo == 1){
+        return redirect()->route('obra.foto', ['id' => $id]);
+        }else{return redirect()->route('obra.arquivo', ['id' => $id]);}
+    }
+
+    public function download($ida){
+       $arquiv = Arquivo::find($ida);
+       $tipo_mime = File::extension(storage_path("app/public/{$arquiv->caminho}"));
+    
+       return response()->download(storage_path("app/public/{$arquiv->caminho}"), $arquiv->nome ."." . $arquiv->extensao,[
+        'Content-Type' => $tipo_mime,
+       ]);
+
+
+
     }
 }
