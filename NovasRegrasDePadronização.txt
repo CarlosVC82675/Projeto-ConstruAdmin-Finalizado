@@ -1,84 +1,84 @@
 
 Routes:
 
+    1- Nao é permitido usa a URL '\'  (Reservado para dashboard)
 
-1- Nao é permitido usa a URL '\'
+    2- O conjunto de rotas referente a uma controller especifico, deve ser especificado junto do nome do criador Ex:
 
-2- O conjunto de rotas referente a uma controller especifico, deve ser especificado junto do nome do criador Ex:
+    //Rota obras Diego
 
-//Rota obras Diego
+    route get...
+    route post...
 
-route get...
-route post...
-
-//Fim das Rotas Obras
+    //Fim das Rotas Obras
 
 
-3-URL das rotas devem seguir determinado padrao:
-'/objeto/funcionalidade/etc...(se ouve)
+    3-URL das rotas devem seguir determinado padrao:
+    '/objeto/funcionalidade/etc...(se ouve)
 
-Ex: 
-'/atividade/Criar_Atv/{idAtividade}
-'/login/index
-'/Usuario/Dashboard
+    Ex: 
+    '/atividade/Criar_Atv/{idAtividade}
+    '/login/index
+    '/Usuario/Dashboard
 
-4-Todas as rotas devem ser nomeadas seguindo determinda padrao:
-(objeto.função)
+    4-Todas as rotas devem ser nomeadas seguindo determinda padrao:
+    (objeto.função)
 
-Ex:
-Atividade.cadastro
-Atividade.listar
+    Ex:
+    Atividade.cadastro
+    Atividade.listar
 
 
 Controllers:
 
-1- Para Controlers de "site", deve existir um padrao utilize :
+    1- Para Controlers de "site", deve existir um padrao utilize :
 
-SiteObra : para controlar partes do site dentro de uma obra
-SiteDashboard: para controlar partes do site fora da obra(area de trabalho)
+    SiteObra : para controlar partes do site dentro de uma obra
+    SiteDashboard: para controlar partes do site fora da obra(area de trabalho)
 
-OBS:caso necessario pode fazer um controller site proprio porem deve ser acompalhado com:
+    OBS:caso necessario pode fazer um controller site proprio porem deve ser acompalhado com:
 
-SiteNome
-EX:
-SiteDiego
+    SiteNome
+    EX:
+    SiteDiego
 
-2- Deve existir em cada controller pelo menos 1 comentario especificando o criador:
-Ex:
-//Feito por diego
+    2- Deve existir em cada controller pelo menos 1 comentario especificando o criador:
+    Ex:
+    //Feito por diego
 
-3-Deve existir pelo menos um comentario em cada função dos controllers especificando oque aquela função faz
-Ex: //criar usuarios
+    3-Deve existir pelo menos um comentario em cada função dos controllers especificando oque aquela função faz
+    Ex: //criar usuarios
 
-4-Por via de padronização todos as funções dos controllers devem seguir o modo CAMEL-CASE
+    4-Por via de padronização todos as funções dos controllers devem seguir o modo CAMEL-CASE
 
-5-E Recomendado comentar as partes das suas funções, tanto para vc entender quanto para outras pessoas
+    5-E Recomendado comentar as partes das suas funções, tanto para vc entender quanto para outras pessoas
 
 
 Migrations:
 
-1-Qualquer modificação na migrations precisa ser Documentando 
+    1-Qualquer modificação na migrations precisa ser Documentando 
 
-2-So é Permitido alterar migrações que façam parte da suas funções, caso precise ser feito uma modificação no migrate que esta relacionado a outra pessoa deve ser tambem documentando e avisado previamente para o mesmo
+    2-So é Permitido alterar migrações que façam parte da suas funções, caso precise ser feito uma modificação no migrate que esta relacionado a outra pessoa deve ser tambem documentando e avisado previamente para o mesmo
 
 Models:
 
-1- Qualquer modificação feita nos models deve ser Documentada
+    1- Qualquer modificação feita nos models deve ser Documentada
 
-2-So é Permitido alterar relações que façam parte da suas funções, caso precise ser feito uma modificação na relação do model esta relacionado a outra pessoa deve ser tambem documentando e avisado previamente para o mesmo
+    2-So é Permitido alterar relações que façam parte da suas funções, caso precise ser feito uma modificação na relação do model esta relacionado a outra pessoa deve ser tambem documentando e avisado previamente para o       mesmo
 
 
 Arquivos Externos
 
-1-Qualquer modificação em algum arquivo que nao seja: Model, Migrate, Controller,View ou que nao esta com nenhuma regra espeficificada nesse documento, deve ser documentada: A modificação ou criação, arquivos modificados, e uma explicação rapida Ex: para permite o login
+    1-Qualquer modificação em algum arquivo que nao seja: Model, Migrate, Controller,View ou que nao esta com nenhuma regra espeficificada nesse documento, deve ser documentada: A modificação ou criação, arquivos         
+    modificados, e uma explicação rapida Ex: para permite o login
 
 Views
 
-1-As views iram possui uma estrutura padronizada que sera:Uma pasta "site", dentro dela conterar as subpastas: Uma pasta para views fora da obra(SiteDashboard) , Uma pasta para views dentro da obra(SiteObra), cada uma dessas pasta ira conter seu layout especifico e dever se colocado as sessões e funcionalidades referentes a aquela parte do site
+    1-As views iram possui uma estrutura padronizada que sera:Uma pasta "site", dentro dela conterar as subpastas: Uma pasta para views fora da obra(SiteDashboard) , Uma pasta para views dentro da obra(SiteObra), cada uma     dessas pasta ira conter seu layout especifico e dever se colocado as sessões e funcionalidades referentes a aquela parte do site
 
-2-As views pertecente a uma sessão ou a um conjunto de funcionalidades especificas deve esta dentro da pasta com o nome da sessao(funcionalidade) 
-Ex: Atividades => Views relacionadas a sessão atividade
+    2-As views pertecente a uma sessão ou a um conjunto de funcionalidades especificas deve esta dentro da pasta com o nome da sessao(funcionalidade) 
+    Ex: Atividades => Views relacionadas a sessão atividade
 
-3-as views referentes ao site ou devem ser agrupadas dentro de uma pasta referente a funcionalidade Ex: Atividades ou podem fica dentro da subpasta relacionado a ela (siteDashboard) ou (SiteObra)
+    3-as views referentes ao site ou devem ser agrupadas dentro de uma pasta referente a funcionalidade Ex: Atividades ou podem fica dentro da subpasta relacionado a ela (siteDashboard) ou (SiteObra)
 
-4-Pasta de views relacionados a errors ou coisas do tipo podem fica fora das subpastas mas deve esta contida na pasta principal "site"
+    4-Pasta de views relacionados a errors ou coisas do tipo podem fica fora das subpastas mas deve esta contida na pasta principal "site"
