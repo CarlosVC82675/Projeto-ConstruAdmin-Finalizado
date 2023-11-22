@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class ListaObrasController extends Controller
 {
-
+//NAO TESTADO, FINALIZADO
     public function associarUsuarioAObra($idObra, $idUsuario)
     {
         //procurar os ids

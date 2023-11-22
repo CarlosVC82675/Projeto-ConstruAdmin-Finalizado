@@ -12,6 +12,6 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {    //muda o nome da rota para o fomulario de login
-        return $request->expectsJson() ? null : route('login');
+        return $request->expectsJson() ? null : route('login.form');
     }
 }

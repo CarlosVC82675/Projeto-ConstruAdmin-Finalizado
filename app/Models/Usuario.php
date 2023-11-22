@@ -4,10 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Usuario extends Model
+class Usuario extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
     //tabela que faz parte
     protected $table = 'usuarios';
@@ -52,8 +60,7 @@ class Usuario extends Model
     }
 
     public function obras(){
-
-        return $this->belongsToMany(Obras::class,'lista_obras','Usuarios_idUsuario','Obras_idObras');
+        return $this->belongsToMany(Obras::class, 'lista_obras', 'Usuario_idUsuario', 'Obras_idObras');
     }
 
     public function atividades(){

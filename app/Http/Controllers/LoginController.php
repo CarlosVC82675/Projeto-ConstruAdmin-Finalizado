@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Usuario;
 
 class LoginController extends Controller
 {
@@ -21,11 +22,6 @@ class LoginController extends Controller
     );
 
 
-            if($crendencias['password'] == Auth::user()->cpf){
-                //retorna a view de criação de senha
-            }
-
-
         if(Auth::attempt($crendencias, $request->remember)){
             $request->session()->regenerate();
             //vai fazer o redirecionamento, mas vai verificar se o usario veio de algum lugar
@@ -33,7 +29,7 @@ class LoginController extends Controller
             if(Auth::user()->atribuicao_Usuario_id_Atribuicao == 5){
                 //redireciona ele para a pagina do cliente
             }
-            // return redirect()->intended(route()); redireciona ele para pagina da empresa
+            return view('login.dashboard');
             }
             else{
                 return redirect()->back()->with('erro', 'Credenciais inválidas. Tente novamente.');
@@ -53,8 +49,12 @@ class LoginController extends Controller
 
 
     public function index(){
-         //retorna para pagina de login
+         return view('login.form');
     }
+
+    public function dashboard(){
+        return view('login.dashboard');
+   }
 
 }
 

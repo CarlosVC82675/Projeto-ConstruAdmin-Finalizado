@@ -4,6 +4,7 @@
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ListaObrasController;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
+//USUARIOS{
 
 // Views
 Route::get('/usuario/lista',[UsuariosController::class, 'index'])->name("lista.usuarios");
@@ -33,10 +37,18 @@ Route::post('/usuario/store',[UsuariosController::class, 'store'])->name("cadast
 Route::put('/usuario/update/{id}',[UsuariosController::class, 'update'])->name("atualizar.usuario");
 
 //Deletar
-Route::delete('/usuario/delete/{id}/{$condicional}',[UsuariosController::class, 'destroy'])->name("deletar.usuarios");
+Route::delete('/usuario/delete/{id}',[UsuariosController::class, 'destroy'])->name("deletar.usuarios");
 
+// }FIM DE USUARIOS
 
+//LOGIN{
 
+Route::get('/login',[LoginController::class, 'index'])->name('login.form');
 
+Route::get('/login/dashboard',[LoginController::class, 'dashboard'])->name('login.dashboard');
 
+Route::post('/auth',[LoginController::class, 'auth'])->name('login.auth');
 
+Route::get('/logout',[LoginController::class, 'logout'])->name('login.logout');
+
+// }FIM DO LOGIN

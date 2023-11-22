@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('usuario.layout')
 @section('conteudo')
 
 
@@ -21,7 +21,7 @@
         <div class="mb-3">
             <label class="form-label">Selecione o supevisor encarregado</label>
             <select class="form-select" aria-label="Default select example" name="Superior_idUsuario">
-                <option selected>Nao tenho Supervisor</option>
+                <option  value="0">Nao tenho Supervisor</option>
                 @foreach ($supervisores as $supervisor)
                 <option value={{$supervisor->idUsuario}}>{{$supervisor->name}}</option>
                 @endforeach
@@ -74,15 +74,15 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Telefone 1</label>
-            <input type="tel" pattern="[0-9]{10}" class="form-control" name="telefone1" placeholder="Digite seu telefone" required>
+            <input type="number" pattern="[0-9]{10}" class="form-control" name="telefone1" placeholder="Digite seu telefone" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Telefone 2(Opcional)</label>
-            <input type="tel" pattern="[0-9]{10}" class="form-control"  name="telefone2" placeholder="Digite seu telefone 2">
+            <input type="number" pattern="[0-9]{10}" class="form-control"  name="telefone2" placeholder="Digite seu telefone 2">
           </div>
           <div class="mb-3">
             <label class="form-label">Telefone 3(Opcional)</label>
-            <input type="tel" pattern="[0-9]{10}" class="form-control" name="telefone3" placeholder="Digite seu telefone 3">
+            <input type="number" pattern="[0-9]{10}" class="form-control" name="telefone3" placeholder="Digite seu telefone 3">
           </div>
 
         <button type="submit" class="btn btn-primary">Enviar</button>

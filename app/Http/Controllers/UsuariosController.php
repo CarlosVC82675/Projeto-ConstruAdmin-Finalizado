@@ -3,20 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuario;
+use App\Models\TelefoneUsuario;
 use App\Models\AtribuicaoUsuario;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Validation\Rule;
 
 class UsuariosController extends Controller
 {
-
+//TESTADO E FINALIZADO, EXCEPTION FUNÇÃO INDEX E SHOW
     public function index()
     {
         $usuarios = Usuario::all();
 
-        return view("ListaUsuarios",compact('usuarios'));
+        //return view("ListaUsuarios",compact('usuarios'));
     }
 
 
@@ -25,7 +27,7 @@ class UsuariosController extends Controller
         $atribuicoes = AtribuicaoUsuario::all();
         $supervisores = Usuario::whereNull('Superior_idUsuario')->get();
 
-        return view("CadastroUsuario",compact('supervisores','atribuicoes'));
+        return view("usuario.CadastroUsuario",compact('supervisores','atribuicoes'));
     }
 
 
@@ -77,7 +79,7 @@ class UsuariosController extends Controller
                 'O Usuário parace invalido, tente novamente ou consulte o suporte.');
             }
 
-        return view("VerUsuario",compact('usuario'));
+        //return view("VerUsuario",compact('usuario'));
     }
 
 
@@ -90,22 +92,22 @@ class UsuariosController extends Controller
                 'O Usuário parace invalido, tente novamente ou consulte o suporte.');
             }
 
-        return view("EditarUsuarios",compact('usuario'));
+        return view("usuario.EditarUsuarios",compact('usuario'));
     }
 
     public function update(Request $request, $id)
     {
-        // Validação dos dados
-        $this->validaçãoUsuario($request);
-
-        // Encontra o usuário pelo ID
-        $usuarioAtualizado =  $request->except('telefone1', 'telefone2', 'telefone3');
-
         try {
             $usuario = Usuario::findOrFail($id);
         } catch (ModelNotFoundException $exception) {
             $this->modelNotFound($exception);
         }
+
+        // Validação dos dados
+        $this->validaçãoUpdateUsuario($request, $usuario);
+
+        // Encontra o usuário pelo ID
+        $usuarioAtualizado =  $request->except('telefone1', 'telefone2', 'telefone3');
 
         try{
         // Início da transação
@@ -133,26 +135,17 @@ class UsuariosController extends Controller
 
     }
 
-    public function destroy(int $idUsuario, int $condicional = 0)
+    public function destroy($idUsuario)
     {
         // Encontra o usuário pelo ID
         try {
             $usuario = Usuario::findOrFail($idUsuario);
-            $idObra = $usuario->obras->idObras;
             } catch (ModelNotFoundException $exception) {
                 $this->modelNotFound($exception);
             }
 
+
         //dessassociarUsuario
-        if($condicional == 1){
-
-            if(!$idObra){
-                return redirect()->back()->with('error', 'Ocorreu um erro nao esperado, por favor consulte o suporte');
-            }
-            $AssociacaoController = new ListaObrasController();
-            $AssociacaoController->desassociarUsuario($idObra,$idUsuario);
-        }
-
         if ($usuario->obras()->count() > 0) {
             // O usuário tem associações
         } else {
@@ -160,15 +153,16 @@ class UsuariosController extends Controller
         $usuario->delete();
         }
 
-        return redirect()->back()->with('success','Usuario deletado com Sucesso!');
+        return redirect()->route('cadastro.usuarios')->with('success','Usuario deletado com Sucesso!');
     }
+
 
     private function validaçãoUsuario($request)
     {
-        $usuarios = $request->validate([
+        $validacao = $request->validate([
             'atribuicao_Usuario_id_Atribuicao' => ['required', 'exists:atribuicao_usuario,id_atribuicao'],
             'Estoque_idEstoque' => ['required', 'exists:estoque,idEstoque'],
-            'Superior_idUsuario' => ['nullable', 'exists:usuarios,idUsuario'],
+            'Superior_idUsuario' => ['nullable'],
             'name' => ['required', 'string'],
             'password' => ['nullable'],
             'lastName' => ['required', 'string'],
@@ -182,6 +176,58 @@ class UsuariosController extends Controller
             'telefone1' => ['required', 'string', 'unique:telefone_usuarios,telefone'],
             'telefone2' => ['nullable', 'string', 'unique:telefone_usuarios,telefone'],
             'telefone3' => ['nullable', 'string', 'unique:telefone_usuarios,telefone'],
+        ],[
+            'atribuicao_Usuario_id_Atribuicao.required'=>'o campo atribuicão é obrigatorio',
+            'name.required'=>'O nome é obrigatório',
+            'lastName.required'=>'O sobrenome é obrigatório',
+            'genero.required'=>'Por favor, selecione um gênero válido.',
+            'cep.required'=>'O campo CEP é obrigatório',
+            'cpf.required'=>'O campo CPF é obrigatório',
+            'pais.required'=>'Seu endereço é obrigatório',
+            'cidade.required'=>'Seu endereço é obrigatório',
+            'estado.required'=>'Seu endereço é obrigatório',
+            'email.required'=>'Seu email é obrigatório',
+            'telefone1.required'=>'Seu telefone é obrigatório',
+            'atribuicao_Usuario_id_Atribuicao.exists' => 'Algo de estranho ocorreu durante seu registro, consulte o suporte CODIGO ERRO: 1002#',
+            'Estoque_idEstoque.exists' => 'Algo de estranho ocorreu durante seu registro, consulte o suporte CODIGO ERRO: 1002#',
+            'Superior_idUsuario.exists' => 'Codigo do supevisor incorreto ou invalido, por valor selecione um supevisor valido',
+            'name.string'=> 'O nome nao deve conter nenhum caráter alem de letras',
+            'lastName.string'=> 'O sobrenome nao deve conter nenhum caráter alem de letras',
+            'genero.in'=>'Por favor, selecione um gênero válido.',
+            'pais.string' => 'Por favor, Digite um endereço Valido',
+            'cidade.string' => 'Por favor, Digite um endereço Valido',
+            'estado.string' => 'Por favor, Digite um endereço Valido',
+            'email.email' => 'Por favor, Digite endereço de Email Valido',
+            'telefone1.unique' => 'Esse telefone já está em uso ou é invalido',
+            'telefone2.unique' => 'Esse telefone já está em uso ou é invalido',
+            'telefone3.unique' => 'Esse telefone já está em uso ou é invalido',
+            'cpf.unique'=>'Cpf já está em uso ou é invalido',
+            'email.unique'=>'Email ja registrado ou invalido'
+        ]);
+    }
+
+    private function validaçãoUpdateUsuario($request, $usuario)
+    {
+
+        //'campo' => ['regras', 'unique:tabela,coluna,exceto,idDoRegistro']
+
+        $validacao = $request->validate([
+            'atribuicao_Usuario_id_Atribuicao' => ['required', 'exists:atribuicao_usuario,id_atribuicao'],
+            'Estoque_idEstoque' => ['required', 'exists:estoque,idEstoque'],
+            'Superior_idUsuario' => ['nullable'],
+            'name' => ['required', 'string'],
+            'password' => ['nullable'],
+            'lastName' => ['required', 'string'],
+            'genero' => ['required', 'in:Masculino,Feminino'],
+            'cep' => ['required', 'string'],
+            'cpf' => ['required', 'string', Rule::unique('usuarios', 'cpf')->ignore($usuario->idUsuario, 'idUsuario')],
+            'pais' => ['required', 'string'],
+            'cidade' => ['required', 'string'],
+            'estado' => ['required', 'string'],
+            'email' => ['required', 'email', Rule::unique('usuarios', 'email')->ignore($usuario->idUsuario, 'idUsuario')],
+            'telefone1' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario')],
+            'telefone1' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario')],
+            'telefone1' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario')],
         ],[
             'atribuicao_Usuario_id_Atribuicao.required'=>'o campo atribuicão é obrigatorio',
             'name.required'=>'O nome é obrigatório',
@@ -245,35 +291,47 @@ class UsuariosController extends Controller
         'O Usuário ou a obra paracem invalidos, guarde o codigo do erro e consulte o suporte .');
     }
 
-    private function storeTelefones($usuario, $request, $update){
-         //Telefones
-         $telefones = [];
+    private function storeTelefones($usuario, $request, $update)
+    {
+            $telefones = [];
 
-         //Agrupar os telefones em um Array
-         for ($i = 1; $request->has('telefone' . $i); $i++) {
-             $telefones[] = $request->input('telefone' . $i);
-         }
-
-         // Filtra telefones vazios:
-         // array_filter remove todos os elementos do array que são considerados vazios (nulos, '', 0, false, array(), etc.).
-         $telefones = array_filter($telefones);
-
-         if($update){
-         // Adiciona ou atualiza os telefones sem remover os existentes
-         $usuario->telefones()->syncWithoutDetaching($telefones);
-         }else{
-          // Criando registros de telefone associados ao usuário
-         foreach ($telefones as $telefone) {
-         $usuario->telefones()->create(['telefone' => $telefone]);
-          }
+        for ($i = 1; $i <= 3; $i++) {
+            $telefone = $request->input('telefone' . $i);
+            if ($telefone) {
+                $telefones[] = $telefone;
+            }
         }
 
+            if($update){
+            // Atualize os telefones
+            TelefoneUsuario::where('Usuarios_idUsuario', $usuario->idUsuario)->delete();
+            }
+
+            foreach ($telefones as $telefone) {
+                TelefoneUsuario::create([
+                    'telefone' => $telefone,
+                    'Usuarios_idUsuario' => $usuario->idUsuario,
+                ]);
+            }
     }
 
 }
+/*
+  }else{
+    // Criando registros de telefone associados ao usuário
+   foreach ($telefonesRequisicao as $telefone) {
+   $usuario->telefones()->create(['telefone' => $telefone]);
+    }
 
+ if($condicional == 1){
+            if(!$idObra){
+                return redirect()->back()->with('error', 'Ocorreu um erro nao esperado, por favor consulte o suporte');
+            }
+            $AssociacaoController = new ListaObrasController();
+            $AssociacaoController->desassociarUsuario($idObra,$idUsuario);
+        }
 
-
+*/
 
  /* Explicando Validação de formato de uma string:
         regex:^\d{3}\.\d{3}\.\d{3}-\d{2}$/

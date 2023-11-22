@@ -8,6 +8,7 @@ use App\Models\Obras;
 
 class MateriaisNecessariosController extends Controller
 {
+    //NAO TESTADO EM PRODUÇAO
 
     public function associarMateriais(Request $request, $idObra)
     {
@@ -66,8 +67,6 @@ public function retirarQuantidadeMateriaisObra(Request $request, $idObra)
     }
 
     //use funções de ana
-    Material::whereIn('id', array_keys($materiais))
-    ->increment('quantidade', collect($materiais)->sum());
 }
 
 

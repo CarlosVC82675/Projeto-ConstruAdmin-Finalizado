@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('telefone_usuarios', function (Blueprint $table) {
-            $table->Integer('telefone')->nullable(false);
+            $table->bigInteger('telefone')->nullable(false);
 
             //Chave estrangeira de usuarios
             $table->unsignedBigInteger('Usuarios_idUsuario');
