@@ -1,0 +1,54 @@
+.icone{
+    max-width: 40px!important;
+    max-height: 40px!important;
+}
+.sino{
+    max-width: 28px!important;
+    max-height: 28px!important;
+}
+.avatar{
+    max-width: 40px!important;
+    max-height: 40px!important;
+}
+.link-sair{
+    font-size: 15px!important;
+    padding-left: 5px!important;
+    padding-right: 5px!important;
+    border: 1px solid #000!important;
+    text-decoration: none!important;
+}
+.navbar-expand {
+    flex-wrap: nowrap;
+    justify-content:space-around !important ;
+}
+#tapa{
+    width: 100%;
+    justify-content: space-around;
+
+}
+#nome{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#canto{
+   width: 29%;
+    align-items: center;
+    margin-right: 2%;
+}
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+    color: rgb(255, 255, 255) !important;
+}
+.nav-link {
+    font-size:25px !important;
+
+}
+#logo{
+    margin-left: 5%;
+}
+.navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {
+    display: flex;
+    flex-wrap: inherit;
+    align-items: center;
+    justify-content: start !important;
+}

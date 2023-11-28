@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+*,
+::after,
+::before{
+
+  box-sizing: border-box;
+
+}
+
+body{
+    font-family: 'Poppins',sans-serif;
+    font-size: 0,875rem;
+    opacity: 1;
+    overflow: scroll;
+    margin: 0;
+}
+
+a{
+    cursor: pointer;
+    text-decoration: none!important;
+    font-family: 'Poppins',sans-serif!important;
+}
+
+li{
+   list-style:none;
+}
+
+h4 {
+    font-family: 'Poppins', sans-serif!important;
+    font-size: 1.275rem!important;
+    color: var(--bs-emphasis-color)!important;
+}
+
+/* Layout de fora */
+
+.wrapper{
+     align-items: stretch!important;
+     display: flex!important;
+     width: 100%;
+}
+
+
+
+.main{
+    display: flex!important;
+    flex-direction: column!important;
+    min-height: 100vh!important;
+    min-width: 0!important;
+    overflow: hidden!important;
+    transition: all 0.35s ease-in-out!important;
+    width: 100%;
+    background: var(--bs-dark-bg-subtle)!important;
+}
+
+/* Elementos da barra Lateral */
+
+.content{
+    flex: 1;
+    max-width: 100vw;
+    width: 100vw;
+}
+
+@media (min-width:768px){
+    .content{
+        max-width: auto!important;
+        width: auto!important;
+    }
+}
+
+.card{
+    box-shadow: 0 0 .875rem 0 rgba(34, 46, 68, .05);
+    margin-bottom: 24px;
+}
+
+.card.flex-fill {
+    max-width: 400px; /* Ajuste a largura conforme necessário */
+
+}
+
+.illustration{
+    background-color: var(--bs-primary-bg-subtle)!important;
+    color: black;
+}
+
+.illustration-img{
+    max-width: 150px!important;
+    width: 100%!important;
+}
+
+
