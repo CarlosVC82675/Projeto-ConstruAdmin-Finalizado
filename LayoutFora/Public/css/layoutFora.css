@@ -9,8 +9,8 @@
 }
 
 body{
-    font-family: 'Poppins',sans-serif;
-    font-size: 0,875rem;
+    font-family: 'Poppins',sans-serif!important;
+    font-size: 0.875rem;
     opacity: 1;
     overflow: scroll;
     margin: 0;
