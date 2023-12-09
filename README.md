@@ -1,13 +1,9 @@
-MUDANÇAS FEITAS DIA 21/11/2023
+MUDANÇAS FEITAS DIA 09/12/2023
 
--Foram feitas as funções de materiais no controller, elas foram testadas e estão funcionando.
-
-
--Foram feitas alterações nos migrations, alguns atributos que tinham o nullable setado como false foram alterados para true.
+-Mudei algumas validações no controller de materiais
 
 
--Estou encaminhando algumas views feitas para testar os materiais.
+-A view do estoque foi feita e suas principais funcionalidades estão funcionais(?)
 
 
--O layout da página ainda vai ser alterado, so estou enviando para terem acesso.
-
+-Também estou mandando algumas pastas a mais por conta dos modais, view e components são do cadastro de materiais 
