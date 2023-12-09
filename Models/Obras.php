@@ -14,8 +14,10 @@ class obras extends Model
 
 
     public function usuarios(){
-        return $this->belongsToMany(Usuarios::class,'lista_obras','Obras_idObras','idUsuario');
+        return $this->belongsToMany(Usuario::class, 'lista_obras', 'Obras_idObras', 'Usuario_idUsuario');
     }
+
+
 
     public function atividade(){
         return $this->hasMany(Atividade::class,'Obras_idObras','idAtividade');

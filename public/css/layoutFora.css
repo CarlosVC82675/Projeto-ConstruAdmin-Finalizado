@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+*,
+::after,
+::before{
+
+  box-sizing: border-box !important;
+
+}
+
+body{
+    font-family: 'Poppins',sans-serif !important;
+    font-size: 0,875rem;
+    opacity: 1;
+    overflow: scroll;
+    margin: 0;
+}
+
+a{
+    cursor: pointer;
+    text-decoration: none!important;
+    font-family: 'Poppins',sans-serif!important;
+}
+
+li{
+   list-style:none;
+}
+
+h4 {
+    font-family: 'Poppins', sans-serif!important;
+    font-size: 1.275rem!important;
+    color: var(--bs-emphasis-color)!important;
+}
+
+
+/* Layout de fora */
+
+.wrapper{
+     align-items: stretch!important;
+     display: flex!important;
+     width: 100%;
+}
+
+#sidebar {
+    max-width: fit-content;
+    min-width: 80px;
+    background-color: #333; /* Adicionando uma cor de fundo para a sidebar */
+}
+
+.main{
+    display: flex!important;
+    flex-direction: column!important;
+    min-height: 100vh!important;
+    min-width: 0!important;
+    overflow: hidden!important;
+    transition: all 0.35s ease-in-out!important;
+    width: 100%;
+    background: #F5F5F5 !important;
+}
+
+/* Elementos da barra Lateral */
+
+.sidebar-nav {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.sidebar-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: white;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+/* Adicionando espaçamento apenas para o primeiro ícone */
+.first-item {
+    margin-top: 10px; /* Ajuste conforme necessário */
+}
+
+/* Adicionando uma linha sutil entre os ícones */
+.sidebar-item:not(:last-child) .sidebar-link {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Linha sutil */
+}
+
+.sidebar-link i {
+    font-size: 28px;
+    margin-bottom: 5px;
+    transition: transform 0.3s ease-in-out; /* Adicionando uma transição suave */
+}
+
+.sidebar-link:hover i {
+    transform: scale(1.1); /* Aumenta o tamanho do ícone ao passar o mouse */
+}
+
+.sidebar-link.active {
+    border-left: 4px solid transparent; /* Adicione uma borda esquerda */
+    background-color:rgba(0, 0, 0, 0.05); /* Cor de fundo para indicar a seção ativa */
+}
+
+
+.sidebar-link span {
+    font-size: 12px; /* Ajuste o tamanho do texto conforme necessário */
+    display: block; /* Para garantir que o texto apareça abaixo do ícone */
+}
+
+.avatar{
+    height: 40px!important;
+    width: 40px!important;
+}
+
+.navbar{
+    background: #ffc10f;
+}
+
+.navbar-main {
+    box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.5);
+    max-height: 80px;
+}
+
+.navbar-expand .navbar-nav{
+ margin-left: auto;
+}
+
+.content{
+    flex: 1;
+    max-width: 100vw;
+    width: 100vw;
+}
+
+@media (min-width:768px){
+    .content{
+        max-width: auto!important;
+        width: auto!important;
+    }
+}
+
+.card{
+    box-shadow: 0 0 .875rem 0 rgba(34, 46, 68, .05);
+    margin-bottom: 24px;
+}
+
+.illustration{
+    background-color: var(--bs-primary-bg-subtle)!important;
+    color: black;
+}
+
+.illustration-img{
+    max-width: 135px!important;
+    margin-right: 30px!important;
+    margin-bottom: 15px!important;
+    width: 100%!important;
+}
+
+/* bota de menu*/
+#sidebar.collapsed{
+ margin-left: -114px;
+}
+
+/* Nav e footer*/
+@media(max-width:767.98px){
+    .navbar{
+        width: 100vw;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .sidebar-nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .sidebar-link {
+        padding: 10px;
+    }
+
+    #sidebar {
+        min-width: 0;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sidebar-link {
+        padding: 10px;
+        margin-bottom: 5px; /* Espaçamento entre os ícones */
+    }
+
+    #sidebar {
+        min-width: 0;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .sidebar-item {
+        border-left-width: 2px; /* Reduza a largura da borda para dispositivos menores */
+    }
+}
+
+@media (max-width: 767.98px) {
+    .company-name-mobile {
+        font-size: 1.175rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .btn-toggle {
+        font-size: 0.8rem!important; /* Defina o tamanho desejado para telas menores */
+    }
+}
+
+.company-name{
+    font-family: 'Poppins',sans-serif!important;
+    color: black!important;
+}
+
+
+.separator {
+    margin: 0 8px; /* Espaçamento entre a barra e o texto */
+}
+
+.portal-name {
+    font-size: 1.1rem; /* Ajuste o tamanho do texto conforme necessário */
+    color: #888; /* Cor do texto */
+}
+
+.imagem-no-navbar {
+    font-size: 25px; /* Altere o tamanho do ícone conforme necessário */
+    display: flex!important;
+    align-items: center;
+    margin-right: 25px;
+}
+
+@media (max-width: 767.98px) {
+    .imagem-no-navbar {
+        font-size: 1.2rem; /* Defina o tamanho desejado para telas menores */
+    }
+}
+
+.custom-btn {
+    width: 8rem!important; /* Defina a largura desejada */
+    display: inline-block;
+}
+
+.form-label {
+    font-family: 'Poppins', sans-serif;
+}
+
+.modal-title{
+    font-family: 'Poppins', sans-serif;
+}
+
+@media (max-width: 1100px) {
+    .illustration-img {
+        max-width: 100px!important;
+        margin-bottom: 50px!important;
+    }
+}
+
+@media (max-width: 950px) {
+    .illustration-img {
+        display: none;
+    }
+}
+
+
+
+
+

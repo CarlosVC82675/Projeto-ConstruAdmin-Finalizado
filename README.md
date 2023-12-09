@@ -1,19 +1,21 @@
-Mudei coisa para kct não vou lembrar de tudo porque só começei a anotar anteontem
+Alguém me ajuda eu nao aguento mais 
 
-Resumindo terminei as funçoes de obra e projeto(foto e arquivo)
-Mudei alguns coisas no migrations para satifazer algumas funçoes, principalmente do arquivo, por exemplo tipo(para saber se é foto ou arquivo) e extensao para pegar a extensao do arquivo
-Models eu apenas coloquei os fillables novos para cadastro
-Validação back e front de obras e projeto feitas e testadas
-Fiz alguns ajuste no filesystem no meu projeto, para alocar os arquivos e criar link para o meu storage de arquivos, possivel de configuração na integração
-Alterei também o fuso horario do laravel, nas config -> timezone, onde coloquei Sao paulo, para que o timestamp pegue o horario de sao paulo, possivel de mudança
+nem sei porque eu escrevo isso, eu nunca lembro o que eu mudei, controle de versão foi pro caraio
+mas faz sentido porque cada versão que eu faço fica pior
+botafogo foi lider 31 rodadas como isso é possivel
 
-Anotações de mudanças que fiz
--Configuração do file-> campos hidden tipo e Obras_IdObras adicionados
--Migration Arquivo adicionado caminho,tipo e extensao
--extensões aceitas (possivel de mudanças):Fotos: png,jpg,jpeg | Arquivos: pdf,rvt,dwg
--Enum trocados de CAIXA ALTA para caixa pequena? sei lá se é caixa pequena, agora ta normal
--Validações para required,max,regex e unique feitas em obras e arquivos
--Problema da edição de obras com mesmo valor resolvido Eu🤝Carlos
--Deletar arquivos agora são deletados também na pasta storage/arquivos para evitar lentidão
+mandei um monte de pasta até a database, se nao tiver algo funcionando então é duro
 
+--mudanças--
+O criar obra agora tem um script, que ao cadastrar uma obra, ele abre um modal para cadastrar cliente, e depois abre um modal para associar funcionarios
+E agora ele só cadastra obra e cliente juntos, apos associar os funcionarios, então tecnicamente está mas segura para caso de erro ou o sistema caia
 
+mudei alguns detalhes de layout, responsividade, detalhes etc
+
+adicionei um botão de visualizar para foto
+
+--modificações futuras ( modification features) --
+Adicionar nome do usuario ao upload de arquivo e foto, talvez isso mude na tabela do banco por isso é passivel de discussão
+Detalhar o erro de cadastrar obra, pois nessa versão, ele mostra que deu erro e nao fala qual, se foi input escrito errado, nome repetido ou etc;
+é dificil até pra programar sem saber do erro, imagina para o usuario. E por algum motivo o eu nao consigo especificar esse erro pq o js fala que o erro é indefinido, MORRA JQUERY, MORRA JAVASCRIPT
+Falta ainda tirar algumas atribuição de usuarios que eu só lembrei exatamente agora, deve ter algumas perdidas no codigo, boa sorte carlos que vai juntar
