@@ -20,16 +20,26 @@ class Atividades extends Model
         'dtInicial',
         'status',
         'responsavel',
-        'Obras_idObras',
+        'card_atividades_idCard',
+      
+        
     ];
 
-    public function obra()
-    {
-        return $this->belongsTo(Obra::class, 'Obras_idObras');
-    }
+    
 
     public function usuarios()
     {
-        return $this->belongsToMany(usuarios::class, 'lista_Atividades', 'Atividade_idAtividade', 'Usuarios_idUsuario');
+        return $this->belongsToMany(usuario::class, 'lista_atividade', 'Atividade_idAtividade', 'Usuarios_idUsuario');
     }
+    public function card()
+    {
+        return $this->belongsTo(card_atividades::class,'idCard');
+    }
+
+public function comentarios(){
+
+    return $this->hasMany(Comentarios::class,'idComentarios');
+}
+
+
 }

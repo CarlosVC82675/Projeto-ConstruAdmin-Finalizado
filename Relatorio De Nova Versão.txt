@@ -1,0 +1,122 @@
+
+Relatorio de Nova Versão
+
+
+1-Views:
+
+
+
+*Nova Estrutura das views: 
+
+		 -> Login(pasta)
+ Site(pasta)     -> siteMenu(pasta)  -> LayoutFora(Arquivo)
+		 -> siteObra(pasta)  -> LayoutDentro(Arquivo)
+		 -> etc(pastas)
+
+
+- login : pasta para login
+- SiteMenu: pasta para views fora de uma obra especifica(area de trabalho)
+- SiteObra: pasta para views dentro de uma obra especifica
+- LayoutFora: arquivo que contem o layout para todas as paginas fora de uma obra especifica(area de trabalho) deve ser extendindo pelas views da area de trabalho
+- LayoutDentro: arquivo que contem o layout para todas as paginas dentro de uma obra especifica, deve ser extendindo pelas views da obra especifica e seu gerenciamento
+
+
+*Modificações:
+
+(ana)- Views de estoque que estavam na pasta estoque foram movidas para dentro das pastsa site.siteMenu
+(Thauan)- Views de atividades foram movidas para dentro das pastas site.siteObra, e sua pasta "site" que continha o seu layout foi deletada 
+(Diego)- Views relacionadas a os arquivos e fotos foram movidas para a pasta arquivos que foi movido para dentro das pastas site.siteObra
+(Diego)- A usa view welcome dentro da sua pasta "site" foi renomeada para dashboard, que se encotra solta dentro da pasta site.siteMenu
+(Diego)- As Views relacionadas as obras que ja estavam na sua pasta obras, continuaram la, porem algumas views que estavam na sua pasta "site" que tinha aver com obras, foi movida para a sua pasta obras, que foi movida para dentro das pastas site.siteObra
+(Carlos) - As Views relacionadas a login ficaram numa pasta login dentro da pasta site, as views de usuarios dentro da pasta usuarios foi movida para dentro das pastas site.siteDashboard 
+
+OBS: AS VIEWS QUE ESTAVAM EXTENDENDO UM LAYOUT FORAM ATUALIZADAS E LIGADAS AO LAYOUT CORRESPONDENTE NA PASTA A QUAL PERTENCE
+OBS2: PARA SABER MAIS SOBRE AS REGRAS REFERENTES A VIEWS CONSULTE: NOVAS REGRAS DE PADRONIZAÇÃO NA BRANCH MAIN
+
+
+2-Routes
+
+*Nova Regra para as rotas
+
+2.1- Nao é permitido usa a URL '\' excerto se for o dashboard do site
+
+2.2- O conjunto de rotas referente a uma controller especifico, deve ser especificado junto do nome do criador Ex:
+
+//Rota obras Diego
+route get...
+route post...
+//Fim das Rotas Obras
+
+
+2.3- URL das rotas devem seguir determinado padrao: Ex: 
+
+'/objeto/funcionalidade/etc...(se ouve)
+'/atividade/Criar_Atv/{idAtividade}
+'/login/index
+'/Usuario/Dashboard
+
+
+2.4- Todas as rotas devem ser nomeadas seguindo determinda padrao: (objeto.função) Ex:
+
+Atividade.cadastro
+Atividade.listar
+
+2.5- URLS de rotas nao devem se repetir
+
+OBS: ESSAS NOVAS REGRAS FORAM APLICADAS PACIALMENTE NESSA NOVA VERSÃO, ENTAO OS DONOS DAS ROTAS DEVEM FAZER MODIFICAÇÕES (SE PRECISAR) PARA ESTA DE ACORDO COM AS NORMAS PADRAO 
+OBS2: PARA SABER MAIS SOBRE AS REGRAS REFERENTES A ROTAS CONSULTE: NOVAS REGRAS DE PADRONIZAÇÃO NA BRANCH MAIN
+
+3- Controllers
+
+*Novos controllers padrao criados:
+
+3.2:
+- SiteDashboardController : controle para funções do site fora de um obra especifica(area de trabalho)
+- SiteObraController : controle para funções do site dentro de um obra especifica  
+
+3.3- Comtem todos os controllers feito por voces, com exceção de: 
+Sitecontroller(diego)  => funçoes movidas para SiteDashboardController,
+SitemanagaController (Thauan) => deletado,
+esses controllers sao das ultimas modificações enviandas por voces no git, provavel voces precisem atualizar
+
+3.4 -Os controllers ListaObrasController.php e MateriaisNecessariosController.php ainda nao foram testados e devem ser considerados nao funcionais
+
+
+OBS: CASE PRECISE CRIAR OUTRO CONTROLLER QUE NAO SEJA DE UM MODEL ESPECIFICO OU DO SITE, POR FAVOR DOCUMENTE 
+OBS2: PARA SABER MAIS SOBRE AS REGRAS REFERENTES A CONTROLLERS CONSULTE: NOVAS REGRAS DE PADRONIZAÇÃO NA BRANCH MAIN
+
+4- Migrations
+
+- Migrations referentes a o ultimo envio de voces no gitHub, caso precise atualizar nao esqueça de documentar
+
+OBS: PARA SABER MAIS SOBRE AS REGRAS REFERENTES A MIGRATIONS, CONSULTE NOVAS REGRAS DE PADRONIZAÇÃO NA BRANCH MAIN
+
+5- Models
+
+- Models referentes a o ultimo envio de voces no gitHub, caso precise atualizar nao esqueça de documentar
+- Model usuario agora extende um authenticabe invez de um model e possui um função hide( NESSESARIO PARA LOGIN)
+
+
+OBS: PARA SABER MAIS SOBRE AS REGRAS REFERENTES A MODELS CONSULTE NOVAS REGRAS DE PADRONIZAÇÃO NA BRANCH MAIN
+
+
+6-Middleware:
+
+-Middlewares disponiveis e funcionais:
+
+-checkEmail : verificar se o email da pessoa e um outlook ou gmail
+
+-Authenticate(referenciado pelo sistema como auth) : verificar se o usuario esta logado
+
+-NA Middlewares(referenciado pelo sistema como NA0, NA1, NA2 e etc): verifica se aquele usuario possui certo nivel de acesso para a acessar a requisição, existem 4 deles e cada um representa um nivel de acesso, sendo 0 para adm e 3 para todos usuarios
+
+OBS: ESSE MIDDLEWARES JA ESTAM CADASTRADO NO KERNEL.PHP, NO CASO DE DUVIDAS VERIFIQUE O KERNEL OU FALE COMIGO
+
+7- Arquivos externos:
+
+Modificações
+
+- Na pasta config, no arquivo auth.php foi modificado, linha de codigo adicionada: 'model' => App\Models\Usuario::class, (serve para especifca qual classe ele deve permitir autenticações, que no caso é o usuario)
+
+
+-
