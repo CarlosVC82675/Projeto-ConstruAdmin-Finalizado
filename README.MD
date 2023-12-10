@@ -4,7 +4,7 @@ obs: se vc estiver usando ajax para ativar as requisições, e estiver tendo o e
 
 success: function (response) {
         console.log('Requisição POST bem-sucedida:');
-        updateModalImages();
+       
           
     if (response.redirect) {
       
