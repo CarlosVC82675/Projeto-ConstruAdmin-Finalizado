@@ -2,7 +2,7 @@ Opa!
 Malz pela demora, jquery e ajax são duas desgraças sem precendentes
 obs: se vc estiver usando ajax para ativar as requisições, e estiver tendo o erro de get method no bla bla bla, escreve essa linha no seu success do ajax
 
-if(){
+if(dadadadad d){
 success: function (response) {
         console.log('Requisição POST bem-sucedida:');
         updateModalImages();
