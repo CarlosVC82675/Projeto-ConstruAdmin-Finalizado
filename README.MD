@@ -59,7 +59,7 @@ Coisas para fazer...bem, tudo eu acho
 
 
 
-//namespace Database\Seeders;
+namespace Database\Seeders;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
