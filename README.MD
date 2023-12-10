@@ -1,8 +1,7 @@
 Opa!
 Malz pela demora, jquery e ajax são duas desgraças sem precendentes
-obs: se vc estiver usando ajax para ativar as requisições, e estiver tendo o erro de get method no bla bla bla, escreve essa linha no seu success do ajax
+obs: se vc estiver usando ajax para ativar as requisições, e estiver tendo o erro de get method no bla bla bla, escreve essa linha no seu success do ajax.
 
-if(dadadadad d){
 success: function (response) {
         console.log('Requisição POST bem-sucedida:');
         updateModalImages();
@@ -14,7 +13,7 @@ success: function (response) {
      
       console.log(response);
     }
-}}
+}
 e depois refaz o seu redirect no controller para aceitar json,  return response()->json(['redirect' => route('Atividade.Listar')]);
 pronto, deve dar agr, poderia explicar...mas n vou, demorei 4h para achar essa porra, ent q se foda, to cansado.
 
