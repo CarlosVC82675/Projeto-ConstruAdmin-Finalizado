@@ -88,8 +88,9 @@ anyway,se n tiver funcionando o bootstrap, veja se, tem isso no seu package.json
     "mdb-ui-kit": "^7.0.0"
   }
 }
-veja se no package.lock as dependencias do mdb ui kit estão la, as versions certas os resolveds certos, o meu esta literalmente assim:
-{
+veja se no package.lock as dependencias do mdb ui kit estão la, as versions certas os resolveds certos, o meu esta literalmente assim (ignora o class, coloquei para o git
+reconhecer como codigo:
+ public function void(){
   "name": "vamo-la",
   "lockfileVersion": 2,
   "requires": true,
@@ -154,7 +155,7 @@ veja se no package.lock as dependencias do mdb ui kit estão la, as versions cer
     }
   }
 }
-php?>
+
 
 e por ultimo veja se nos node modules abaixo do database, esta o arquivos do mdb ui kit
 
