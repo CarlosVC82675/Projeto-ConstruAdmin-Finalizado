@@ -52,7 +52,10 @@ Coisas para fazer...bem, tudo eu acho
 - fazer o anexo aceitar varias fotos ( ta praticamente pronto, só falta eu descomentar as linhas que fazer isso para poder testar )
 - permitir que a pessou possa enviar videos no anexo, talvez vire um atributo ou tabela nova isso aqui, e talvez eu use uma biblioteca a parte para isso
 - n lembro se eu apaguei minhas antigas rotas...provavelmente n mas,elas vão estar comentadas, eu acabei fazendo as rotas do 0...eu odeio ajax....
-- ah, isso aqui ta no meu seeder: <?php
+- ah, isso aqui ta no meu seeder: 
+
+
+<?php
 
 namespace Database\Seeders;
 use Illuminate\Support\Facades\Artisan;
@@ -151,6 +154,8 @@ veja se no package.lock as dependencias do mdb ui kit estão la, as versions cer
     }
   }
 }
+php?>
+
 e por ultimo veja se nos node modules abaixo do database, esta o arquivos do mdb ui kit
 
 
