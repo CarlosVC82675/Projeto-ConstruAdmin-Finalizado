@@ -19,3 +19,11 @@ Adicionar nome do usuario ao upload de arquivo e foto, talvez isso mude na tabel
 Detalhar o erro de cadastrar obra, pois nessa versão, ele mostra que deu erro e nao fala qual, se foi input escrito errado, nome repetido ou etc;
 é dificil até pra programar sem saber do erro, imagina para o usuario. E por algum motivo o eu nao consigo especificar esse erro pq o js fala que o erro é indefinido, MORRA JQUERY, MORRA JAVASCRIPT
 Falta ainda tirar algumas atribuição de usuarios que eu só lembrei exatamente agora, deve ter algumas perdidas no codigo, boa sorte carlos que vai juntar
+
+
+*Carlos*{
+FODA
+}
+
+
+
