@@ -84,14 +84,24 @@ bem...é isso, eu sei que tu vai me chamar pq vai dar alguns erros por causa das
 o banco, então devo acordar 13:30. cada dia que passa perdendo parte da alma....
 
 
-anyway,se n tiver funcionando o bootstrap, veja se, tem isso no seu package.json: {
+anyway,se n tiver funcionando o bootstrap, veja se, tem isso no seu package.json:
+
+
+
+{
   "dependencies": {
     "bootstrap": "^5.3.2",
     "mdb-ui-kit": "^7.0.0"
   }
 }
+
+
+
 veja se no package.lock as dependencias do mdb ui kit estão la, as versions certas os resolveds certos, o meu esta literalmente assim (ignora o class, coloquei para o git
 reconhecer como codigo:
+
+
+
  public function void(){
   "name": "vamo-la",
   "lockfileVersion": 2,
