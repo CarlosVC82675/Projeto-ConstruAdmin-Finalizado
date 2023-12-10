@@ -12,6 +12,7 @@ obs: se vc estiver usando ajax para ativar as requisições, e estiver tendo o e
      
       console.log(response);
     }
+}
 e depois refaz o seu redirect no controller para aceitar json,  return response()->json(['redirect' => route('Atividade.Listar')]);
 pronto, deve dar agr, poderia explicar...mas n vou, demorei 4h para achar essa porra, ent q se foda, to cansado.
 
