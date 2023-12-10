@@ -57,7 +57,7 @@ Coisas para fazer...bem, tudo eu acho
 - ah, isso aqui ta no meu seeder: 
 
 
-<?php
+
 
 namespace Database\Seeders;
 use Illuminate\Support\Facades\Artisan;
