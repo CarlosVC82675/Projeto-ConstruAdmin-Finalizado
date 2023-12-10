@@ -222,25 +222,30 @@ CONSTRAINT FK_IdObras_card
 FOREIGN KEY (Obras_IdObras)
 REFERENCES obras (idObras)
 on delete cascade
-on update cascade
+on update cascade,
+
+created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 create table if not exists atividade(
 idAtividade integer unsigned primary key auto_increment,
-name varchar(50),
+nome varchar(50),
 etiqueta blob,
 anexo blob,
 descricao varchar(250),
 dtFinal date,
 dtInicial date,
-statusAtv enum('COMEÇANDO','ANDAMENTO','FINALIZADA'),
+status enum('COMEÇANDO','ANDAMENTO','FINALIZADA'),
 
 card_atividades_idCard integer unsigned,
 CONSTRAINT Fk_IdCard_atividade
 FOREIGN KEY (card_atividades_idCard )
 REFERENCES card_atividades (idCard)
 on delete cascade
-on update cascade
+on update cascade,
+created_at timestamp DEFAULT CURRENT_TIMESTAMP,
+updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 create table if not exists comentarios(
@@ -262,6 +267,23 @@ on delete set null,
 
 comentario text
 );
+
+create table if not exists lista_atividade(
+Atividade_idAtividade integer unsigned,
+CONSTRAINT FK_idAtividade_atividade
+FOREIGN KEY (Atividade_idAtividade)
+REFERENCES atividade (idAtividade)
+on delete cascade
+on update cascade,
+
+Usuarios_idUsuario integer unsigned,
+CONSTRAINT FK_IdUsuario_atividade
+FOREIGN KEY (Usuarios_idUsuario)
+REFERENCES usuarios (idUsuario)
+on update cascade
+on delete set null
+);
+
 
 
 
