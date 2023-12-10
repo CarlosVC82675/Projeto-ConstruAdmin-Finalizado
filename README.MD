@@ -172,3 +172,9 @@ reconhecer como codigo:
 e por ultimo veja se nos node modules abaixo do database, esta o arquivos do mdb ui kit
 
 
+OBS: vi em varios locais que ajax não se da bem com direto com hospedagem em servidor, vi varias 
+pessoas reclamando que quando hospedam o ajax começa a tratar TODAS as requisições como GET, alguns 
+locais eu vi que se vc configurar o servidor para aceitar requisições do ajax, ele funciona, outros eu vi que tem que
+reiniciar o cache e outros eu vi que não deu e o cara tve que definir TODAS as rotas dele para get...enfim, como eu tenho
+MUITA SORTE, provavel que o nosso caso seja o ultimo.
+
