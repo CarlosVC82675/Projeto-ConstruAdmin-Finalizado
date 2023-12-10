@@ -77,3 +77,80 @@ eu sinceramente não sei se funciona, mas na teoria deveria, isso automatiza o l
 
 bem...é isso, eu sei que tu vai me chamar pq vai dar alguns erros por causa das versões, ent é aquilo, é só chamar no wtts, devo ficar ate 7h da manhã acordado fazendo 
 o banco, então devo acordar 13:30. cada dia que passa perdendo parte da alma....
+
+
+anyway,se n tiver funcionando o bootstrap, veja se, tem isso no seu package.json: {
+  "dependencies": {
+    "bootstrap": "^5.3.2",
+    "mdb-ui-kit": "^7.0.0"
+  }
+}
+veja se no package.lock as dependencias do mdb ui kit estão la, as versions certas os resolveds certos, o meu esta literalmente assim:
+{
+  "name": "vamo-la",
+  "lockfileVersion": 2,
+  "requires": true,
+  "packages": {
+    "": {
+      "dependencies": {
+        "bootstrap": "^5.3.2",
+        "mdb-ui-kit": "^7.0.0"
+      }
+    },
+    "node_modules/@popperjs/core": {
+      "version": "2.11.8",
+      "resolved": "https://registry.npmjs.org/@popperjs/core/-/core-2.11.8.tgz",
+      "integrity": "sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==",
+      "peer": true,
+      "funding": {
+        "type": "opencollective",
+        "url": "https://opencollective.com/popperjs"
+      }
+    },
+    "node_modules/bootstrap": {
+      "version": "5.3.2",
+      "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-5.3.2.tgz",
+      "integrity": "sha512-D32nmNWiQHo94BKHLmOrdjlL05q1c8oxbtBphQFb9Z5to6eGRDCm0QgeaZ4zFBHzfg2++rqa2JkqCcxDy0sH0g==",
+      "funding": [
+        {
+          "type": "github",
+          "url": "https://github.com/sponsors/twbs"
+        },
+        {
+          "type": "opencollective",
+          "url": "https://opencollective.com/bootstrap"
+        }
+      ],
+      "peerDependencies": {
+        "@popperjs/core": "^2.11.8"
+      }
+    },
+    "node_modules/mdb-ui-kit": {
+      "version": "7.0.0",
+      "resolved": "https://registry.npmjs.org/mdb-ui-kit/-/mdb-ui-kit-7.0.0.tgz",
+      "integrity": "sha512-I95FVVIZF2XCLmGq8XjOyQHP03eqXkhi2g4YDRxZiWz81zxJ8N+/38cEold3t079QMisLYh04FHi+VHhbLedzw=="
+    }
+  },
+  "dependencies": {
+    "@popperjs/core": {
+      "version": "2.11.8",
+      "resolved": "https://registry.npmjs.org/@popperjs/core/-/core-2.11.8.tgz",
+      "integrity": "sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==",
+      "peer": true
+    },
+    "bootstrap": {
+      "version": "5.3.2",
+      "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-5.3.2.tgz",
+      "integrity": "sha512-D32nmNWiQHo94BKHLmOrdjlL05q1c8oxbtBphQFb9Z5to6eGRDCm0QgeaZ4zFBHzfg2++rqa2JkqCcxDy0sH0g==",
+      "requires": {}
+    },
+    "mdb-ui-kit": {
+      "version": "7.0.0",
+      "resolved": "https://registry.npmjs.org/mdb-ui-kit/-/mdb-ui-kit-7.0.0.tgz",
+      "integrity": "sha512-I95FVVIZF2XCLmGq8XjOyQHP03eqXkhi2g4YDRxZiWz81zxJ8N+/38cEold3t079QMisLYh04FHi+VHhbLedzw=="
+    }
+  }
+}
+e por ultimo veja se nos node modules abaixo do database, esta o arquivos do mdb ui kit
+
+
