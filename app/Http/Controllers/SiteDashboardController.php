@@ -26,7 +26,7 @@ class SiteDashboardController extends Controller
     public function dashboard()
     {
         $obras = Obras::all();
-        return view('site.siteMenu.dashboard', compact('obras'));
+        return view('site.siteMenu.Dashboard', compact('obras'));
     }
 
     public function criarobra()
