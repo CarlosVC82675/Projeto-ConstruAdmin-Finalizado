@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Usuario;
+
 
 class LoginController extends Controller
 {
@@ -19,7 +19,7 @@ class LoginController extends Controller
             'Email.email' => 'o email nao e valido',
             'password.required' => 'o campo senha é obrigatorio',
         ]
-    );
+        );
 
 
         if(Auth::attempt($crendencias, $request->remember)){
@@ -29,7 +29,7 @@ class LoginController extends Controller
             if(Auth::user()->atribuicao_Usuario_id_Atribuicao == 5){
                 //redireciona ele para a pagina do cliente
             }
-            return view('site.login.dashboard');
+            return redirect()->route('site.index');
             }
             else{
                 return redirect()->back()->with('erro', 'Credenciais inválidas. Tente novamente.');
@@ -45,23 +45,17 @@ class LoginController extends Controller
         //gerar novo token
         $request->session()->regenerateToken();
         //retorna para pagina de login
+        return redirect()->route('login.form');
     }
 
 
-    public function index(){
-         return view('site.login.form');
-    }
 
-    public function dashboard(){
-        return view('site.login.dashboard');
-   }
 
 }
 
 
 
 /*
-
 Gerar um novo token CSRF (Cross-Site Request Forgery) após o logout é uma medida de segurança recomendada para proteger
 contra possíveis ataques de falsificação de solicitação entre sites.
 
@@ -73,6 +67,4 @@ Se um token CSRF não corresponder ao esperado, a solicitação pode ser conside
 Ao gerar um novo token CSRF após o logout,
 você garante que qualquer solicitação subsequente feita
 por um agente mal-intencionado que possa ter obtido o token anterior (durante a sessão do usuário) seja invalidada. Isso diminui a probabilidade de que um token válido seja reutilizado para realizar ações não autorizadas após o logout.
-
-
 */

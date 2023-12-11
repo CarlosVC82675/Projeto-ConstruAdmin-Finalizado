@@ -18,17 +18,12 @@ return new class extends Migration
              //Chave estrangeira de estoque
             $table->unsignedBigInteger('Estoque_idEstoque');
             $table->foreign('Estoque_idEstoque')->references('idEstoque')->on('estoque');
-
-             //auto Relacionamento
-            $table->unsignedBigInteger('Superior_idUsuario')->nullable();
-            $table->foreign('Superior_idUsuario')->references('idUsuario')->on('usuarios');
-
             $table->string('password');
             $table->string('name')->nullable(false);
             $table->string('lastName')->nullable();
             $table->enum('genero',['FEMININO','MASCULINO'])->nullable(false);
-            $table->char('cep',8)->nullable(false);
-            $table->char('cpf',11)->unique()->nullable(false);
+            $table->char('cep',15)->nullable(false);
+            $table->char('cpf',15)->unique()->nullable(false);
             $table->string('pais')->nullable();
             $table->string('cidade')->nullable();
             $table->string('estado')->nullable();

@@ -9,8 +9,8 @@
 }
 
 body{
-    font-family: 'Poppins',sans-serif;
-    font-size: 0,875rem;
+    font-family: 'Poppins',sans-serif!important;
+    font-size: 0.875rem;
     opacity: 1;
     overflow: scroll;
     margin: 0;
@@ -110,6 +110,10 @@ h4 {
 .avatar{
     height: 40px!important;
     width: 40px!important;
+}
+
+.navbar{
+    background: #ffc10f;
 }
 
 .navbar-main {
@@ -217,7 +221,9 @@ h4 {
 
 .company-name{
     font-family: 'Poppins',sans-serif!important;
+    color: black!important;
 }
+
 
 .separator {
     margin: 0 8px; /* Espaçamento entre a barra e o texto */

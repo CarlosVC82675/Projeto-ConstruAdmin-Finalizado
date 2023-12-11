@@ -11,39 +11,57 @@ class PermissionSeeder extends Seeder
     public function run()
     {
        // Criar permissões
-        $PemisoesUsuario = [
-        'CadastraUsuario',
-        'EditiarUsuario',
-        'VerificarUsuario'
+        $Permissions = [
+        'Usuario',
+        'Estoque',
+        'Obrafora',
+        'Projeto',
+        'DownloadProjeto',
+        'Materiais',
+        'Atividade'
         ];
 
-        foreach ($PemisoesUsuario as $permission) {
-            Permission::firstOrCreate(['name' => $permission]);
+        //'relatorioMaterial'
+        //'relatorioProjeto'
+        //'relatorioObra'
+
+
+        foreach ($Permissions as $Permission) {
+            Permission::firstOrCreate(['name' => $Permission]);
         }
 
-        $Funções = [
-        'adm',
-        'Supevisor',
+        $Acesso = [
+        'Administrador',
+        'Supervisor',
+        'Apontador',
+        'Engenheiro',
+        'Cliente',
+        'Comum'
         ];
 
-        foreach ($Funções as $roles) {
+
+        foreach ($Acesso as $roles) {
             Role::firstOrCreate(['name' => $roles]);
         }
 
-
         // Buscando os papeis
-        $roleAdm = Role::findByName('adm');
-        $roleSupevisor = Role::findByName('Supevisor');
-
+        $roleAdm = Role::findByName('Administrador');
+        $roleSupevisor = Role::findByName('Supervisor');
+        $roleApontador = Role::findByName('Apontador');
+        $roleEngenheiro = Role::findByName('Engenheiro');
+        $roleCliente = Role::findByName('Cliente');
+        $roleComum = Role::findByName('Comum');
 
         //Buscando permissões
-        $permissoesUser = Permission::whereIn('name', $PemisoesUsuario)->get();
-
+        $permissoesAdmin = Permission::whereIn('name', $Permissions)->get();
 
         //Atribuindo permissões
-        $roleAdm->syncPermissions($permissoesUser);
-        $roleSupevisor->syncPermissions($permissoesUser);
-
+        $roleAdm->syncPermissions($permissoesAdmin);
+        $roleSupevisor->syncPermissions('Projeto','DownloadProjeto','Materiais','Atividade');
+        $roleApontador->syncPermissions('Estoque','Materiais','DownloadProjeto');
+        $roleEngenheiro->syncPermissions('Projeto','DownloadProjeto','Atividade');
+        $roleCliente->syncPermissions('DownloadProjeto');
+        $roleComum->syncPermissions('DownloadProjeto');
     }
 
 }

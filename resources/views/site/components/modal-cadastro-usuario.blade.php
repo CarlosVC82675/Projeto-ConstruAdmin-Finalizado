@@ -21,12 +21,12 @@
                 <input type="text" class="form-control" name="lastName" placeholder="Digite seu Sobrenome" required>
             </div>
             <div class="col-md-4">
-                <label class="form-label">Atribuição</label>
+                <label class="form-label">Nº Acesso</label>
                 <select class="form-select" aria-label="Default select example" name="atribuicao">
-                <option value="1">Supervisor</option>
-                <option value="2">Apontador</option>
-                <option value="3">Engenheiro</option>
-                <option value="4">Usuario Comum</option>
+                <option value="2">Supervisor</option>
+                <option value="3">Apontador</option>
+                <option value="4">Engenheiro</option>
+                <option value="6">Comum</option>
                 </select>
               </div>
             <div class="col-md-8">
@@ -66,17 +66,17 @@
                     <input type="text" class="form-control" name="cpf" placeholder="Digite seu CPF" required>
                   </div>
                   <div class="col-md-4">
-                    <label for="inputZip" class="form-label">Telefone</label>
-                    <input type="number" pattern="[0-9]{10}" class="form-control" name="telefone1" placeholder="Digite seu telefone" required>
+                    <label  class="form-label">Telefone</label>
+                    <input type="text"  class="form-control" name="telefone1" placeholder="Digite seu telefone" required>
                   </div>
                   <div class="col-md-4">
-                    <label for="inputCity" class="form-label">Celular</label>
-                    <input type="number" pattern="[0-9]{10}" class="form-control" name="telefone2" placeholder="Digite seu Celular" required>
+                    <label  class="form-label">Celular</label>
+                    <input type="text"  class="form-control" name="telefone2" placeholder="Digite seu Celular" required>
                   </div>
 
                   <div class="col-md-4">
-                    <label for="inputCity" class="form-label">Telefone Reserva</label>
-                    <input type="number" pattern="[0-9]{10}" class="form-control" name="telefone3" placeholder="Digite seu telefone">
+                    <label class="form-label">Telefone Reserva</label>
+                    <input type="text"  class="form-control" name="telefone3" placeholder="Digite seu telefone">
                   </div>
 
                 <div class="col-12 mt-3">

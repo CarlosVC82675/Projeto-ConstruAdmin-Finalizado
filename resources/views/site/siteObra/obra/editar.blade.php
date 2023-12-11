@@ -1,66 +1,113 @@
-@extends('site.siteObra.layoutdentro')
-@section('title','Editando')
+@extends('site.siteMenu.layoutFora')
+@section('title','Editando Obra')
+
 @section('conteudo')
 
-<H1>Editando Obra</H1>
-@if($errors->any())
-@foreach ($errors->all() as $error)
-{{$error}} <br>
-@endforeach
-@endif
-<div style="display:flex;justify-content:center;width:100%">
-<form style="display:flex; flex-direction:column" method="post" action="{{ route('obra.update',['id' => $obra->idObras]) }}">
-    @csrf
-    @method('put')
-    <label>nome:</label>
-    <input type="text" name="nome" required value="{{$obra->nome}}">
-    <input type="hidden" name="status" value="Andamento">
-    <label>descrição:</label>
-    <input type="text" name="descricao" required value="{{$obra->descricao}}">
-    <label>tamanho da obra (em metros):</label>
-    <input type="text" name="tamanho" required value="{{$obra->tamanho}}">
-    <label >Tipo da Obra         Atual:{{$obra->tipo}}</label>
-    <label >Residencial</label>
-    <input type="radio" name="tipo" value="Residencial" >
-    <label >Comercial</label>
-    <input type="radio"  name="tipo" value="Comercial">
-    <label >Industrial</label>
-    <input type="radio"  name="tipo" value="Industrial">
-    <label >Infraestrutura</label>
-    <input type="radio"  name="tipo" value="Infraestrutura">
-    <label >Saneamento</label>
-    <input type="radio"  name="tipo" value="Saneamento">
-    <label >Restauro</label>
-    <input type="radio"  name="tipo" value="Restauro">
-    <label>Logradouro:</label>
-    <input type="text" name="logradouro" required value="{{$obra->logradouro}}">
-    <label>Numero Residencial:</label>
-    <input type="text" name="numResidencial" required value="{{$obra->numResidencial}}">
-    <label>Bairro:</label>
-    <input type="text" name="bairro" required value="{{$obra->bairro}}">
-    <label>Cidade:</label>
-    <input type="text" name="cidade" required value="{{$obra->cidade}}">
-    <label>Estado:</label>
-    <input type="text" name="estado" required value="{{$obra->estado}}">
-    <label>Cep:</label>
-    <input type="text" name="cep" required value="{{$obra->cep}}">
-    <label>Estrutura        Atual:{{$obra->estrutura}}</label>
-    <label >Metalica</label>
-    <input type="radio" name="estrutura" value="Metálica">
-    <label >Concreto</label>
-    <input type="radio"  name="estrutura" value="Concreto">
-    <label >Madeira</label>
-    <input type="radio"  name="estrutura" value="Madeira">
-    <label>Proposito</label>
-    <input type="text" name="proposito" required value="{{$obra->proposito}}">
-    <label >Data Estimada de Termino</label>
-    <input type="date" name="dtFinal" value="{{$obra->dtFinal}}" min="2020-01-01" max="2024-12-31" />
-    <label >Data de inicio</label>
-    <input type="date" name="dtInicial" value="{{$obra->dtInicial}}" min="2020-01-01" max="2024-12-31" />
+  <div style="padding: 10px">
+    <H1>Editando</H1>
+    @if($errors->any())
+        @foreach ($errors->all() as $error)
+        {{$error}} <br>
+        @endforeach
+    @endif
+    
+    <form class="row g-3" method="post" action="{{ route('obra.update',['id' => $obra->idObras]) }}">
+        @csrf
+        @method('put')
+      <input type="hidden" name="status" value="Andamento">
+      
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Nome</label>
+        <input type="text" class="form-control" name="nome" placeholder="Nome" value="{{$obra->nome}}">
+        <label for="inputAddress" class="form-label">Tamanho</label>
+        <input type="text" class="form-control" name="tamanho" placeholder="Tamanho da sua obra" value="{{$obra->tamanho}}">
+      </div>
+      <div class="col-md-6">
+        <label for="floatingTextarea2">Descrição</label>
+      <div class="form-floating">
+        <textarea class="form-control" name="descricao" style="height: 116px;resize: vertical !important; max-height: 116px !important;" >
+            {{$obra->descricao}}
+        </textarea>
+      </div>
+    </div>
 
-    <button style="max-width: 30%;margin-top:10px" type="submit">Salvar</button>
-</form>
-</div>
+    <div class="col-md-6">
+    <div class="mb-3">
+      <label class="form-label">Tipo da obra</label>
+         <select class="form-select" aria-label="Default select example" name="tipo">
+            <option value="Residencial">Residencial</option>
+            <option value="Comercial">Comercial</option>
+            <option value="Industrial">Industrial</option>
+            <option value="Infraestrutura">Infraestrutura</option>
+            <option value="Saneamento">Saneamento</option>
+            <option value="Restauro">Restauro</option>
+         </select>
+
+         <label class="form-label">Estrutura da obra</label>
+         <select class="form-select" aria-label="Default select example" name="estrutura">
+            <option value="Metálica">Metálica</option>
+            <option value="Concreto">Concreto</option>
+            <option value="Madeira">Madeira</option>
+         </select>
+    </div>
+    </div>
+
+    <div class="col-md-6">
+      <label for="floatingTextarea2">Proposito</label>
+      <div class="form-floating">
+        <textarea class="form-control" name="proposito" style="height: 116px;resize: vertical !important; max-height: 116px !important;">
+            {{$obra->proposito}}
+        </textarea>
+      </div>
+    </div>
+
+      <div class="col-md-6">
+        <label for="" class="form-label">Logradouro</label>
+        <input type="text" class="form-control" name="logradouro" value="{{$obra->logradouro}}" placeholder="Logradouro">
+      </div>
+      <div class="col-md-4">
+        <label for="" class="form-label">Bairro</label>
+        <input type="text" class="form-control" name="bairro" value="{{$obra->bairro}}" placeholder="Bairro">
+      </div>
+      <div class="col-md-2">
+        <label for="" class="form-label">Numero Residencial</label>
+        <input type="text" class="form-control" name="numResidencial" value="{{$obra->numResidencial}}" placeholder="Numero Residencial">
+      </div>
+    
+  
+      
+      <div class="col-md-6">
+        <label for="" class="form-label">Cidade</label>
+        <input type="text" class="form-control" name="cidade" value="{{$obra->cidade}}" placeholder="Cidade" required>
+      </div>
+      <div class="col-md-4">
+        <label for="" class="form-label">Estado</label>
+        <input type="text" class="form-control" name="estado" value="{{$obra->estado}}" placeholder="Estado" required>
+      </div>
+      <div class="col-md-2">
+        <label for="" class="form-label">CEP</label>
+        <input type="text" class="form-control" name="cep" value="{{$obra->cep}}" placeholder="EX: 40750-226" required>
+      </div>
+
+      <div class="col-md-6">
+        <label for="" class="form-label">Data de inicio</label>
+        <input type="date" class="form-control" name="dtInicial"  value="{{$obra->dtInicial}}" min="2020-01-01" max="2025-12-31" required />
+      </div>
+      <div class="col-md-6">
+        <label for="" class="form-label">Data de terminio</label>
+        <input type="date" class="form-control" name="dtFinal" value="{{$obra->dtFinal}}" min="2020-01-01" max="2025-12-31" required />
+      </div>
+    
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Confirmar</button>
+      </div>
+
+
+    </form>
+    
+    
+
+
 
 
 @endsection

@@ -3,19 +3,13 @@
 namespace App\Services;
 
 use App\Models\Usuario;
-use App\Models\Obras;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
-use Illuminate\Database\QueryException;
 use App\Services\telefoneService;
-use Exception;
 
 class UserService
 {
-
     protected $telefoneService;
     protected $exceptionHandler;
 
@@ -25,7 +19,7 @@ class UserService
         $this->exceptionHandler = $exceptionHandler;
     }
 
-    public function buscarTodosUsuario()
+    public function  buscarTodosUsuario()
     {
         return Usuario::all();
     }
@@ -50,18 +44,18 @@ class UserService
 
         //Filtrar Dados
         $usuarioData = $request->except('telefone1', 'telefone2', 'telefone3', 'atribuicao');
-        $usuarioData['Superior_idUsuario'] = $request->input('Superior_idUsuario') === 'null' ? null : $request->input('supervisor');
         $usuarioData['password'] = bcrypt($usuarioData['cpf']);
         $idAtribuicao = request()->input('atribuicao');
 
+
         //Mapeamento Funções
         $mapeamentoFunções = [
-            1 => 'administrador',
+            1 => 'Administrador',
             2 => 'Supervisor',
             3 => 'Apontador',
             4 => 'Engenheiro',
             5 => 'Cliente',
-            6 => 'Comum',
+            6 => 'Comum'
         ];
 
         //Criar Usuario
@@ -71,14 +65,16 @@ class UserService
             $usuario->assignRole($papel);
         }
 
+
         //Criar Telefone
         $this->telefoneService->CriarTelefones($usuario, $request);
+
 
         DB::commit();
 
         return $usuario;
-
         } catch (\Exception $exception) {
+            //dd($exception->getMessage()); feito para ver possiveis erros
             DB::rollBack();
             $this->exceptionHandler->handleException($exception);
         }
@@ -105,6 +101,7 @@ class UserService
         // Confirma a transação se tudo estiver correto
         DB::commit();
         } catch (\Exception $exception) {
+            //dd($exception->getMessage()); feito para ver possiveis erros
             DB::rollBack();
             $this->exceptionHandler->handleException($exception);
         }
@@ -112,7 +109,7 @@ class UserService
     }
 
 
-    public function DeletarUsuario($idusuario)
+    public function deletarUsuario($idusuario)
     {
         try {
         $usuario = $this->buscarUsuarioPorId($idusuario);
@@ -122,7 +119,9 @@ class UserService
         } else {
             $usuario->delete();
         }
+
         } catch (\Exception $exception) {
+          //dd($exception->getMessage()); feito para ver possiveis erros
             DB::rollBack();
             if($exception->getCode() == 10){
                 throw $exception;
@@ -135,8 +134,6 @@ class UserService
 
 
     public function buscarUsuarioPorNome($nomeCompleto){
-
-
         $partesNome = explode(' ', $nomeCompleto);
 
         if (isset($partesNome[1])) {
@@ -157,41 +154,19 @@ class UserService
             return $usuario;
 
         } catch (\Exception $exception) {
+             //dd($exception->getMessage()); feito para ver possiveis erros
             $this->exceptionHandler->handleException($exception);
         }
 
     }
 
 
-    public function FiltrarUsuarios($nome){
-
-        try{
-        return Usuario::where('name', 'LIKE', "%$nome%")->get();
-        } catch (\Exception $exception) {
-        $this->exceptionHandler->handleException($exception);
-        }
-
-    }
-
-
-    public function UsuariosSuperiores(){
-
-        try{
-        $usuarios = Usuario::whereNull('Superior_idUsuario')->get();
-        return $usuarios;
-        } catch (\Exception $exception) {
-        $this->exceptionHandler->handleException($exception);
-        }
-
-    }
-
-
-    public function Funções(){
+    public static function roles(){
         return Role::all();
     }
 
 
-    public function FunçãoUsuario($id){
+    public function rolesUsuario($id){
 
        $usuario = $this->buscarUsuarioPorId($id);
        return $usuario->getRoleNames();
@@ -199,9 +174,25 @@ class UserService
     }
 
 
+    public static function filtrarFunções($Função){
+
+        $usuarios = Usuario::all();;
+        $usuariosFiltrado = [];
+
+        foreach($usuarios as $usuario){
+            if($usuario->hasrole($Função)){
+                $usuariosFiltrado[] = $usuario;
+            }
+        }
+        return $usuariosFiltrado;
+    }
+
+
     public function VerificarPermissao($permissao){
 
-        if (Auth::Usuario()->hasPermissionTo($permissao)) {
+    $usuario = Usuario::find(Auth::id());
+
+        if ($usuario->hasPermissionTo($permissao)) {
             return true;
         } else {
             return false;

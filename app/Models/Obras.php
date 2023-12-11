@@ -17,14 +17,15 @@ class obras extends Model
         return $this->belongsToMany(Usuario::class, 'lista_obras', 'Obras_idObras', 'Usuario_idUsuario');
     }
 
-
-    public function atividade(){
-        return $this->hasMany(Atividade::class,'Obras_idObras','idAtividade');
+    public function atividades(){
+        return $this->hasMany(Atividades::class, 'Obras_idObras', 'idObras');
     }
 
     public function materiais(){
-        return $this->belongsToMany(Materiais_Estoque::class,'lista_materias_necessarios','Obras_idObras','Materiais_idMaterias');
+        return $this->belongsToMany(Materiais_Estoque::class, 'lista_materiais_necessarios', 'Obras_idObras', 'Materiais_idMateriais')
+            ->withPivot('quantidade'); // Obtém o atributo 'quantidade' da tabela intermediária
     }
+
 
     public function arquivo(){
         return $this->hasMany(Arquivo::class);

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('arquivo', function (Blueprint $table) {
-            
+
             $table->id('idArquivo');
             $table->string('caminho');
             $table->string('nome',50);
@@ -21,10 +21,6 @@ return new class extends Migration
             $table->unsignedBigInteger('Obras_IdObras');
             $table->foreign('Obras_IdObras')->references('idObras')->on('obras')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
-    
-           
-
-
 
         });
     }

@@ -22,9 +22,9 @@ $table->unsignedBigInteger('Usuarios_idUsuario');
 
 
 //Foreing_key_set
-$table->foreign('atividade_idAtividade')->references('idAtividade')->on('atividade');
+$table->foreign('atividade_idAtividade')->references('idAtividade')->on('atividade')->onDelete('cascade')->onUpdate('cascade');
 
-$table->foreign('Usuarios_idUsuario')->references('idUsuario')->on('usuarios');
+$table->foreign('Usuarios_idUsuario')->references('idUsuario')->on('usuarios')->onUpdate('cascade');
 
 
 $table->primary(['Atividade_idAtividade','Usuarios_idUsuario']);

@@ -9,11 +9,8 @@ class TelefoneUsuario extends Model
 {
     use HasFactory;
 
-
     //tabela que faz parte
     protected $table = 'telefone_usuarios';
-
-
 
     protected $fillable = [
         'telefone',

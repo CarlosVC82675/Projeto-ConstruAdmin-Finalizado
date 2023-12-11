@@ -1,7 +1,8 @@
-@extends('site.siteObra.layoutdentro')
+@extends('site.siteObra.layoutDentro')
 @section('title','Fotos')
-@section('conteudo')
 
+@section('conteudo')
+<div style="padding: 25px">
 <H1>Seção de Fotos</H1>
 @if($errors->any())
 @foreach ($errors->all() as $error)
@@ -9,56 +10,87 @@
 @endforeach
 @endif
 @if($obra->status !== 'Finalizado')
-<h3>Adicione seus arquivos</h3>
-<form style="display:flex; flex-direction:column" method="post" enctype="multipart/form-data" action="{{route('foto.store',['id' => $obra->idObras]) }}">
-    @csrf
-<label>Coloque o nome do seu arquivo</label>
-<input type="text" name="nome" required>
-<input type="file" name="caminho" accept="image/*" required>
-<input type="hidden" name="Obras_IdObras" value="{{$obra->idObras}}">
-<input type="hidden" name="tipo" value="1">
 
-<button style="max-width: 30%;margin-top:10px" type="submit">Salvar</button>
+<form class="row g-3" method="post" enctype="multipart/form-data" action="{{route('foto.store',['id' => $obra->idObras]) }}">
+    @csrf
+    <input type="hidden" name="Obras_IdObras" value="{{$obra->idObras}}">
+    <input type="hidden" name="tipo" value="1">
+    
+    <div class="col-md-6">
+      <label  class="form-label">O nome da sua foto</label>
+      <input type="text" name="nome" class="form-control" id="" required>
+    </div>
+    <div class="col-md-6">
+        <label  class="form-label">Coloque seu arquivo</label>
+             <div class="input-group ">
+            <input type="file" class="form-control" name="caminho" accept=".png,.jpg,.jpeg" required>
+            <button class="input-group-text" >Upload</button>
+          </div>
+        </div>
+
 </form>
+  
+
+
+
 @else
 <h1>Não é possivel modificar</h1>
 @endif
 
-@if($arquivos->isEmpty())
+    @if($arquivos->isEmpty())
         <p>Nenhum Projeto Encontrado</p>
-    @else
+        @else
 
+    
+    <div class="container mt-4">
+        <h1 class="display-1 text-center mb-4"><strong>Suas Fotos</strong></h1>
+        <div class="row">
             @foreach ($arquivos as $arquivo)
             @if($arquivo->tipo == 1)
-            <div>
-                <ul>
-                    <div style="display:flex">
-                    <img src="{{ url("storage/{$arquivo->caminho}") }}" alt="">
+            
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <h3 class="text-center">{{$arquivo->nome}} </h3>
+        <img class="img-fluid object-fit-xxl-contain mb-4 shadow rounded" src="{{ url("storage/{$arquivo->caminho}") }}"  id="reco"  alt="imagem 01" >
+       
+        <div class="row d-flex justify-content-between">
 
-                    <div style="display:flex; flex-direction:column;width:20%;justify-content:center">
-                    <p>{{$arquivo->nome}}</p>
-                    @if($obra->status !== 'Finalizado')
-                        <form style="display:flex; flex-direction:column" method="post" enctype="multipart/form-data" action="{{route('arquivo.download',['ida'=>$arquivo->idArquivo])}}">
-                            @csrf
-                            @method('get')
-                            <button style="max-width: 100%;margin-top:10px" type="submit">download</button>
-                        </form>
-                        <form style="display:flex; flex-direction:column" method="post" enctype="multipart/form-data" action="{{route('foto.destroy',['id'=>$obra->idObras,'ida'=>$arquivo->idArquivo])}}">
-                            @csrf
-                            @method('delete')
-                            <button style="max-width: 100%;margin-top:10px" type="submit">deletar</button>
-                        </form>
-                </div>
-                    @endif
-                </ul>
-            </div>
+            <div class="col-4">
+                <form class="form-group" method="post" enctype="multipart/form-data" action="{{route('arquivo.visualizar',['ida'=>$arquivo->idArquivo])}}">
+                @csrf
+                @method('get')
+                <button type="submit" class="btn btn-primary">Visualizar</button>   
+                </form>
+            </div>   
+       
+        <div class="col-4">
+            <form class="form-group" method="post" enctype="multipart/form-data" action="{{route('arquivo.download',['ida'=>$arquivo->idArquivo])}}">
+            @csrf
+            @method('get')
+            <button type="submit" class="btn btn-primary">Download</button>   
+            </form>
+        </div>
+
+        <div class="col-4 w-auto">
+            @if($obra->status=='Andamento')
+            <form class="form-group" method="post" enctype="multipart/form-data" action="{{route('foto.destroy',['id'=>$obra->idObras,'ida'=>$arquivo->idArquivo])}}">
+            @csrf
+            @method('delete')
+            <button type="submit" class="btn btn-danger" >Excluir</button>
+            </form>
             @endif
-            @endforeach
+        </div>
 
-    @endif
+        </div>
+        </div>
+        @endif
+        @endforeach
+     
+        </div>
+    </div>
+        
 
 
+        @endif
 
-
-
+</div>
 @endsection

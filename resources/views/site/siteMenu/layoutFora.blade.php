@@ -5,126 +5,164 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    {{--CSS Bootstrap--}}
+    {{--jQuery--}}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- jQuery Modal -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {{--CSS--}}
     <link rel="stylesheet" href="{{url("css/layoutFora.css")}}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <title>Area de Trabalho</title>
+    {{--boostrap--}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    {{--Font awesome Icon--}}
+    <script src="https://kit.fontawesome.com/3117251fc7.js" crossorigin="anonymous"></script>
+    <title>Area de teste2</title>
 </head>
 <body>
 
-    {{--HEADER--}}
-    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-        <ul class="list-unstyled d-flex align-items-left w-100"  style="gap: 10px;">
-            <li><h4><i class="bi bi-hammer"></i></h4></li>
-            <li class="navbar-brand">ConstruAdmin</li>
-            <li><h4><i class="bi bi-person-lines-fill"></i></h4></li>
-            <li class="navbar-brand">Portal da Empresa</li>
-        </ul>
-        <ul class="list-unstyled d-flex align-items-right w-100"  style="gap: 10px;">
-            <li><button type="button" class="btn btn-dark"> <i class="bi bi-question-diamond-fill"></i> Ajuda</button></li>
-            <li><h4><i class="bi bi-bell-fill"></i></h4></li>
-        </ul>
+   {{--Header/Navbar--}}
+    <nav class="navbar navbar-expand px-3 border-bottom navbar-main">
+
+        {{--Botão toogle--}}
+        <button class="btn btn-toggle" id="sidebar-toggle" .type='button' style="font-size: 1.2rem;">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        {{--Fim do Botão toogle--}}
+
+        {{--Espaçamento--}}
+        <div class="spacer" style="width: 20px;"></div>
+
+        <!-- Logo da empresa -->
+        <div class="navbar-brand d-flex align-items-center">
+            <a href="{{route('site.index')}}"> <img src="{{url("img/capacete.png")}}" alt="Logo da Empresa" width="60" height="60" class="d-none d-md-block"></a>
+            <span class="company-name ms-2 company-name-mobile">ConstruAdmin</span>
+            <span class="separator d-none d-md-block">|</span>
+            <span class="portal-name ms-2 d-none d-md-block" style="color: white;">Portal da Empresa</span>
+        </div>
+        {{--Fim da logo da empresa--}}
+
+        {{--Parte final do Navbar/header--}}
+        <div class="navbar-collapse navbar">
+            <ul class="navbar-nav">
+                {{--Icone de Ajuda--}}
+                <i class="fa-regular fa-circle-question imagem-no-navbar">
+                    <a href="#"></a>
+                </i>
+                {{--Icone de Notificação--}}
+                <i class="fa-solid fa-bell imagem-no-navbar">
+                    <a href="#"></a>
+                </i>
+                {{--Avatar de Usuario--}}
+                <li class="nav-item dropdown">
+                    <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0 d-flex align-items-center">
+                        {{--Imagem do Usuario--}}
+                        <img src="{{url("img/avatar.png")}}" class="avatar img-fluid rounded " alt="">
+                        {{--Nome do usuario--}}
+                        <span class="company-name ms-2 d-none d-md-block">
+                            @if (Auth::check())
+                                {{ Auth::user()->name }}
+                            @else
+                                Anônimo
+                            @endif
+                        </span>
+                    </a>
+                        {{--Menu do usuario--}}
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a href="#" class="dropdown-item">Profile</a>
+                        <a href="#" class="dropdown-item">Setting</a>
+                        <a href="{{route('login.logout')}}"  class="dropdown-item">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </nav>
-    {{--FIM DO HEADER--}}
-
-     {{--BARRA LATERAL--}}
-    <div class="d-flex flex-column flex-shrink-0 bg-warning fixed-top h-100" style="width: 4.5rem; margin-top: 70px;">
-        <ul class="nav nav-pills nav-flush flex-column mb-auto text-center ">
-          <li class="nav-item">
-            <a href="#" class="nav-link active py-3 border-bottom bg-warning" aria-current="page" title="Início" data-bs-toggle="tooltip" data-bs-placement="right">
-                <h4><i class="bi bi-house-door-fill text-dark"></i></h4>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link active py-3 border-bottom bg-warning" aria-current="page" title="Obras" data-bs-toggle="tooltip" data-bs-placement="right">
-              <h4><i class="bi bi-building-fill-gear text-dark"></i></h4>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link active py-3 border-bottom bg-warning" aria-current="page" title="Usuários" data-bs-toggle="tooltip" data-bs-placement="right">
-              <h4><i class="bi bi-people-fill text-dark"></i></h4>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link active py-3 border-bottom bg-warning" aria-current="page" title="Estoque" data-bs-toggle="tooltip" data-bs-placement="right">
-              <h4><i class="bi bi-boxes text-dark"></i></h4>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link active py-3 border-bottom bg-warning" aria-current="page" title="Etc" data-bs-toggle="tooltip" data-bs-placement="right">
-              <h4><i class="bi bi-sliders text-dark"></i></h4>
-            </a>
-          </li>
-        </ul>
-    </div>
-    {{--FIM DA BARRA LATERAL--}}
+     {{--Fim do Header/Navbar--}}
 
 
+    <div class="wrapper">
+        {{--conteudo da sidebar--}}
+        <aside id="sidebar">
+            <ul class="sidebar-nav">
+                {{--Dashboard Icone--}}
+                <li class="sidebar-item">
+                    <a href="{{route('site.index')}}" class="sidebar-link first-item" onclick="highlightItem(this)">
+                        <i class="fa-solid fa-building"></i>
+                        <span>Obras</span>
+                    </a>
+                </li>
+                {{--Page Icone--}}
+                <li class="sidebar-item">
+                    <a href="{{route('usuarios.lista')}}" class="sidebar-link" onclick="highlightItem(this)">
+                        <i class="fa-solid fa-users"></i>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+                {{--Post Icone--}}
 
+                <li class="sidebar-item">
+                    <a href="{{route('ver.material')}}" class="sidebar-link" onclick="highlightItem(this)">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                        <span>Estoque</span>
+                    </a>
+                </li>
+                {{--Auth Icone--}}
 
-    {{--PEGA ERROS DE VALIDAÇÃO--}}
-    @if ($errors->any())
-        <div class="card mb-3">
-            <h5 class="card-header">Erro</h5>
-            <div class="card-body">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-    </div>
-    @endif
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" onclick="highlightItem(this)">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <span>Relatorios</span>
+                    </a>
+                </li>
 
+                {{--Multi Icone--}}
+                <li class="sidebar-item invisible">
+                    <a href="#" class="sidebar-link" onclick="highlightItem(this)">
+                        <i class="fa-solid fa-share-nodes"></i>
+                        <span>Multi Dropdown</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+         {{--Fim da sidebar--}}
 
-    {{--PEGA MESANGES DE SUCESSO--}}
-    @if (session('success'))
-        <div class="card mb-3">
-            <h5 class="card-header">Sucesso!!</h5>
-            <div class="card-body">
+        <div class="main">
+            {{--Mensagens--}}
+            @if (session('success'))
+            <div class="card">
+                <h5 class="card-header">Sucesso!!</h5>
+                <div class="card-body">
                 <p>{{ session('success') }}</p>
             </div>
+            </div>
+            @endif
+
+            @if(session('error') && session('confirm'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
+
+            @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
+
+            @if(session('error') && isset(session('error')['code']))
+            <div class="alert alert-danger">
+            <strong>{{ session('error')['message'] }}</strong> - Código: {{ session('error')['code'] }}
+            </div>
+            @endif
+            {{--Fim das Mensagens--}}
+
+            {{--Conteudo--}}
+           @yield('conteudo')
+
+
         </div>
-    @endif
-
-
-
-    {{--PEGA MESANGES DE ERRO--}}
-   @if (session('erro'))
-   <div class="alert alert-danger">
-       {{ session('erro') }}
-   </div>
-@endif
-
-
-
-{{--AREA DE TRABALHAR, E AQUI QUE VC PODE COMEÇAR--}}
-    @yield('conteudo')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{{--SCRIPT DO BOOTSTRAP--}}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-
-
+    </div>
+    <script src="{{url("js/layoutFora.js")}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

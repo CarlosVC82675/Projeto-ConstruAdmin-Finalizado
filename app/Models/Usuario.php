@@ -28,9 +28,7 @@ class Usuario extends Authenticatable
 
     //Metodo Fillable
     protected $fillable = [
-        'atribuicao_Usuario_id_Atribuicao',
         'Estoque_idEstoque',
-        'Superior_idUsuario',
         'password',
         'name',
         'lastName',
@@ -45,15 +43,17 @@ class Usuario extends Authenticatable
 
 
     //Relacionamentos
+
+    public function comentarios()
+    {
+        return $this->hasMany(Comentarios::class,'Usuarios_idUsuario','idUsuario');
+    }
+
+
     public function telefones(){
 
         return $this->hasMany(TelefoneUsuario::class,'Usuarios_idUsuario','idUsuario');
 
-    }
-
-    public function atribuição(){
-
-        return $this->belongsTo(AtribuicaoUsuario::class,'atribuicao_Usuario_id_Atribuicao','id_atribuicao');
     }
 
     public function estoque(){

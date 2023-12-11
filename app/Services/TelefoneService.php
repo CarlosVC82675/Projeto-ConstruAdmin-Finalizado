@@ -2,10 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Usuario;
 use App\Models\TelefoneUsuario;
-use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Models\Role;
 
 
 class TelefoneService

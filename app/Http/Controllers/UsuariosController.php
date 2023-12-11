@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
+
 use App\Services\ExceptionHandlerService;
 use Illuminate\Http\Request;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\Rule;
 use App\Services\UserService;
 
@@ -26,58 +23,87 @@ class UsuariosController extends Controller
 
     public function store(Request $request)
     {
-        //Validação
-       $this->validaçãoUsuario($request);
+        if($this->userService->VerificarPermissao('Usuario')){
+            //Validação
+            $this->validaçãoUsuario($request);
+            try {
+            //Criando Usuario
+            $this->userService->criarUsuario($request);
+            } catch (\Exception $e) {
+                $errorMessage = $e->getMessage(); // Isso obtém a mensagem da exceção
+                $errorCode = $e->getCode(); // Isso obtém o código da exceção
 
-        try {
-        //Criando Usuario
-        $usuario = $this->userService->criarUsuario($request);
-
-        } catch (\Exception $e) {
-        $errorMessage = $e->getMessage();  // Isso imprimir a mensagem da exceção
-        return redirect()->back()->with('error', $errorMessage ?? 'Erro desconhecido.')->withInput();
+                $errorData = [
+                    'message' => $errorMessage ?? 'Erro desconhecido.',
+                    'code' => $errorCode ?? 'Desconhecido'
+                ];
+                return redirect()->back()->with('error', $errorData)->withInput();
+            }
+            return redirect()->back()->with('success','Usuario Cadastrado com Sucesso!');
+        }else{
+            return redirect()->back()->with('error','Voce não tem Permissão para Fazer isso!');
         }
-
-        return redirect()->back()->with('success','Usuario Cadastrado com Sucesso!');
-
     }
 
     public function update(Request $request, $id)
     {
-        try {
-        $usuario = $this->userService->buscarUsuarioPorId($id);
+        if($this->userService->VerificarPermissao('Usuario')){
+            try {
+            $usuario = $this->userService->buscarUsuarioPorId($id);
 
-        // Validação dos dados
-        //$this->validaçãoUpdateUsuario($request, $usuario);
+            // Validação dos dados
+            $this->validaçãoUpdateUsuario($request, $usuario);
 
-        $this->userService->atualizarUsuario($usuario,$request);
+            $this->userService->atualizarUsuario($usuario,$request);
 
-        } catch (\Exception $e) {
-            $errorMessage = $e->getMessage();
-            return redirect()->back()->with('error', $errorMessage ?? 'Erro desconhecido.')->withInput();
+            } catch (\Exception $e) {
+                $errorMessage = $e->getMessage(); // Isso obtém a mensagem da exceção
+                $errorCode = $e->getCode(); // Isso obtém o código da exceção
+
+                $errorData = [
+                    'message' => $errorMessage ?? 'Erro desconhecido.',
+                    'code' => $errorCode ?? 'Desconhecido'
+                ];
+
+                return redirect()->back()->with('error', $errorData)->withInput();
+            }
+
+            return redirect()->back()->with('success','Usuario Atualizado com Sucesso!');
+        }else{
+            return redirect()->back()->with('error','Voce não tem Permissão para Fazer isso!');
         }
-
-        return redirect()->back()->with('success','Usuario Atualizado com Sucesso!');
-
     }
 
     public function destroy($idUsuario)
     {
-        // Encontra o usuário pelo ID
-        try {
+       if($this->userService->VerificarPermissao('Usuario')){
+            // Encontra o usuário pelo ID
+            try {
 
-         $this->userService->DeletarUsuario($idUsuario);
+            $this->userService->deletarUsuario($idUsuario);
 
-        } catch (\Exception $e) {
-            $errorMessage = $e->getMessage();
-            $errorCode = $e->getCode();
-        if($errorCode == 10){
-            return redirect()->back()->with(['error' => $errorMessage, 'confirm' => true]);
+            } catch (\Exception $e) {
+                $errorMessage = $e->getMessage();
+                $errorCode = $e->getCode();
+
+            if($errorCode == 10){
+                return redirect()->back()->with(['error' => $errorMessage, 'confirm' => true]);
+            }else{
+                $errorMessage = $e->getMessage();
+                $errorCode = $e->getCode();
+
+                $errorData = [
+                    'message' => $errorMessage ?? 'Erro desconhecido.',
+                    'code' => $errorCode ?? 'Desconhecido'
+                ];
+
+                return redirect()->back()->with('error', $errorData);
+            }
+            }
+            return redirect()->route('usuarios.lista')->with('success','Usuario deletado com Sucesso!');
         }else{
-            return redirect()->back()->with('error', $errorMessage ?? 'Erro desconhecido.')->withInput();
-           }
+            return redirect()->back()->with('error','Voce não tem Permissão para Fazer isso!');
         }
-        return redirect()->route('usuarios.lista')->with('success','Usuario deletado com Sucesso!');
     }
 
 
@@ -87,7 +113,6 @@ class UsuariosController extends Controller
         $validacao = $request->validate([
             'atribuicao' => ['required', 'exists:roles,id'],
             'Estoque_idEstoque' => ['required', 'exists:estoque,idEstoque'],
-            'Superior_idUsuario' => ['nullable'],
             'name' => ['required', 'string'],
             'password' => ['nullable'],
             'lastName' => ['required', 'string'],
@@ -102,7 +127,7 @@ class UsuariosController extends Controller
             'telefone2' => ['nullable', 'string', 'unique:telefone_usuarios,telefone'],
             'telefone3' => ['nullable', 'string', 'unique:telefone_usuarios,telefone'],
         ],[
-            'atribuicao_Usuario_id_Atribuicao.required'=>'o campo atribuicão é obrigatorio',
+            'atribuicao.required'=>'o campo atribuicão é obrigatorio',
             'name.required'=>'O nome é obrigatório',
             'lastName.required'=>'O sobrenome é obrigatório',
             'genero.required'=>'Por favor, selecione um gênero válido.',
@@ -115,7 +140,6 @@ class UsuariosController extends Controller
             'telefone1.required'=>'Seu telefone é obrigatório',
             'atribuicao_Usuario_id_Atribuicao.exists' => 'Algo de estranho ocorreu durante seu registro, consulte o suporte CODIGO ERRO: 1002#',
             'Estoque_idEstoque.exists' => 'Algo de estranho ocorreu durante seu registro, consulte o suporte CODIGO ERRO: 1002#',
-            'Superior_idUsuario.exists' => 'Codigo do supevisor incorreto ou invalido, por valor selecione um supevisor valido',
             'name.string'=> 'O nome nao deve conter nenhum caráter alem de letras',
             'lastName.string'=> 'O sobrenome nao deve conter nenhum caráter alem de letras',
             'genero.in'=>'Por favor, selecione um gênero válido.',
@@ -137,9 +161,8 @@ class UsuariosController extends Controller
         //'campo' => ['regras', 'unique:tabela,coluna,exceto,idDoRegistro']
 
         $validacao = $request->validate([
-            'atribuicao_Usuario_id_Atribuicao' => ['required', 'exists:atribuicao_usuario,id_atribuicao'],
+            'atribuicao' => ['required'],
             'Estoque_idEstoque' => ['required', 'exists:estoque,idEstoque'],
-            'Superior_idUsuario' => ['nullable'],
             'name' => ['required', 'string'],
             'password' => ['nullable'],
             'lastName' => ['required', 'string'],
@@ -154,7 +177,7 @@ class UsuariosController extends Controller
             'telefone1' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario')],
             'telefone1' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario')],
         ],[
-            'atribuicao_Usuario_id_Atribuicao.required'=>'o campo atribuicão é obrigatorio',
+            'atribuicao.required'=>'o campo atribuicão é obrigatorio',
             'name.required'=>'O nome é obrigatório',
             'lastName.required'=>'O sobrenome é obrigatório',
             'genero.required'=>'Por favor, selecione um gênero válido.',
@@ -167,7 +190,6 @@ class UsuariosController extends Controller
             'telefone1.required'=>'Seu telefone é obrigatório',
             'atribuicao_Usuario_id_Atribuicao.exists' => 'Algo de estranho ocorreu durante seu registro, consulte o suporte CODIGO ERRO: 1002#',
             'Estoque_idEstoque.exists' => 'Algo de estranho ocorreu durante seu registro, consulte o suporte CODIGO ERRO: 1002#',
-            'Superior_idUsuario.exists' => 'Codigo do supevisor incorreto ou invalido, por valor selecione um supevisor valido',
             'name.string'=> 'O nome nao deve conter nenhum caráter alem de letras',
             'lastName.string'=> 'O sobrenome nao deve conter nenhum caráter alem de letras',
             'genero.in'=>'Por favor, selecione um gênero válido.',
@@ -184,24 +206,9 @@ class UsuariosController extends Controller
     }
 
 
-
 }
-/*
-  }else{
-    // Criando registros de telefone associados ao usuário
-   foreach ($telefonesRequisicao as $telefone) {
-   $usuario->telefones()->create(['telefone' => $telefone]);
-    }
 
- if($condicional == 1){
-            if(!$idObra){
-                return redirect()->back()->with('error', 'Ocorreu um erro nao esperado, por favor consulte o suporte');
-            }
-            $AssociacaoController = new ListaObrasController();
-            $AssociacaoController->desassociarUsuario($idObra,$idUsuario);
-        }
 
-*/
 
  /* Explicando Validação de formato de uma string:
         regex:^\d{3}\.\d{3}\.\d{3}-\d{2}$/
@@ -215,4 +222,4 @@ class UsuariosController extends Controller
         $ representar o fim da sequencia
         'regex:/^\d{5}-\d{3}$/'
         'regex:/^\d{3}\.\d{3}\.\d{3}-\d{2}$/'
-        */
+  */
