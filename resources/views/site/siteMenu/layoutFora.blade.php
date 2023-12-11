@@ -34,7 +34,7 @@
 
         <!-- Logo da empresa -->
         <div class="navbar-brand d-flex align-items-center">
-            <a href="{{route('site.index')}}"> <img src="{{url("img/capacete.png")}}" alt="Logo da Empresa" width="60" height="60" class="d-none d-md-block"></a>
+            <a href="{{route('site.index')}}"> <img src="{{asset("img/capacete.png")}}" alt="Logo da Empresa" width="60" height="60" class="d-none d-md-block"></a>
             <span class="company-name ms-2 company-name-mobile">ConstruAdmin</span>
             <span class="separator d-none d-md-block">|</span>
             <span class="portal-name ms-2 d-none d-md-block" style="color: white;">Portal da Empresa</span>
@@ -56,7 +56,7 @@
                 <li class="nav-item dropdown">
                     <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0 d-flex align-items-center">
                         {{--Imagem do Usuario--}}
-                        <img src="{{url("img/avatar.png")}}" class="avatar img-fluid rounded " alt="">
+                        <img src="{{asset("img/avatar.png")}}" class="avatar img-fluid rounded " alt="">
                         {{--Nome do usuario--}}
                         <span class="company-name ms-2 d-none d-md-block">
                             @if (Auth::check())
