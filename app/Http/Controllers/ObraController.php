@@ -4,7 +4,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\obras;
+use App\Models\Obras;
 use App\Services\ExceptionHandlerService;
 use App\Services\ObraService;
 use Illuminate\Validation\Rule;
