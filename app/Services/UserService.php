@@ -6,16 +6,16 @@ use App\Models\Usuario;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
-use App\Services\telefoneService;
+
 
 class UserService
 {
-    protected $telefoneService;
+
     protected $exceptionHandler;
 
-    public function __construct(TelefoneService $telefoneService, ExceptionHandlerService $exceptionHandler)
+    public function __construct(ExceptionHandlerService $exceptionHandler)
     {
-        $this->telefoneService = $telefoneService;
+
         $this->exceptionHandler = $exceptionHandler;
     }
 
@@ -66,10 +66,6 @@ class UserService
         }
 
 
-        //Criar Telefone
-        $this->telefoneService->CriarTelefones($usuario, $request);
-
-
         DB::commit();
 
         return $usuario;
@@ -96,7 +92,7 @@ class UserService
         // Atualiza os dados do usuário
         $usuario->update($usuarioAtualizado);
 
-        $this->telefoneService->AtualizarTelefones($usuario, $dados);
+
 
         // Confirma a transação se tudo estiver correto
         DB::commit();
