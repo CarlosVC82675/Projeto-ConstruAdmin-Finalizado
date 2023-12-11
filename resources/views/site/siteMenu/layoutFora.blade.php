@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     {{--CSS--}}
-    <link rel="stylesheet" href="{{ asset('css/layoutFora.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/layoutFora.css') }}">
     {{--boostrap--}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     {{--Font awesome Icon--}}
@@ -34,7 +34,7 @@
 
         <!-- Logo da empresa -->
         <div class="navbar-brand d-flex align-items-center">
-            <a href="{{route('site.index')}}"> <img src="{{asset("img/capacete.png")}}" alt="Logo da Empresa" width="60" height="60" class="d-none d-md-block"></a>
+            <a href="{{route('site.index')}}"> <img src="{{secure_asset("img/capacete.png")}}" alt="Logo da Empresa" width="60" height="60" class="d-none d-md-block"></a>
             <span class="company-name ms-2 company-name-mobile">ConstruAdmin</span>
             <span class="separator d-none d-md-block">|</span>
             <span class="portal-name ms-2 d-none d-md-block" style="color: white;">Portal da Empresa</span>
@@ -56,7 +56,7 @@
                 <li class="nav-item dropdown">
                     <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0 d-flex align-items-center">
                         {{--Imagem do Usuario--}}
-                        <img src="{{asset("img/avatar.png")}}" class="avatar img-fluid rounded " alt="">
+                        <img src="{{secure_asset("img/avatar.png")}}" class="avatar img-fluid rounded " alt="">
                         {{--Nome do usuario--}}
                         <span class="company-name ms-2 d-none d-md-block">
                             @if (Auth::check())
@@ -161,7 +161,7 @@
 
         </div>
     </div>
-    <script src="{{asset('js/layoutFora.js')}}"></script>
+    <script src="{{secure_asset('js/layoutFora.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
