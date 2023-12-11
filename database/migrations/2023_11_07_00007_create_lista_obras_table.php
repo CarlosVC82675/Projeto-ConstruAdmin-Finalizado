@@ -19,9 +19,8 @@ return new class extends Migration
             //Chave estrangeira de usuarios
             $table->unsignedBigInteger('Usuario_idUsuario');
 
-            $table->foreign('Obras_idObras')->references('idObras')->on('obras');
-            $table->foreign('Usuario_idUsuario')->references('idUsuario')->on('usuarios');
-
+            $table->foreign('Obras_idObras')->references('idObras')->on('obras')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('Usuario_idUsuario')->references('idUsuario')->on('usuarios')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

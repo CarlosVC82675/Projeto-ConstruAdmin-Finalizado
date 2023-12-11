@@ -14,11 +14,10 @@ return new class extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id('idUsuario');
-
              //Chave estrangeira de estoque
             $table->unsignedBigInteger('Estoque_idEstoque');
             $table->foreign('Estoque_idEstoque')->references('idEstoque')->on('estoque');
-            $table->string('password');
+            $table->string('password')->unique();
             $table->string('name')->nullable(false);
             $table->string('lastName')->nullable();
             $table->enum('genero',['FEMININO','MASCULINO'])->nullable(false);

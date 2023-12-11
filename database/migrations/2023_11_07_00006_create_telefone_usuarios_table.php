@@ -12,11 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('telefone_usuarios', function (Blueprint $table) {
-            $table->bigInteger('telefone')->nullable(false);
-
-            //Chave estrangeira de usuarios
+            $table->char('telefone',50)->nullable(false)->unique();
             $table->unsignedBigInteger('Usuarios_idUsuario');
-            $table->foreign('Usuarios_idUsuario')->references('idUsuario')->on('usuarios');
+            $table->foreign('Usuarios_idUsuario')->references('idUsuario')->on('usuarios')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
