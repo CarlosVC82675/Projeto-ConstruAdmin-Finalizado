@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\obras;
+use App\Models\Obras;
 use App\Models\Usuario;
 use App\Services\ExceptionHandlerService;
 use App\Models\Materiais_Estoque;

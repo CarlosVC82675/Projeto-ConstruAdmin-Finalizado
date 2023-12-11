@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Atividades;
 use App\Models\Comentarios;
-use App\Models\Obra;
 use App\Models\usuarios;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -15,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Models\AtribuicaoUsuario;
 use App\Models\card_atividades;
-use App\Models\obras;
+use App\Models\Obras;
 use App\Models\Usuario;
 use Illuminate\Validation\ValidationException;
 use App\Services\UserService;

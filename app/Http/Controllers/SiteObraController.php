@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\obras;
+use App\Models\Obras;
 use App\Services\ObraService;
 use App\Models\Atividades;
 use App\Models\Usuario;
