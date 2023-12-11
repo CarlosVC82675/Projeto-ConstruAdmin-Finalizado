@@ -24,7 +24,7 @@ $table->unsignedBigInteger('Atividade_idAtividade');
 
 
 $table->foreign('Usuarios_idUsuario')->references('idUsuario')->on('usuarios')->onDelete('cascade');
-$table->foreign('Atividade_idAtividade')->references('idAtividade')->on('Atividade')->onDelete('cascade');
+$table->foreign('Atividade_idAtividade')->references('idAtividade')->on('atividade')->onDelete('cascade');
 
 
 
