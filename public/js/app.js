@@ -214,7 +214,7 @@ $(document).ready(function() {
 
 
       $.ajax({
-          url: 'https://' + window.location.host + $(this).attr('action'),
+          url: 'https://' + window.location.host + '/' + $(this).attr('action'),
           type: 'POST',
           data: formData,
           contentType: false,
