@@ -77,7 +77,13 @@
                                 <th scope="row">{{$usuario->idUsuario}}</th>
                                 <td>{{$usuario->name}}</td>
                                 <td>{{$usuario->lastName}}</td>
-                                <td>{{ $usuario->telefones()->first()->telefone}}</td>
+                                <td>
+                                    @if($usuario->telefones()->exists())
+                                        {{ $usuario->telefones()->first()->telefone }}
+                                    @else
+                                        Nenhum telefone registrado
+                                    @endif
+                                </td>
                                 <td>{{$usuario->genero}}</td>
                                 <td>{{$usuario->getRoleNames()->first()}}</td>
                                 <td>
@@ -141,7 +147,13 @@
                                 <th scope="row">{{$usuario->idUsuario}}</th>
                                 <td>{{$usuario->name}}</td>
                                 <td>{{$usuario->lastName}}</td>
-                                <td>{{ $usuario->telefones()->first()->telefone}}</td>
+                                <td>
+                                    @if($usuario->telefones()->exists())
+                                        {{ $usuario->telefones()->first()->telefone }}
+                                    @else
+                                        Nenhum telefone registrado
+                                    @endif
+                                </td>
                                 <td>{{$usuario->genero}}</td>
                                 <td>
                                     {{ optional($usuario->obras()->first())->nome ?? 'Nenhuma' }}
