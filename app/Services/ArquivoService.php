@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\arquivo;
+use App\Models\Arquivo;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 
@@ -63,7 +63,7 @@ class ArquivoService
         } catch (\Exception $exception) {
             $this->exceptionHandler->handleException($exception);
         }
-        
+
     }
 
     public function buscarArquivoId($id)
@@ -76,5 +76,5 @@ class ArquivoService
         }
     }
 
-    
+
 }
