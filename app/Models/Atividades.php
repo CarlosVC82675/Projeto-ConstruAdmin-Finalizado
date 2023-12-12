@@ -25,7 +25,7 @@ class Atividades extends Model
 
     public function usuarios()
     {
-        return $this->belongsToMany(usuario::class, 'lista_atividade', 'Atividade_idAtividade', 'Usuarios_idUsuario');
+        return $this->belongsToMany(Usuario::class, 'lista_atividade', 'Atividade_idAtividade', 'Usuarios_idUsuario');
     }
     public function card()
     {
