@@ -214,7 +214,7 @@ $(document).ready(function() {
 
 
       $.ajax({
-          url: 'https://' + window.location.host + '/' + $(this).attr('action'),
+          url: '/Atividade/Criar_Atividade',
           type: 'POST',
           data: formData,
           contentType: false,
