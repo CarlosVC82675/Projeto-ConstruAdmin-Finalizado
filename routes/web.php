@@ -92,7 +92,7 @@ ROUTE::GET('Atividade/Kanban_atividades/{id}',[SiteObraController::class,'Kanban
 //KANBAN ATIVIDADE CHECKED ( PASSE PRIMEIRO PARA ESSE O DIRETO E O DIRETO PASSA PARA ESSE AQUI)
 ROUTE::GET('Atividade/Listar_Atividade/{id}',[AtividadesController::class,'Listar_ATV_Obra'])->name('Atividade.Listar');
 //CRIAR ATIVIDADE
-ROUTE::POST('Atividade/Criar_Atividade',[AtividadesController::class,'adicionarAtividade'])->name('Atividade.Criar');
+ROUTE::POST('/Atividade/Criar_Atividade',[AtividadesController::class,'adicionarAtividade'])->name('Atividade.Criar');
 //ATUALIZAR ATIVIDADE
 ROUTE::PUT('Atividade/Atualizar_Atividade/{idAtividade}',[AtividadesController::class,'atualizarAtividade'])->name('Atividade.Atualizar');
 //DELETAR ATIVIDADE
