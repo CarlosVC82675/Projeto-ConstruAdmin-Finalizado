@@ -42,7 +42,7 @@ class AtividadesController extends Controller
    $cardAtividade = card_atividades::where('Obras_idObras', $idobra)
    ->with([
        'atividade' => function ($query) {
-           $query->with(['usuarios.roles', 'usuarios.comentarios']);
+           $query->with(['usuarios.roles', 'usuarios.Comentarios']);
        }
    ])
    ->get();
