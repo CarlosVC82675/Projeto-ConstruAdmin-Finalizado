@@ -72,7 +72,7 @@
 
                                 @foreach ($usuariosDaObra->take($limiteUsuarios) as $usuario)
                                     <li class="list-group-item d-flex align-items-center">
-                                        <img src="{{ url('img/avatar.png') }}" class="rounded-circle me-3" width="50" height="50" alt="Foto do Usuário">
+                                        <img src="{{ secure_asset('img/avatar.png') }}" class="rounded-circle me-3" width="50" height="50" alt="Foto do Usuário">
                                         <div>
                                             <h5>{{ $usuario->name }}</h5>
                                             <p>{{ $usuario->genero }}</p>

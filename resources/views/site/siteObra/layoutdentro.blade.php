@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="stylesheet" href="{{url('css/layoutDentro.css')}}">
-    <link rel="stylesheet" href="{{url('css/layoutFora.css')}}">
+    <link rel="stylesheet" href="{{secure_asset('css/layoutDentro.css')}}">
+    <link rel="stylesheet" href="{{secure_asset('css/layoutFora.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://kit.fontawesome.com/3117251fc7.js" crossorigin="anonymous"></script>
@@ -27,7 +27,7 @@
 
     <!-- Logo da empresa -->
     <div class="navbar-brand d-flex align-items-center">
-        <a href="{{route('site.index')}}"> <img src="{{url("img/capacete.png")}}" alt="Logo da Empresa" width="60" height="60" class="d-none d-md-block"></a>
+        <a href="{{route('site.index')}}"> <img src="{{secure_asset("img/capacete.png")}}" alt="Logo da Empresa" width="60" height="60" class="d-none d-md-block"></a>
         <span class="company-name ms-2 company-name-mobile">ConstruAdmin</span>
         <span class="separator d-none d-md-block">|</span>
         <span class="portal-name ms-2 d-none d-md-block">{{$obra->nome}}</span>
@@ -44,7 +44,7 @@
             <li class="nav-item dropdown">
                 <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0 d-flex align-items-center">
                     {{--Imagem do Usuario--}}
-                    <img src="{{url("img/avatar.png")}}" class="avatar img-fluid rounded " alt="">
+                    <img src="{{secure_asset("img/avatar.png")}}" class="avatar img-fluid rounded " alt="">
                     {{--Nome do usuario--}}
                     <span class="company-name ms-2 d-none d-md-block">
                         @if (Auth::check())
@@ -132,7 +132,7 @@
         @endif
         {{--Fim das Mensagens--}}
 
-        
+
     @yield('conteudo')
 
 

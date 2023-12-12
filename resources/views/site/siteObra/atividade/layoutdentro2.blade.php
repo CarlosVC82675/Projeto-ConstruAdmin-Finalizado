@@ -5,7 +5,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}">
 
 
 </head>
@@ -22,7 +22,7 @@
 
     <!-- Logo da empresa -->
     <div class="navbar-brand d-flex align-items-center">
-        <a href="{{route('site.index')}}"> <img src="{{url("img/capacete.png")}}" alt="Logo da Empresa" width="60" height="60" class="d-none d-md-block"></a>
+        <a href="{{route('site.index')}}"> <img src="{{secure_asset("img/capacete.png")}}" alt="Logo da Empresa" width="60" height="60" class="d-none d-md-block"></a>
         <span class="company-name ms-2 company-name-mobile">ConstruAdmin</span>
         <span class="separator d-none d-md-block">|</span>
         <span class="portal-name ms-2 d-none d-md-block">{{$obra->nome}}</span>
@@ -39,7 +39,7 @@
             <li class="nav-item dropdown">
                 <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0 d-flex align-items-center">
                     {{--Imagem do Usuario--}}
-                    <img src="{{url("img/avatar.png")}}" class="avatar img-fluid rounded " alt="">
+                    <img src="{{secure_asset("img/avatar.png")}}" class="avatar img-fluid rounded " alt="">
                     {{--Nome do usuario--}}
                     <span class="company-name ms-2 d-none d-md-block">
                         @if (Auth::check())

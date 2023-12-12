@@ -706,7 +706,7 @@ data-mdb-target="#staticBackdrop"
 <!-- SCRIPTS DE THAUAN -->
 
 
-<script type="module"  src="{{ asset('js/app.js') }}"></script>
+<script type="module"  src="{{ secure_asset('js/app.js') }}"></script>
 
 
 

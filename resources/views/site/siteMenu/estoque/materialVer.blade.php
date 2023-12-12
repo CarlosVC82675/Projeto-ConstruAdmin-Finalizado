@@ -1,6 +1,6 @@
 @extends('site.siteMenu.layoutFora')
 @section('conteudo')
-<link rel="stylesheet" href="{{url('css/materialVER.css')}}">
+<link rel="stylesheet" href="{{secure_asset('css/materialVER.css')}}">
     <div style="padding: 25px">
         <div class="container mt-5">
             <h2><i class="fa-solid fa-box"></i></i> Materiais estocados</h2>
@@ -205,5 +205,5 @@
         </div>
     </div>
     <x-modal-cadastro-materiais/>
-    <script src="{{url("js/modalMaterias.js")}}"></script>
+    <script src="{{secure_asset("js/modalMaterias.js")}}"></script>
 @endsection

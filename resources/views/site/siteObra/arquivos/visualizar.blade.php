@@ -11,7 +11,7 @@
 </head>
 <body >
     <div class="container d-flex justify-content-center align-items-center mt-5">
-    <img class="img-fluid" src="{{ url("storage/{$arquivo->caminho}") }}" alt="">
+    <img class="img-fluid" src="{{ secure_asset("storage/{$arquivo->caminho}") }}" alt="">
 </div>
 </body>
 </html>

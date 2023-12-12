@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                             <div class="col-4 align-self-end text-end d-none d-md-block">
-                                <img src="{{url("img/gerenciarUsuarios.png")}}" class="img-fluid illustration-img" alt="">
+                                <img src="{{secure_asset("img/gerenciarUsuarios.png")}}" class="img-fluid illustration-img" alt="">
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                         <li><hr class="dropdown-divider"></li>
                         <li><a href="#" class="dropdown-item">Consultar</a></li>
                     </ul>
-            
+
                 </div>
             </div>
             <div class="card-body">
