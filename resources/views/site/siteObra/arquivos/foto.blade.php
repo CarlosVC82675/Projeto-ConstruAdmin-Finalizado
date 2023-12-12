@@ -1,4 +1,4 @@
-@extends('site.siteObra.layoutDentro')
+@extends('site.siteObra.layoutdentro')
 @section('title','Fotos')
 
 @section('conteudo')
@@ -15,7 +15,7 @@
     @csrf
     <input type="hidden" name="Obras_IdObras" value="{{$obra->idObras}}">
     <input type="hidden" name="tipo" value="1">
-    
+
     <div class="col-md-6">
       <label  class="form-label">O nome da sua foto</label>
       <input type="text" name="nome" class="form-control" id="" required>
@@ -29,7 +29,7 @@
         </div>
 
 </form>
-  
+
 
 
 
@@ -41,32 +41,32 @@
         <p>Nenhum Projeto Encontrado</p>
         @else
 
-    
+
     <div class="container mt-4">
         <h1 class="display-1 text-center mb-4"><strong>Suas Fotos</strong></h1>
         <div class="row">
             @foreach ($arquivos as $arquivo)
             @if($arquivo->tipo == 1)
-            
+
         <div class="col-sm-12 col-md-6 col-lg-4">
             <h3 class="text-center">{{$arquivo->nome}} </h3>
         <img class="img-fluid object-fit-xxl-contain mb-4 shadow rounded" src="{{ url("storage/{$arquivo->caminho}") }}"  id="reco"  alt="imagem 01" >
-       
+
         <div class="row d-flex justify-content-between">
 
             <div class="col-4">
                 <form class="form-group" method="post" enctype="multipart/form-data" action="{{route('arquivo.visualizar',['ida'=>$arquivo->idArquivo])}}">
                 @csrf
                 @method('get')
-                <button type="submit" class="btn btn-primary">Visualizar</button>   
+                <button type="submit" class="btn btn-primary">Visualizar</button>
                 </form>
-            </div>   
-       
+            </div>
+
         <div class="col-4">
             <form class="form-group" method="post" enctype="multipart/form-data" action="{{route('arquivo.download',['ida'=>$arquivo->idArquivo])}}">
             @csrf
             @method('get')
-            <button type="submit" class="btn btn-primary">Download</button>   
+            <button type="submit" class="btn btn-primary">Download</button>
             </form>
         </div>
 
@@ -84,10 +84,10 @@
         </div>
         @endif
         @endforeach
-     
+
         </div>
     </div>
-        
+
 
 
         @endif

@@ -652,7 +652,7 @@ $(document).ready(function(){
 $('#Delete_card_Button').on('click', function(){
 
   var idCard = $(this).data('card');
-  var idobra = $(this).data('idobra');
+  var idobra = $(this).data('obra');
   var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
 

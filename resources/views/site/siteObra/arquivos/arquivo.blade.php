@@ -1,4 +1,4 @@
-@extends('site.siteObra.layoutDentro')
+@extends('site.siteObra.layoutdentro')
 @section('title','Arquivos')
 @section('conteudo')
 
@@ -17,7 +17,7 @@
     @csrf
     <input type="hidden" name="Obras_IdObras" value="{{$obra->idObras}}">
     <input type="hidden" name="tipo" value="2">
-    
+
     <div class="col-md-6">
       <label  class="form-label">O nome do seu arquivo</label>
       <input type="text" name="nome" class="form-control" id="" required>
@@ -74,24 +74,24 @@
                     <button class="btn btn-danger" style="width:  6.4rem !important" type="submit">deletar</button>
                     @endif
                 </form>
-              
+
                 </div>
-            
+
             </div>
 
             </td>
 
           </tr>
-        
+
         </tbody>
         @endif
         @endforeach
       </table>
-   
+
     </div>
 
 
-            
+
 @endif
 
 
