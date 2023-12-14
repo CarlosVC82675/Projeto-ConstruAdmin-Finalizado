@@ -268,7 +268,7 @@ data-mdb-target="#staticBackdrop"
                 <button type="button" class="d-flex flex-row-reverse align-items-center justify-content-center  btn btn-danger Delete_card_Button"
                 style="width: 2vh;height:3vh"
                 data-card="{{$card->idCard}}"
-                data-obra="{{$obra->idobra}}"
+                data-obra="{{$idobra}}"
                 id="Delete_card_Button">
                 <i class="fas fa-trash-can"></i>
                 </button>

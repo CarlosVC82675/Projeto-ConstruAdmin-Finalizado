@@ -657,7 +657,7 @@ $('#Delete_card_Button').on('click', function(){
 
 
   $.ajax({
-    url: '/Card/Atividade/Deletar/' + idCard+ '/' + 1,
+    url: '/Card/Atividade/Deletar/' + idCard+ '/' + idobra,
     type: 'DELETE',
     headers: {
       'X-CSRF-TOKEN': csrfToken
