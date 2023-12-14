@@ -50,7 +50,7 @@
 
         <div class="col-sm-12 col-md-6 col-lg-4">
             <h3 class="text-center">{{$arquivo->nome}} </h3>
-        <img class="img-fluid object-fit-xxl-contain mb-4 shadow rounded" src="{{ asset("storage/xkkB7WA0IEeCTo36xGSO4ctubYVFhGJ3Soi85rA2.png") }}"  id="reco"  alt="imagem 01" >
+        <img class="img-fluid object-fit-xxl-contain mb-4 shadow rounded" src="{{ asset("storage/arquivo/xkkB7WA0IEeCTo36xGSO4ctubYVFhGJ3Soi85rA2.png") }}"  id="reco"  alt="imagem 01" >
 
         <div class="row d-flex justify-content-between">
 
