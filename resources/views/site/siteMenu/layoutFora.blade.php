@@ -141,12 +141,12 @@
                 {{ session('error') }}
             </div>
             @endif
-
-            @if(session('error'))
+            
+            @if(is_string(session('error')))
             <div class="alert alert-danger">
                 {{ session('error') }}
             </div>
-            @endif
+        @endif
 
             @if(session('error') && isset(session('error')['code']))
             <div class="alert alert-danger">
