@@ -38,8 +38,8 @@
                 <div class="col-md-4">
                     <label class="form-label">Sexo</label>
                     <select class="form-select" aria-label="Default select example"  name="genero">
-                    <option value="Masculino">Masculino</option>
-                    <option value="Feminino">Feminino</option>
+                    <option value="MASCULINO">Masculino</option>
+                    <option value="FEMININO">Feminino</option>
                     </select>
                 </div>
 
