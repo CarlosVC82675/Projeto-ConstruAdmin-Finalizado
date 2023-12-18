@@ -463,3 +463,8 @@ h4 {
     display: flex;
     justify-content: center;
 }
+
+.navbar {
+    --mdb-navbar-box-shadow: none!important;
+    /* PORRINHA QUE REMOVE A SOMBRA DO MDB NAV */
+}
