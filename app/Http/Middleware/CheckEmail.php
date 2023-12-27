@@ -15,7 +15,7 @@ class CheckEmail
      */
     public function handle(Request $request, Closure $next): Response
     {
-      
+
         if(!auth()->check()){
             return redirect('login.form');
         }
@@ -30,7 +30,7 @@ class CheckEmail
         $servidorEmail = $data[1];
 
         if($servidorEmail != 'gmail.com' && $servidorEmail != 'outlook.com'){
-            return redirect(route('login.form'));
+            return redirect()->back()->with('error', 'Esse tipo de Email não pode ser utilizado em nossos servidores')->withInput();
         }
 
         //se nao entra em nenhum if, ele vai proceder com a solicitação

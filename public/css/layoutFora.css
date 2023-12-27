@@ -273,5 +273,12 @@ h4 {
     }
 }
 
+@media (max-width: 850px) {
+    #usuariocard {
+        display: none !important;
+    }
+}
 
-
+.destacar-usuario {
+    font-weight: bold; /* Texto em negrito para destacar */
+}

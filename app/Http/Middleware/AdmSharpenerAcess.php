@@ -6,11 +6,11 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Usuario;
 
 
-class NA2Middleware
-{   //NIVEL DE ACESSO 2, PARA APONTADORES, ENGENHEIROS E EMPREITEIROS E ACIMA
-
+class AdmSharpenerAcess
+{
     /**
      * Handle an incoming request.
      *
@@ -18,12 +18,16 @@ class NA2Middleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!Auth::check()) {
+            // Redirecionar se o usuário não estiver autenticado
+            return redirect()->route('login.form');
+        }
 
-        $NiveisDeAcesso = [1, 2, 3, 4];
+        $usuario = Usuario::find(Auth::id());
 
         //in_array: verificar se os valores existem
         //ou seja, se nao tive os valores que estao presentes no array NiveisDeAcesso
-        if(Auth::check() && !in_array(Auth::user()->atribuicao_Usuario_id_Atribuicao, $NiveisDeAcesso)){
+        if (!$usuario || !$usuario->hasRole('Administrador') && !$usuario->hasRole('Apontador')) {
             return redirect()->back()->with('error','Acesso não autorizado.');
         }
         return $next($request);

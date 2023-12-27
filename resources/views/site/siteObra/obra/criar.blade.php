@@ -64,8 +64,6 @@
                         <form action="{{ route('funcionario.associar') }}" id="formAssociando" method="POST"
                             enctype="multipart/form-data">
                             @csrf
-
-
                             <h2>Selecione os funcionários para essa obra:</h2>
                             <select name="usuarios[]" multiple class="form-select" multiple
                                 aria-label="multiple select example">>
@@ -78,6 +76,12 @@
                                 @foreach ($usuarios as $usuario)
                                     @if ($usuario->hasRole('Engenheiro'))
                                         <option value="{{ $usuario->idUsuario }}">Engenheiro: {{ $usuario->name }}
+                                        </option>
+                                    @endif
+                                @endforeach
+                                @foreach ($usuarios as $usuario)
+                                    @if ($usuario->hasRole('Comum'))
+                                        <option value="{{ $usuario->idUsuario }}">Comum: {{ $usuario->name }}
                                         </option>
                                     @endif
                                 @endforeach

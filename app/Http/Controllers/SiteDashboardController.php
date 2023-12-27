@@ -33,7 +33,7 @@ class SiteDashboardController extends Controller
     {
         $usuarios = Usuario::whereDoesntHave('obras')->get();
 
-        $supervisores = UserService::filtrarFunções('Supevisor');
+        $supervisores = UserService::filtrarFunções('Supervisor');
 
         $apontadores = UserService::filtrarFunções('Apontador');
 

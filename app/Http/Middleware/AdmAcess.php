@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Usuario;
 
-class NA0Middleware
+class AdmAcess
 {
-    //NIVEL DE ACESSO 0, SOMENTE PARA ADM
+
     /**
      * Handle an incoming request.
      *
@@ -22,7 +22,7 @@ class NA0Middleware
             // Redirecionar se o usuário não estiver autenticado
             return redirect()->route('login.form');
         }
-
+        
         $usuario = Usuario::find(Auth::id());
         if (!$usuario || !$usuario->hasRole('Administrador')) {
             return redirect()->back()->with('error','Voce não tem Permissão para Fazer isso!');

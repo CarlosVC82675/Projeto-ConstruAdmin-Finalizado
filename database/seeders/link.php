@@ -12,11 +12,15 @@ class link extends Seeder
      */
     public function run(): void
     {
-    
-        // Executa o comando php artisan storage:link
-        Artisan::call('storage:link');
+        // Verifica se o link simbólico já existe
+        if (!file_exists(public_path('storage'))) {
+            // Se não existir, executa o comando para criar o link simbólico
+            Artisan::call('storage:link');
+            $this->command->info('O link simbólico foi criado.');
+        } else {
+            $this->command->info('O link simbólico já existe.');
+        }
 
         // Restante do código do seeder
     }
-    }
-
+}

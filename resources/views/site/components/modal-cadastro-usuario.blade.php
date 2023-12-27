@@ -23,6 +23,7 @@
             <div class="col-md-4">
                 <label class="form-label">Nº Acesso</label>
                 <select class="form-select" aria-label="Default select example" name="atribuicao">
+                <option value="1">Administrador</option>
                 <option value="2">Supervisor</option>
                 <option value="3">Apontador</option>
                 <option value="4">Engenheiro</option>
@@ -45,16 +46,16 @@
 
                 <div class="col-md-3">
                     <label class="form-label">CEP</label>
-                    <input type="text" class="form-control" name="cep" placeholder="Digite seu CEP" required>
+                    <input type="text" class="form-control cep" name="cep" id="cep" oninput="buscarCEP()" placeholder="Digite seu CEP" required>
                 </div>
 
                   <div class="col-md-6">
                     <label class="form-label">Cidade</label>
-                    <input type="text" class="form-control" name="cidade" placeholder="Digite sua cidade" required>
+                    <input type="text" class="form-control" name="cidade" id="cidade" placeholder="Digite sua cidade" required>
                   </div>
                   <div class="col-md-3">
                     <label class="form-label">UF</label>
-                    <input type="text" class="form-control" name="estado" placeholder="Digite seu estado" required>
+                    <input type="text" class="form-control" name="estado"  id="uf" placeholder="Digite seu estado" required>
                   </div>
 
                   <div class="col-md-4">
@@ -63,20 +64,20 @@
                   </div>
                   <div class="col-md-4">
                     <label class="form-label">CPF</label>
-                    <input type="text" class="form-control" name="cpf" placeholder="Digite seu CPF" required>
+                    <input type="text" class="form-control" name="cpf" id="cpf" placeholder="Digite seu CPF" required>
                   </div>
                   <div class="col-md-4">
                     <label  class="form-label">Telefone</label>
-                    <input type="text"  class="form-control" name="telefone1" placeholder="Digite seu telefone" required>
+                    <input type="text"  class="form-control telefoneFixo" name="telefone1" placeholder="Digite seu telefone" required>
                   </div>
                   <div class="col-md-4">
                     <label  class="form-label">Celular</label>
-                    <input type="text"  class="form-control" name="telefone2" placeholder="Digite seu Celular" required>
+                    <input type="text"  class="form-control telefoneMovel" name="telefone2" placeholder="Digite seu Celular" required>
                   </div>
 
                   <div class="col-md-4">
                     <label class="form-label">Telefone Reserva</label>
-                    <input type="text"  class="form-control" name="telefone3" placeholder="Digite seu telefone">
+                    <input type="text"  class="form-control telefoneMovel" name="telefone3" placeholder="(De preferencia Celular)">
                   </div>
 
                 <div class="col-12 mt-3">

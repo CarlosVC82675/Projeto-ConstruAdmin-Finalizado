@@ -26,28 +26,33 @@ class SiteObraController extends Controller
     public function dashboardDentro($idobra)
     {
 
-        $usuarios = Usuario::all();
+        $usuarios= $this->userService->buscarTodosUsuario();
+        //Busca a obra especifica
         $obra = $this->obraService->buscarObraId($idobra);
         //dd($atividades);
 
         //Dados de Usuario
+            //Busca todos os usuarios relacionados a obra
         $usuariosDaObra = $obra->usuarios;
-
         //Fim de dados do usuario
 
         //DADOS DE ATIVIDADE
+         //Via Query(Faz uma consultar direta no banco de dados)
 
+            // Recebe todas as atividades relacionadas a obra especifica se o id da atividade for igual ao id card
             $atividadesDaObra = DB::table('atividade')
             ->join('card_atividades', 'atividade.card_atividades_idCard', '=', 'card_atividades.idCard')
             ->where('card_atividades.Obras_IdObras', $idobra)
             ->get();
 
+            // Mesma coisa mais pega apenas as que ja estão feitas
             $atividadesFeitas = DB::table('atividade')
             ->join('card_atividades', 'atividade.card_atividades_idCard', '=', 'card_atividades.idCard')
             ->where('card_atividades.Obras_IdObras', $idobra)
             ->where('atividade.status', 'FINALIZADA')
             ->get();
 
+            // Mesma coisa mais pega apenas as que ja não estão feitas
             $atividadesPendentes = DB::table('atividade')
             ->join('card_atividades', 'atividade.card_atividades_idCard', '=', 'card_atividades.idCard')
             ->where('card_atividades.Obras_IdObras', $idobra)
@@ -56,9 +61,11 @@ class SiteObraController extends Controller
         //FIM DE DADOS DE ATIVIDADE
 
         //MATERIAIS
+            // pega todoas os baterias relacionados a obra especifica
              $materiaisNecessarios = $obra->materiais()->get();
              // dd($materiaisNecessarios);
 
+            // Soma a quantidade de todos os materias relacionados a obra especifica
             $totalQuantidade = $materiaisNecessarios->sum('pivot.quantidade');
 
                 // Calcular a porcentagem para cada material
@@ -78,10 +85,10 @@ class SiteObraController extends Controller
 
         //FIM DE MATERIAIS
 
-            //dd($dadosGrafico);
+        //dd($dadosGrafico);
 
-
-        return view("site.siteObra.Dashboard", compact('obra','dadosGrafico','usuariosDaObra','atividadesFeitas','atividadesPendentes','atividadesDaObra','totalQuantidade'));
+        //Retorna toda essa caralhada para o dashboard
+        return view("site.siteObra.Dashboard", compact('obra','dadosGrafico','usuariosDaObra','atividadesFeitas','atividadesPendentes','atividadesDaObra','totalQuantidade','usuarios'));
     }
 
 

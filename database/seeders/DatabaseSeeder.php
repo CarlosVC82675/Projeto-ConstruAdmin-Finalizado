@@ -15,9 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->callOnce([
             PermissionSeeder::class,
-            EstoqueSeeder::class
+            EstoqueSeeder::class,
+            link::class
         ]);
-        
+
         $this->call(UsuarioSeeder::class);
     }
 

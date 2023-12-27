@@ -14,7 +14,7 @@ class Kernel extends HttpKernel
      * @var array<int, class-string|string>
      */
     protected $middleware = [
-        // \App\Http\Middleware\TrustHosts::class,
+        \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
@@ -53,10 +53,9 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $middlewareAliases = [
-        'na0' => \App\Http\Middleware\NA0Middleware::class,
-        'na1' => \App\Http\Middleware\NA1Middleware::class,
-        'na2' => \App\Http\Middleware\NA2Middleware::class,
-        'na3' => \App\Http\Middleware\NA3Middleware::class,
+        'na0' => \App\Http\Middleware\AdmAcess::class,
+        'na1' => \App\Http\Middleware\AdmSharpenerAcess::class,
+        'checklogin' =>\App\Http\Middleware\CheckLogin::class,
         'checkemail' => \App\Http\Middleware\CheckEmail::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

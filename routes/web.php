@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 
 
 //Rota de teste para ver o layout
-
+Route::middleware('checklogin')->group(function () {
 
 //usuarios feito por Carlos
     Route::get('/usuario/view/lista',[SiteDashboardController::class, 'ViewUsuarios'])->name("usuarios.lista")->middleware('na0');
@@ -36,14 +36,6 @@ use Illuminate\Support\Facades\Route;
     Route::put('/usuario/atualizar/{id}',[UsuariosController::class, 'update'])->name("usuarios.atualizar");
     Route::delete('/usuario/deletar/{id}',[UsuariosController::class, 'destroy'])->name("usuarios.deletar");
 //fim de usuarios
-
-
-//login feito por Carlos
-    Route::get('/login',[SiteDashboardController::class, 'index'])->name('login.form');
-    Route::post('/auth',[LoginController::class, 'auth'])->name('login.auth');
-    Route::get('/logout',[LoginController::class, 'logout'])->name('login.logout');
-//fim do login
-
 
 //obras feito por Diego
     //views da obra
@@ -54,6 +46,8 @@ use Illuminate\Support\Facades\Route;
 
     //Dashboard dentro por carlos
         Route::get('/obra/{id}', [SiteObraController::class, 'dashboardDentro'])->name('obra.dashboard');
+        Route::post('/obra/associardashboard', [ListaObrasController::class, 'associarVariosUsuariosDashboard'])->name('usuarios.associar');
+        Route::post('/obra/desassociar', [ListaObrasController::class, 'desassociarVariosUsuariosDashboard'])->name('usuarios.desassociar');
     //Fim do Dashboard
 
     //Funcionalidades
@@ -107,3 +101,11 @@ ROUTE::DELETE('Card/Atividade/Deletar/{idCard}/{idobra}',[CardAtividadesControll
 //COMENTARIOS
 //CRIAR COMENTARIO
 ROUTE::POST('Atividade/Comentarios/Criar_Comentarios/{Atividadeid}/{UsuariosID}',[ComentariosController::class,'criarComentarios'])->name('Comentario.Criar');
+
+});
+
+//login feito por Carlos
+Route::get('/login',[SiteDashboardController::class, 'index'])->name('login.form');
+Route::post('/auth',[LoginController::class, 'auth'])->name('login.auth');
+Route::get('/logout',[LoginController::class, 'logout'])->name('login.logout');
+//fim do login

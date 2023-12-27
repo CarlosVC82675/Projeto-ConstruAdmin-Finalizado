@@ -1,7 +1,6 @@
 @extends('site.siteMenu.layoutFora')
 @section('conteudo')
 
-
 <main class="content px-3 py-2">
    {{--Container--}}
     <div class="container-fluid">
@@ -12,14 +11,14 @@
 
       {{--Card de Usuarios--}}
         <div class="row">
-            <div class="col-10 col-md-6 d-flex d-none d-md-block">
+            <div id="usuariocard" class="col-10 col-md-6 d-flex d-none d-md-block">
                 <div class="card flex-fill border-0 illustration">
                     <div class="card-body p-0 d-flex flex-fill">
                         <div class="row g-0 w-100">
                             <div class="col-8">
                                 <div class="p-3 m-1">
                                     <h4>Bem vindo</h4>
-                                    <p class="mb-0">Essa sessão é exclusivamente feita para fazer o gerenciamento de usuários. Se tiver dúvidas, consulte o Manual: <span>"Como gerenciar meus usuários"</span> </p>
+                                    <p class="mb-0 text-md-start" style="text-align: justify;">Essa sessão é exclusivamente feita para gerenciar usuários. Se tiver dúvidas, consulte o video abaixo:<br> <a href="{{ asset('videos/nome-do-video.mp4') }}" target="_blank"><span>"Como gerenciar meus usuários"</span> </a></p>
                                 </div>
                             </div>
                             <div class="col-4 align-self-end text-end d-none d-md-block">
@@ -29,8 +28,7 @@
                     </div>
                 </div>
             </div>
-            {{--aqui--}}
-        </div>
+
       {{--Fim do Card de Usuarios--}}
 
       {{--Tabela de Funcionarios--}}
@@ -46,27 +44,27 @@
                         <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#cadastroModal">Cadastrar</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><span class="dropdown-header">Filtrar:</span></li>
-                        <li><a href="#" class="dropdown-item">Ordem alfabética</a></li>
+                        <li><a href="#" class="dropdown-item filtro-alfabetico">Ordem alfabética</a></li>
                         <li><a href="#" class="dropdown-item">Nº Acesso</a></li>
                         <li><a href="#" class="dropdown-item">Gênero</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a href="#" class="dropdown-item">Consultar</a></li>
+                        <li><a href="#" id="btnBuscar" class="dropdown-item">Consultar</a></li>
                     </ul>
 
                 </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table id="tabelaFuncionarios" class="table">
                         <thead>
                             <tr>
                                 <th scope="col">Perfil</th>
                                 <th scope="col">Nome</th>
                                 <th scope="col">Sobrenome</th>
-                                <th scope="col">Telefone</th>
+                                <th scope="col">Contato</th>
                                 <th scope="col">Gênero</th>
                                 <th scope="col">Nº Acesso</th>
-                                <th scope="col">Relacionado</th>
+                                <th scope="col">Alocado</th>
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
@@ -74,7 +72,13 @@
                             @foreach ($usuarios as $usuario)
                             <tr>
                                 @if (!$usuario->hasRole('Cliente'))
-                                <th scope="row">{{$usuario->idUsuario}}</th>
+                                <th scope="row">
+                                    @if($usuario->genero == 'MASCULINO')
+                                    <img src="{{ secure_asset('img/avatar.png') }}" class="rounded-circle me-3" width="40" height="40" alt="Foto do Usuário">
+                                    @else
+                                    <img src="{{ secure_asset('img/avatarFeminine.png') }}" class="rounded-circle me-3" width="40" height="40" alt="Foto do Usuário">
+                                    @endif
+                                </th>
                                 <td>{{$usuario->name}}</td>
                                 <td>{{$usuario->lastName}}</td>
                                 <td>
@@ -95,7 +99,7 @@
                                         <form action="{{ route('usuarios.deletar', ['id' => $usuario->idUsuario]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-primary btn-sm me-2" onclick="return confirm('Tem certeza que deseja deletar?')">Deletar</button>
+                                            <button type="submit" class="btn btn-danger btn-sm me-2 " onclick="return confirm('Tem certeza que deseja deletar esse Usuario? o cadastro dele sera excluido tanto do sistema quanto das obras do qual ele faz parte.')">Deletar</button>
                                         </form>
                                     </div>
                                 </td>
@@ -118,23 +122,19 @@
                         Opções
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><span class="dropdown-header">Filtrar:</span></li>
-                        <li><a href="#" class="dropdown-item">Ordem alfabética</a></li>
-                        <li><a href="#" class="dropdown-item">Gênero</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a href="#" class="dropdown-item">Consultar</a></li>
+                        <li><a href="#" class="dropdown-item filtro-alfabetico2">Ordem alfabética</a></li>
                     </ul>
                 </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table id="tabelaclientes" class="table">
                         <thead>
                             <tr>
                                 <th scope="col">Perfil</th>
                                 <th scope="col">Nome</th>
                                 <th scope="col">Sobrenome</th>
-                                <th scope="col">Telefone</th>
+                                <th scope="col">Contato</th>
                                 <th scope="col">Gênero</th>
                                 <th scope="col">Relacionado</th>
                                 <th scope="col">Ações</th>
@@ -144,7 +144,13 @@
                             @foreach ($usuarios as $usuario)
                             <tr>
                                @if ($usuario->hasRole('Cliente'))
-                                <th scope="row">{{$usuario->idUsuario}}</th>
+                                <th scope="row">
+                                    @if($usuario->genero == 'MASCULINO')
+                                    <img src="{{ secure_asset('img/avatar.png') }}" class="rounded-circle me-3" width="40" height="40" alt="Foto do Usuário">
+                                    @else
+                                    <img src="{{ secure_asset('img/avatarFeminine.png') }}" class="rounded-circle me-3" width="40" height="40" alt="Foto do Usuário">
+                                    @endif
+                                </th>
                                 <td>{{$usuario->name}}</td>
                                 <td>{{$usuario->lastName}}</td>
                                 <td>
@@ -163,7 +169,7 @@
                                         <form action="{{ route('usuarios.deletar', ['id' => $usuario->idUsuario]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-primary btn-sm me-2" onclick="return confirm('Tem certeza que deseja deletar?')">Deletar</button>
+                                            <button type="submit" class="btn btn-danger btn-sm me-2" onclick="return confirm('Tem certeza que deseja deletar?')">Deletar</button>
                                         </form>
                                     </div>
                                 </td>
@@ -182,100 +188,27 @@
    {{--Fim do Container--}}
    </main>
 
+    {{--modal de cadastro--}}
+    <x-modal-visualizar-usuario />
+    {{--Fim modal de cadastro--}}
 
- {{--modal de visualizar--}}
-  <div class="modal fade" id="visualizarModal" tabindex="-1" aria-labelledby="visualizarModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="visualizarModalLabel"></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form class="row g-3" id="usuarioForm" action="" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <input type="hidden" name="Estoque_idEstoque" value="1">
-            <input type="hidden" name="password">
+    {{--modal de cadastro--}}
+    <x-modal-cadastro-usuario />
+    {{--Fim modal de cadastro--}}
 
-            <div class="col-md-4">
-                <label class="form-label">Nome</label>
-                <input type="text" class="form-control" name="name" required>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Sobrenome</label>
-                <input type="text" class="form-control" name="lastName"  required>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Nº Acesso</label>
-                <input type="text" class="form-control" name="atribuicao" readonly>
-              </div>
-            <div class="col-md-8">
-                <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email" required>
-                </div>
-            </div>
-                <div class="col-md-4">
-                    <label class="form-label">Sexo</label>
-                    <input type="text" class="form-control" name="genero" readonly>
-                </div>
+   <!-- Minimodal para inserir o termo de busca -->
+    <x-mini-modal-buscar />
 
-                <div class="col-md-3">
-                    <label class="form-label">CEP</label>
-                    <input type="text" class="form-control" name="cep" required>
-                </div>
+    {{--script CDN inputmask(formatação de valores)--}}
+    <script src="https://cdn.jsdelivr.net/npm/inputmask"></script>
+    <script src="https://cdn.jsdelivr.net/npm/inputmask/dist/inputmask.min.js"></script>
+    {{--Fim do script CDN inputmask(formatação de valores)--}}
 
-                  <div class="col-md-6">
-                    <label class="form-label">Cidade</label>
-                    <input type="text" class="form-control" name="cidade" required>
-                  </div>
-                  <div class="col-md-3">
-                    <label class="form-label">UF</label>
-                    <input type="text" class="form-control" name="estado" readonly>
-                  </div>
 
-                  <div class="col-md-4">
-                    <label class="form-label">Cidadania</label>
-                    <input type="text" class="form-control" name="pais" readonly>
-                  </div>
-                  <div class="col-md-4">
-                    <label class="form-label">CPF</label>
-                    <input type="password" class="form-control" name="cpf" readonly>
-                  </div>
-                  <div class="col-md-4">
-                    <label class="form-label">Telefone</label>
-                    <input type="text"  class="form-control" name="telefone1" required>
-                  </div>
-                  <div class="col-md-4">
-                    <label class="form-label">Celular</label>
-                    <input type="text"   class="form-control" name="telefone2" required>
-                  </div>
 
-                  <div class="col-md-4">
-                    <label class="form-label">Telefone Reserva</label>
-                    <input type="text"   class="form-control" name="telefone3">
-                  </div>
+    <script src="{{secure_asset('js/viewUsuario.js')}}"></script>
 
-                <div class="col-12 mt-3">
-                    <hr>
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-secondary custom-btn me-2" data-bs-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Atualizar</button>
-                    </div>
-                </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
- {{--Fim modal de visualizar--}}
 
- {{--modal de cadastro--}}
-   <x-modal-cadastro-usuario />
- {{--Fim modal de cadastro--}}
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
 @endsection

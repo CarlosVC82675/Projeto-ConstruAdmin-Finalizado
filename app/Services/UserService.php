@@ -24,7 +24,6 @@ class UserService
         return Usuario::all();
     }
 
-
     public function buscarUsuarioPorId($Id)
     {
         try{
@@ -35,13 +34,10 @@ class UserService
         }
     }
 
-
     public function criarUsuario($request)
     {
         try{
             DB::beginTransaction();
-
-
         //Filtrar Dados
         $usuarioData = $request->except('telefone1', 'telefone2', 'telefone3', 'atribuicao');
         $usuarioData['password'] = bcrypt($usuarioData['cpf']);
@@ -79,12 +75,10 @@ class UserService
         }
     }
 
-
     public function atualizarUsuario($usuario, $dados)
     {
         //FiltrarDados
         $usuarioAtualizado = $dados->except('telefone1', 'telefone2', 'telefone3', 'atribuicao');
-
         try{
         // Início da transação
         DB::beginTransaction();
@@ -106,7 +100,6 @@ class UserService
         }
 
     }
-
 
     public function deletarUsuario($idusuario)
     {
@@ -131,47 +124,10 @@ class UserService
 
     }
 
-
-    public function buscarUsuarioPorNome($nomeCompleto){
-        $partesNome = explode(' ', $nomeCompleto);
-
-        if (isset($partesNome[1])) {
-        $nome = $partesNome[0];
-        $sobrenome = $partesNome[1];
-        }else{
-            $nome = $partesNome[0];
-            $sobrenome = null;
-        }
-
-        try{
-            $query  = Usuario::where('name', 'LIKE', "%$nome%");
-            if($sobrenome !== null){
-                $query ->where('lastName', 'LIKE', "%$sobrenome%");
-            }
-
-            $usuario = $query->first();
-            return $usuario;
-
-        } catch (\Exception $exception) {
-             //dd($exception->getMessage()); feito para ver possiveis erros
-            $this->exceptionHandler->handleException($exception);
-        }
-
-    }
-
-
-    public static function roles(){
-        return Role::all();
-    }
-
-
     public function rolesUsuario($id){
-
        $usuario = $this->buscarUsuarioPorId($id);
        return $usuario->getRoleNames();
-
     }
-
 
     public static function filtrarFunções($Função){
 
@@ -186,11 +142,8 @@ class UserService
         return $usuariosFiltrado;
     }
 
-
     public function VerificarPermissao($permissao){
-
-    $usuario = Usuario::find(Auth::id());
-
+        $usuario = Usuario::find(Auth::id());
         if ($usuario->hasPermissionTo($permissao)) {
             return true;
         } else {

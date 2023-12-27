@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('estado')->nullable();
             $table->string('email')->unique()->nullable(false);
             $table->timestamps();
-
+            $table->rememberToken();
         });
     }
 

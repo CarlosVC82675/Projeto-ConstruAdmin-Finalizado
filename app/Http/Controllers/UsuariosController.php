@@ -23,109 +23,122 @@ class UsuariosController extends Controller
 
     public function store(Request $request)
     {
-        if($this->userService->VerificarPermissao('Usuario')){
-            //Validação
-            $this->validaçãoUsuario($request);
-            try {
-            //Criando Usuario
-            $this->userService->criarUsuario($request);
-            } catch (\Exception $e) {
-                $errorMessage = $e->getMessage(); // Isso obtém a mensagem da exceção
-                $errorCode = $e->getCode(); // Isso obtém o código da exceção
+        //Tecnica de retorno antecipado;
 
+        // Verificação de Permissão (Controle de acesso)
+        if (!$this->userService->VerificarPermissao('Usuario')) {
+            // Caso não tenha permissão (Controle de Acesso)
+            return redirect()->back()->with('error', 'Você não tem Permissão para Fazer isso!');
+        }
+            //Validação de dados(Função auxiliar)
+             $this->validaçãoUsuario($request);
+
+            try {
+            //Criando Usuario(Fluxo Principal)
+            $this->userService->criarUsuario($request);
+
+            } catch (\Exception $e) {
+            //Tratamento de Erros(Fluxo altenativo)
+                $errorMessage = $e->getMessage(); // pega a mensagem da exceção
+                $errorCode = $e->getCode(); // pega o código da exceção
                 $errorData = [
                     'message' => $errorMessage ?? 'Erro desconhecido.',
                     'code' => $errorCode ?? 'Desconhecido'
                 ];
+                //Retornando o Erro(Fluxo altenativo)
                 return redirect()->back()->with('error', $errorData)->withInput();
             }
+            //Caso esteja tudo Certo, Retornando Com sucesso(Fluxo Principal)
             return redirect()->back()->with('success','Usuario Cadastrado com Sucesso!');
-        }else{
-            return redirect()->back()->with('error','Voce não tem Permissão para Fazer isso!');
-        }
     }
 
     public function update(Request $request, $id)
     {
-        if($this->userService->VerificarPermissao('Usuario')){
-            try {
-            $usuario = $this->userService->buscarUsuarioPorId($id);
-
-            // Validação dos dados
-            $this->validaçãoUpdateUsuario($request, $usuario);
-
-            $this->userService->atualizarUsuario($usuario,$request);
-
-            } catch (\Exception $e) {
-                $errorMessage = $e->getMessage(); // Isso obtém a mensagem da exceção
-                $errorCode = $e->getCode(); // Isso obtém o código da exceção
-
-                $errorData = [
-                    'message' => $errorMessage ?? 'Erro desconhecido.',
-                    'code' => $errorCode ?? 'Desconhecido'
-                ];
-
-                return redirect()->back()->with('error', $errorData)->withInput();
-            }
-
-            return redirect()->back()->with('success','Usuario Atualizado com Sucesso!');
-        }else{
-            return redirect()->back()->with('error','Voce não tem Permissão para Fazer isso!');
+        // Verificação de Permissão (Controle de acesso)
+        if (!$this->userService->VerificarPermissao('Usuario')) {
+         // Caso não tenha permissão (Controle de Acesso)
+         return redirect()->back()->with('error', 'Você não tem Permissão para Fazer isso!');
         }
+
+        try {
+        //Procurando o Usuario(Fluxo Principal)
+        $usuario = $this->userService->buscarUsuarioPorId($id);
+
+        //Validação de dados(Função auxiliar)
+        $this->validaçãoUpdateUsuario($request, $usuario);
+
+         //Autualizando dados do Usuario(Fluxo Principal)
+        $this->userService->atualizarUsuario($usuario,$request);
+
+
+        } catch (\Exception $e) {
+        //Tratamento de Erros(Fluxo altenativo)
+            $errorMessage = $e->getMessage(); // pega a mensagem da exceção
+            $errorCode = $e->getCode(); // pega o código da exceção
+            $errorData = [
+            'message' => $errorMessage ?? 'Erro desconhecido.',
+            'code' => $errorCode ?? 'Desconhecido'
+            ];
+             //Retornando o Erro(Fluxo altenativo)
+            return redirect()->back()->with('error', $errorData)->withInput();
+        }
+         //Caso esteja tudo Certo, Retornando Com sucesso(Fluxo Principal)
+        return redirect()->back()->with('success','Usuario Atualizado com Sucesso!');
     }
 
     public function destroy($idUsuario)
     {
-       if($this->userService->VerificarPermissao('Usuario')){
-            // Encontra o usuário pelo ID
-            try {
+      // Verificação de Permissão (Controle de acesso)
+      if (!$this->userService->VerificarPermissao('Usuario')) {
+        // Caso não tenha permissão (Controle de Acesso)
+        return redirect()->back()->with('error', 'Você não tem Permissão para Fazer isso!');
+       }
 
+        try {
+            //deletar o Usuario(Fluxo Principal)
             $this->userService->deletarUsuario($idUsuario);
 
+
             } catch (\Exception $e) {
-                $errorMessage = $e->getMessage();
-                $errorCode = $e->getCode();
-
+            //Tratamento de Erro(Fluxo altenativo)
+            $errorMessage = $e->getMessage(); // pega a mensagem da exceção
+            $errorCode = $e->getCode(); // pega o código da exceção
+            $errorData = [
+            'message' => $errorMessage ?? 'Erro desconhecido.',
+            'code' => $errorCode ?? 'Desconhecido'
+            ];
+            //Tratamento de Erro de chave estrangeira(Fluxo altenativo 1)
             if($errorCode == 10){
-                return redirect()->back()->with(['error' => $errorMessage, 'confirm' => true]);
+            return redirect()->back()->with(['error' => $errorMessage, 'confirm' => true]);
             }else{
-                $errorMessage = $e->getMessage();
-                $errorCode = $e->getCode();
-
-                $errorData = [
-                    'message' => $errorMessage ?? 'Erro desconhecido.',
-                    'code' => $errorCode ?? 'Desconhecido'
-                ];
-
-                return redirect()->back()->with('error', $errorData);
+            //Retornando outro Erro qualquer(Fluxo altenativo 2)
+            return redirect()->back()->with('error', $errorData);
             }
-            }
-            return redirect()->route('usuarios.lista')->with('success','Usuario deletado com Sucesso!');
-        }else{
-            return redirect()->back()->with('error','Voce não tem Permissão para Fazer isso!');
         }
+        //Caso esteja tudo Certo, Retornando Com sucesso(Fluxo Principal)
+        return redirect()->route('usuarios.lista')->with('success','Usuario deletado com Sucesso!');
     }
 
 
     //Funções Auxiliares
     private function validaçãoUsuario($request)
     {
-        $validacao = $request->validate([
+        $request->validate([
             'atribuicao' => ['required', 'exists:roles,id'],
             'Estoque_idEstoque' => ['required', 'exists:estoque,idEstoque'],
             'name' => ['required', 'string'],
             'password' => ['nullable'],
             'lastName' => ['required', 'string'],
             'genero' => ['required', 'in:MASCULINO,FEMININO'],
-            'cep' => ['required', 'string'],
-            'cpf' => ['required', 'string', 'unique:usuarios,cpf'],
+            'cep' => ['required', 'string', 'regex:/^\d{5}-\d{3}$/'],
+            'cpf' => ['required', 'string', 'unique:usuarios,cpf', 'regex:/^\d{3}\.\d{3}\.\d{3}-\d{2}$/'],
             'pais' => ['required', 'string'],
             'cidade' => ['required', 'string'],
             'estado' => ['required', 'string'],
             'email' => ['required', 'email','unique:usuarios,email'],
-            'telefone1' => ['required', 'string', 'unique:telefone_usuarios,telefone'],
-            'telefone2' => ['nullable', 'string', 'unique:telefone_usuarios,telefone'],
-            'telefone3' => ['nullable', 'string', 'unique:telefone_usuarios,telefone'],
+            'telefone1' => ['required', 'string', 'unique:telefone_usuarios,telefone', 'regex:/^\(\d{2}\)\d{4}-\d{4}$/'],
+            'telefone2' => ['nullable', 'string', 'unique:telefone_usuarios,telefone', 'regex:/^\(\d{2}\)\d{5}-\d{4}$/'],
+            'telefone3' => ['nullable', 'string', 'unique:telefone_usuarios,telefone', 'regex:/^\(\d{2}\)\d{5}-\d{4}$/'],
         ],[
             'atribuicao.required'=>'o campo atribuicão é obrigatorio',
             'name.required'=>'O nome é obrigatório',
@@ -151,31 +164,33 @@ class UsuariosController extends Controller
             'telefone2.unique' => 'Esse telefone já está em uso ou é invalido',
             'telefone3.unique' => 'Esse telefone já está em uso ou é invalido',
             'cpf.unique'=>'Cpf já está em uso ou é invalido',
-            'email.unique'=>'Email ja registrado ou invalido'
+            'email.unique'=>'Email ja registrado ou invalido',
+            'cep.regex' => 'O campo CEP deve estar no formato 99999-999.',
+            'cpf.regex' => 'O campo CPF deve estar no formato 999.999.999-99.',
+            'telefone1.regex' => 'O campo Telefone Fixo deve estar no formato (99)9999-9999.',
+            'telefone2.regex' => 'O campo Telefone Móvel deve estar no formato (99)99999-9999.',
+            'telefone3.regex' => 'O campo Telefone Reserva deve estar no formato (99)99999-9999.'
         ]);
     }
 
     private function validaçãoUpdateUsuario($request, $usuario)
     {
-
-        //'campo' => ['regras', 'unique:tabela,coluna,exceto,idDoRegistro']
-
-        $validacao = $request->validate([
+        $request->validate([
             'atribuicao' => ['required'],
             'Estoque_idEstoque' => ['required', 'exists:estoque,idEstoque'],
             'name' => ['required', 'string'],
             'password' => ['nullable'],
             'lastName' => ['required', 'string'],
             'genero' => ['required', 'in:MASCULINO,FEMININO'],
-            'cep' => ['required', 'string'],
+            'cep' => ['required', 'string', 'regex:/^\d{5}-\d{3}$/'],
             'cpf' => ['required', 'string', Rule::unique('usuarios', 'cpf')->ignore($usuario->idUsuario, 'idUsuario')],
             'pais' => ['required', 'string'],
             'cidade' => ['required', 'string'],
             'estado' => ['required', 'string'],
             'email' => ['required', 'email', Rule::unique('usuarios', 'email')->ignore($usuario->idUsuario, 'idUsuario')],
-            'telefone1' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario')],
-            'telefone1' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario')],
-            'telefone1' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario')],
+            'telefone1' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario'), 'regex:/^\(\d{2}\)\d{4}-\d{4}$/'],
+            'telefone2' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario'), 'regex:/^\(\d{2}\)\d{5}-\d{4}$/'],
+            'telefone3' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario'), 'regex:/^\(\d{2}\)\d{5}-\d{4}$/'],
         ],[
             'atribuicao.required'=>'o campo atribuicão é obrigatorio',
             'name.required'=>'O nome é obrigatório',
@@ -201,7 +216,11 @@ class UsuariosController extends Controller
             'telefone2.unique' => 'Esse telefone já está em uso ou é invalido',
             'telefone3.unique' => 'Esse telefone já está em uso ou é invalido',
             'cpf.unique'=>'Cpf já está em uso ou é invalido',
-            'email.unique'=>'Email ja registrado ou invalido'
+            'email.unique'=>'Email ja registrado ou invalido',
+            'cep.regex' => 'O campo CEP deve estar no formato 99999-999.',
+            'telefone1.regex' => 'O campo Telefone Fixo deve estar no formato (99)9999-9999.',
+            'telefone2.regex' => 'O campo Telefone Móvel deve estar no formato (99)99999-9999.',
+            'telefone3.regex' => 'O campo Telefone Reserva deve estar no formato (99)99999-9999.'
         ]);
     }
 
