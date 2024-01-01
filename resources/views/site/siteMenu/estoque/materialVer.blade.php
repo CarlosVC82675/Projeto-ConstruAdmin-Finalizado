@@ -1,6 +1,5 @@
-@extends('site.siteMenu.usuario.layoutFora')
+@extends('site.siteMenu.layoutFora')
 @section('conteudo')
-<link rel="stylesheet" href="{{url('css/materialVER.css')}}">
     <div style="padding: 25px">
         <div class="container mt-5">
             <h2><i class="fa-solid fa-box"></i></i> Materiais estocados</h2>
@@ -44,16 +43,16 @@
                                     <td>
                                         {{-- Inicio com os botoes que ligam ao modal--}}
                                         <div class="btn-group" role="group" aria-label="Operações">
-                                            <a class="btn btn-secondary btn-sm me-2" onclick="adicionarMateriais({{ json_encode($material)}})"><i class="fa-solid fa-square-plus" title="Adicionar"></i></a>
-                                
-                                            <a class="btn btn-secondary btn-sm me-2" onclick="removerMateriais({{ json_encode($material)}})"><i class="fa-solid fa-square-xmark" title="Remover"></i></a>
-                                
-                                            <a class="btn btn-secondary btn-sm me-2" onclick="editarMateriais({{ json_encode($material)}})"><i class="fa-regular fa-pen-to-square" title="Editar"></i></a>
+                                            <a class="btn btn-primary btn-sm me-2" onclick="adicionarMateriais({{ json_encode($material)}})"><i class="fa-solid fa-square-plus" title="Adicionar"></i></a>
+
+                                            <a class="btn btn-primary btn-sm me-2" onclick="removerMateriais({{ json_encode($material)}})"><i class="fa-solid fa-square-xmark" title="Remover"></i></a>
+
+                                            <a class="btn btn-primary btn-sm me-2" onclick="editarMateriais({{ json_encode($material)}})"><i class="fa-regular fa-pen-to-square" title="Editar"></i></a>
                                             {{-- Fim com os botoes que ligam ao modal--}}
                                             <form action="{{route('deletar.material', ['id' => $material->idMateriais])}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-secondary btn-sm me-2" type="submit" onclick="return confirm('Tem certeza que deseja deletar?')"><i class="fa-solid fa-trash" title="Excluir"></i></button>
+                                                <button class="btn btn-danger btn-sm me-2" type="submit" onclick="return confirm('Tem certeza que deseja deletar?')"><i class="fa-solid fa-trash" title="Excluir"></i></button>
                                             </form>
                                         </div>
                                     </td>
@@ -75,7 +74,7 @@
                         </div>
                         <div class="modal-body">
                             <form id="adicionarMaterialForm" action="" method="POST">
-                                @csrf 
+                                @csrf
                                 <div class="mb-3">
                                     <label for="quantidade" class="form-label">Insira a quantidade de materiais que deseja adicionar:</label>
                                     <input type="number" name="quantidade" class="form-control" required>
@@ -88,7 +87,7 @@
                             @if ($errors->any())
                                 {{-- Se houver algum erro, ele vai percorrer os erros --}}
                                 @foreach ($errors->all() as $error )
-                                    {{$error}}<br> 
+                                    {{$error}}<br>
                                 @endforeach
                             @endif
                         </div>
@@ -136,55 +135,46 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="editarMaterialForm" action="" method="POST"> 
+                        <form id="editarMaterialForm" action="" method="POST">
                             @csrf
                             @method('put')
 
                             <input type="hidden" name="Estoque_idEstoque" value="1">
-        
+
                             <div class="mb-3">
                                 <label for="nomeM" class="form-label">Nome do material:</label>
                                 <input type="text" name="nomeM" class="form-control" placeholder="" value="" required>
                             </div>
-        
+
                             <div class="mb-3">
                                 <label for="kg" class="form-label">Peso em quilos:</label>
                                 <input type="number" name="kg" class="form-control" step="any" placeholder="" value="" required>
                             </div>
-        
+
                             <div class="mb-3">
                                 <label for="metros" class="form-label">Metros:</label>
                                 <input type="number" name="metros" class="form-control" step="any" placeholder="" value="">
                             </div>
-        
-                            <div class="mb-3">
-                                <label for="quantidade" class="form-label">Quantidade:</label>
-                                <input type="number" name="quantidade" class="form-control" placeholder="" value="" required>
-                            </div>
-        
+
                             <div class="mb-3">
                                 <label for="dtVencimento" class="form-label">Data de Vencimento:</label>
-                                <input type="date" name="dtVencimento" class="form-control" placeholder="" value="" required>
+                                <input type="date" name="dtVencimento" class="form-control" placeholder="" value="">
                             </div>
-        
+
                             <div class="mb-3">
-                                <label>Status:</label>
-                                <div class="form-check">
-                                    <input type="radio" name="Status_2" class="form-check-input" value="">
-                                    <label class="form-check-label">Material Novo</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" name="Status_2" class="form-check-input" value="">
-                                    <label class="form-check-label">Material Usado</label>
-                                </div>
+                                <label for="">Status:</label>
+                                <select name="Status_2" value="" class="form-control form-control-sm">
+                                    <option value="novo">Material novo</option>
+                                    <option value="usado">Material Usado</option>
+                                </select>
                             </div>
-        
+
                             <input type="hidden" name="dtEntrada" value="{{now()}}">
-        
+
                             <div class="text-end">
                                 <button type="submit" class="btn btn-secondary btn-sm">Enviar</button>
                             </div>
-                        </form>                        
+                        </form>
                     </div>
                 </div>
             </div>
@@ -205,5 +195,5 @@
         </div>
     </div>
     <x-modal-cadastro-materiais/>
-    <script src="{{url("js/modal.js")}}"></script>      
+    <script src="{{secure_asset("js/modalMaterias.js")}}"></script>
 @endsection
