@@ -146,8 +146,9 @@ public function gerarRelatorioGeral()
     $pdf = PDF::loadView('reports.relatorioGeral', $data);
 
     // Gerar o PDF e fazer o download
-    return $pdf->download('relatorio_Geral.pdf')->with('success', 'Relatório Gerado com Sucesso!');
+    $pdf->download('relatorio_Geral.pdf');
 
+    return redirect()->back()->with('success','Relatorio Cadastrado com Sucesso!');
 }
 
 
