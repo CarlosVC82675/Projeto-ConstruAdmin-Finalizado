@@ -92,7 +92,6 @@
 <body>
 
     <div class="header">
-        <img src="{{ secure_asset('img/capacete.png') }}">
         <div>
             <h3>CONSTRUADMIN <br> SISTEMA DE GERENCIAMENTO DE OBRAS</h3>
             <p>Expedido em: {{ date('d/m/Y') }}</p>
