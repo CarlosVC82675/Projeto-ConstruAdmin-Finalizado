@@ -224,8 +224,7 @@
     {{--Fim modal de cadastro--}}
 
    <!-- Minimodal para inserir o termo de busca -->
-    <x-mini-modal-buscar />
-
+   
     {{--script CDN inputmask(formatação de valores)--}}
     <script src="https://cdn.jsdelivr.net/npm/inputmask"></script>
     <script src="https://cdn.jsdelivr.net/npm/inputmask/dist/inputmask.min.js"></script>
