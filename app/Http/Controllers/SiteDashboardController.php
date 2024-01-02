@@ -9,6 +9,7 @@ use App\Services\ExceptionHandlerService;
 use App\Models\Materiais_Estoque;
 use App\Services\UserService;
 
+
 class SiteDashboardController extends Controller
 {
 

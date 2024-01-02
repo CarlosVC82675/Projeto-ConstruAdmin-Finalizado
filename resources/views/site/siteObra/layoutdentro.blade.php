@@ -90,10 +90,10 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="#">Materiais</a>
+                <a class="nav-link active" href="{{route('obra.materiais', ['id' => $obra->idObras]) }}">Materiais</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="#">Relatórios</a>
+                <a class="nav-link active" href="{{route('obra.relatorios', ['id' => $obra->idObras]) }}">Relatórios</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="{{route('Atividade.Kanban', ['id' => $obra->idObras]) }}">Atividades</a>

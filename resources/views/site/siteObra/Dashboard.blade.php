@@ -1,4 +1,5 @@
 @extends('site.siteObra.layoutdentro')
+@section('title','Dashboard')
 @section('conteudo')
 
 
@@ -99,7 +100,7 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <li>
-                                        <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#associando">Associar</button>
+                                        <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#usuarioassociar">Associar</button>
                                     </li>
                                     <li>
                                         <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#desassociar">Desassociar</button>
@@ -121,14 +122,14 @@
             </main>
 
             <!-- Modal para associar os usuarios -->
-            <div class="modal fade" id="associando" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+            <div class="modal fade" id="usuarioassociar" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="cadastroModalLabel">Associando Funcionários</h5>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('usuarios.associar') }}" id="formAssociando" method="POST"
+                            <form action="{{ route('usuarios.associar') }}" id="formUsuarioAssociando" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <h2>Selecione os funcionários para essa obra:</h2>
@@ -168,10 +169,10 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="cadastroModalLabel">Associando Funcionários</h5>
+                            <h5 class="modal-title" id="cadastroModalLabel">Desassociar Funcionários</h5>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('usuarios.desassociar') }}" id="formAssociando" method="POST"
+                            <form action="{{ route('usuarios.desassociar') }}" id="formdesassociando" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <h2>Selecione os funcionários para essa obra:</h2>

@@ -40,7 +40,8 @@ class UserService
             DB::beginTransaction();
         //Filtrar Dados
         $usuarioData = $request->except('telefone1', 'telefone2', 'telefone3', 'atribuicao');
-        $usuarioData['password'] = bcrypt($usuarioData['cpf']);
+        $cpfSemPontuacao = str_replace(['.', '-'], '', $usuarioData['cpf']);
+        $usuarioData['password'] = bcrypt($cpfSemPontuacao);
         $idAtribuicao = request()->input('atribuicao');
 
 

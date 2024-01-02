@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class AssociarUsuario extends Component
+class RedefinirSenha extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class AssociarUsuario extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('site.components.associar-usuario');
+        return view('site.components.redefinir-senha');
     }
 }

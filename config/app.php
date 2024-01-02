@@ -163,6 +163,9 @@ return [
         /*
          * Application Service Providers...
          */
+
+            // ...
+        Barryvdh\DomPDF\ServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,

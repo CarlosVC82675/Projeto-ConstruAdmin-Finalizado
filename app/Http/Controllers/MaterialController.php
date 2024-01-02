@@ -78,6 +78,8 @@ class MaterialController extends Controller{
      //Nessa funcao o usuário pode alterar apenas a quantidade de materiais e a data de entrada
      public function adicionarEstoque(Request $request, $idMaterial){
     if($this->userService->VerificarPermissao('Estoque')){
+
+
         try{
             $material = Materiais_Estoque::findOrFail($idMaterial);
             //validacao das informacoes inseridas pelo usuario
@@ -96,7 +98,7 @@ class MaterialController extends Controller{
 
             //data de entrada pega na funcao now na view, armazenada na dtEntrada
             $dtEntrada = $request->input('dtEntrada');
-
+            dd($dtEntrada);
             //atributos passados para o banco
             $material->quantidade = $valorAdicionado;
             $material->dtEntrada = $dtEntrada;
@@ -135,7 +137,7 @@ class MaterialController extends Controller{
 
             //pega quantidade digitada pelo usuario na view
             $quantidade = $request->input('quantidade');
-
+           ;
             //checa pra ver se a quantidade que o usuario quer diminuir é maior do que o
             //estooque disponivel
             //fiz essa funcao pra evitar materiais com estoque negativo
@@ -152,6 +154,7 @@ class MaterialController extends Controller{
             //passa pro banco a quantidade armazenada nos atributos anteriores
             $material->quantidade = max(0, $valorRemovido);
             $material->dtSaida = $dtSaida;
+            dd($material);
             try{
                 $material->save();
             } catch (\PDOException $erro){
@@ -179,7 +182,6 @@ class MaterialController extends Controller{
                 'kg' => ['required', 'numeric'],
                 'nomeM' => ['required', 'string', 'max:50'],
                 'metros' => ['nullable', 'numeric'],
-                'quantidade' => ['required', 'numeric', 'integer', 'min:0'],
                 'dtVencimento' => ['nullable', 'date'],
                 'dtEntrada' => ['required', 'date'],
                 'Status_2' => ['required', 'in:usado,novo']
@@ -190,11 +192,7 @@ class MaterialController extends Controller{
                 'nomeM.required' => 'insira o nome',
                 'nomeM.max' => 'Insira um nome com um máximo de 50 caracteres',
                 'metros.numeric' => 'Insira um número válido',
-                'quantidade.required' => 'Insira as quantidades',
-                'quantidade.numeric' => 'Insira um número válido',
-                'quantidade.integer' => 'insira um número inteiro',
                 'metros.min' => 'O valor deve ser positivo',
-                'quantidade.min' => 'insira um número maior que 0',
                 'dtVencimento.date' => 'Insira uma data válida',
                 'Status_2.required' => 'insira os satus',
                 'Status_2.in' => 'insira usado ou novo',

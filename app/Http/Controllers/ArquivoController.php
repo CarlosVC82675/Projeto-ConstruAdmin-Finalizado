@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Arquivo;
+use App\Models\Obras;
 use App\Services\ArquivoService;
 use App\Services\ExceptionHandlerService;
 use App\Services\UserService;
@@ -98,12 +99,33 @@ class ArquivoController extends Controller
     public function validarArquivo($request)
     {
         $request->validate([
-            'nome' => ['required', 'max:50'],
+            'nome' => ['required','unique:arquivo,nome,1,idArquivo', 'max:50'],
             'caminho' => ['required']
         ], [
             'nome.required' => 'Prencha o campo Nome',
             'caminho.required' => 'Prencha o campo do arquivo',
-            'nome.max' => 'O limite de caracteres para Nome é 50'
+            'nome.max' => 'O limite de caracteres para Nome é 50',
+            'nome.unique' => 'O nome já existe'
         ]);
     }
+    public function pesquisarFoto(Request $request)
+    {
+      
+        $nomePesquisado = $request->input('nome_pesquisado');
+
+        $arquivo = Arquivo::where('nome', $nomePesquisado)->orderBy('idArquivo', 'desc')->first();
+       
+        if (!$arquivo) {
+            return redirect()->back()->with('error', $errorMessage ?? 'Foto não encontrada')->withInput();
+        }
+        
+        $obraArquivo = $arquivo->Obras_IdObras;
+        $obra = Obras::find($obraArquivo);
+
+      
+    
+       
+        return view('site.siteObra.arquivos.busca', compact('arquivo','obra'));
+    }
+
 }

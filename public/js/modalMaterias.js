@@ -28,7 +28,7 @@ function removerMateriais(material){
      document.querySelector('input[name="metros"]').value = material.metros;
      document.querySelector('input[name="quantidade"]').value = material.quantidade;
      document.querySelector('input[name="dtVencimento"]').value = material.dtVencimento;
-     document.querySelector('input[name="Status_2"]').value = material.Status_2;
+     document.querySelector('select[name="Status_2"]').value = material.Status_2;
      document.querySelector('input[name="dtEntrada"]').value = material.dtEntrada;
 
      const form = document.getElementById('editarMaterialForm');
@@ -38,3 +38,14 @@ function removerMateriais(material){
      const myModal = new bootstrap.Modal(document.getElementById('editarModalMateriais'));
      myModal.show();
  }
+
+function removerNMateriais(material){
+    document.querySelector('input[name="quantidade"]').value = material.quantidade;
+
+    const form = document.getElementById('removerNMaterialForm');
+    const rotaAtualizarRemover = `/obra/materiais/remover/${material.idMateriais}`;
+    form.action = rotaAtualizarRemover;
+
+    const myModal = new bootstrap.Modal(document.getElementById('removerNModalMateriais'));
+    myModal.show();
+}

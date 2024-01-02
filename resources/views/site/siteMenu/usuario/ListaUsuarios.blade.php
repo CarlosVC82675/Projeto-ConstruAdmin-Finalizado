@@ -91,7 +91,20 @@
                                 <td>{{$usuario->genero}}</td>
                                 <td>{{$usuario->getRoleNames()->first()}}</td>
                                 <td>
-                                    {{ optional($usuario->obras()->first())->nome ?? 'Livre' }}
+                                    @php
+                                        $obras = $usuario->obras()->get();
+                                    @endphp
+
+                                    @if ($obras->isNotEmpty())
+                                        @foreach ($obras as $index => $obra)
+                                            {{ $obra->nome }}
+                                            @if ($index !== $obras->count() - 1)
+                                                , <!-- Adicione um separador se não for o último relacionamento -->
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        Nenhuma
+                                    @endif
                                 </td>
                                 <td>
                                     <div class="d-flex">
@@ -162,7 +175,21 @@
                                 </td>
                                 <td>{{$usuario->genero}}</td>
                                 <td>
-                                    {{ optional($usuario->obras()->first())->nome ?? 'Nenhuma' }}
+                                    @php
+                                        $obras = $usuario->obras()->get();
+                                    @endphp
+
+                                    @if ($obras->isNotEmpty())
+                                        @foreach ($obras as $index => $obra)
+                                            {{ $obra->nome }}
+                                            @if ($index !== $obras->count() - 1)
+                                                , <!-- Adicione um separador se não for o último relacionamento -->
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        Nenhuma
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="d-flex">
                                         <a class="btn btn-primary btn-sm me-2" onclick="exibirDetalhesUsuario({{ json_encode($usuario)}},{{ $usuario->telefones }} )">Visualizar</a>

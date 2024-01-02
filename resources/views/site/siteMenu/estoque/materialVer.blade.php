@@ -1,6 +1,5 @@
 @extends('site.siteMenu.layoutFora')
 @section('conteudo')
-<link rel="stylesheet" href="{{secure_asset('css/materialVER.css')}}">
     <div style="padding: 25px">
         <div class="container mt-5">
             <h2><i class="fa-solid fa-box"></i></i> Materiais estocados</h2>
@@ -44,16 +43,16 @@
                                     <td>
                                         {{-- Inicio com os botoes que ligam ao modal--}}
                                         <div class="btn-group" role="group" aria-label="Operações">
-                                            <a class="btn btn-secondary btn-sm me-2" onclick="adicionarMateriais({{ json_encode($material)}})"><i class="fa-solid fa-square-plus" title="Adicionar"></i></a>
+                                            <a class="btn btn-primary btn-sm me-2" onclick="adicionarMateriais({{ json_encode($material)}})"><i class="fa-solid fa-square-plus" title="Adicionar"></i></a>
 
-                                            <a class="btn btn-secondary btn-sm me-2" onclick="removerMateriais({{ json_encode($material)}})"><i class="fa-solid fa-square-xmark" title="Remover"></i></a>
+                                            <a class="btn btn-primary btn-sm me-2" onclick="removerMateriais({{ json_encode($material)}})"><i class="fa-solid fa-square-xmark" title="Remover"></i></a>
 
-                                            <a class="btn btn-secondary btn-sm me-2" onclick="editarMateriais({{ json_encode($material)}})"><i class="fa-regular fa-pen-to-square" title="Editar"></i></a>
+                                            <a class="btn btn-primary btn-sm me-2" onclick="editarMateriais({{ json_encode($material)}})"><i class="fa-regular fa-pen-to-square" title="Editar"></i></a>
                                             {{-- Fim com os botoes que ligam ao modal--}}
                                             <form action="{{route('deletar.material', ['id' => $material->idMateriais])}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-secondary btn-sm me-2" type="submit" onclick="return confirm('Tem certeza que deseja deletar?')"><i class="fa-solid fa-trash" title="Excluir"></i></button>
+                                                <button class="btn btn-danger btn-sm me-2" type="submit" onclick="return confirm('Tem certeza que deseja deletar?')"><i class="fa-solid fa-trash" title="Excluir"></i></button>
                                             </form>
                                         </div>
                                     </td>
@@ -80,7 +79,7 @@
                                     <label for="quantidade" class="form-label">Insira a quantidade de materiais que deseja adicionar:</label>
                                     <input type="number" name="quantidade" class="form-control" required>
                                 </div>
-                                <input type="hidden" name="dtEntrada" value="{{now()}}">
+                                <input type="hidden" name="dtEntrada" value="{{ now() }}">
                                 <div class="text-end">
                                     <button type="submit" class="btn btn-secondary btn-sm">Enviar</button>
                                 </div>
@@ -112,6 +111,7 @@
                                     <input type="number" name="quantidade" class="form-control" id="quantidadeRemover" required>
                                 </div>
                                 <input type="hidden" name="dtSaida" value="{{ now() }}">
+
                                 <div class="text-end">
                                     <button type="submit" class="btn btn-secondary btn-sm me-2">Enviar</button>
                                 </div>
@@ -158,25 +158,16 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="quantidade" class="form-label">Quantidade:</label>
-                                <input type="number" name="quantidade" class="form-control" placeholder="" value="" required>
-                            </div>
-
-                            <div class="mb-3">
                                 <label for="dtVencimento" class="form-label">Data de Vencimento:</label>
-                                <input type="date" name="dtVencimento" class="form-control" placeholder="" value="" required>
+                                <input type="date" name="dtVencimento" class="form-control" placeholder="" value="">
                             </div>
 
                             <div class="mb-3">
-                                <label>Status:</label>
-                                <div class="form-check">
-                                    <input type="radio" name="Status_2" class="form-check-input" value="">
-                                    <label class="form-check-label">Material Novo</label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="radio" name="Status_2" class="form-check-input" value="">
-                                    <label class="form-check-label">Material Usado</label>
-                                </div>
+                                <label for="">Status:</label>
+                                <select name="Status_2" value="" class="form-control form-control-sm">
+                                    <option value="novo">Material novo</option>
+                                    <option value="usado">Material Usado</option>
+                                </select>
                             </div>
 
                             <input type="hidden" name="dtEntrada" value="{{now()}}">

@@ -12,9 +12,10 @@ use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\AtividadesController;
 use App\Http\Controllers\ComentariosController;
 use App\Http\Controllers\CardAtividadesController;
+use App\Http\Controllers\RelatorioController;
 use App\Http\Middleware\NA0Middleware;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\MateriaisNecessariosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +30,9 @@ use Illuminate\Support\Facades\Route;
 
 //Rota de teste para ver o layout
 Route::middleware('checklogin')->group(function () {
+
+    Route::get('/usuario/view/redefinirsenha',[LoginController::class, 'viewRedefinirSenha'])->name("redefinir.senha");
+    Route::post('/usuario/redefinirsenha',[UsuariosController::class, 'redefinirSenha'])->name("usuarios.redefinirSenha");
 
 //usuarios feito por Carlos
     Route::get('/usuario/view/lista',[SiteDashboardController::class, 'ViewUsuarios'])->name("usuarios.lista")->middleware('na0');
@@ -46,8 +50,6 @@ Route::middleware('checklogin')->group(function () {
 
     //Dashboard dentro por carlos
         Route::get('/obra/{id}', [SiteObraController::class, 'dashboardDentro'])->name('obra.dashboard');
-        Route::post('/obra/associardashboard', [ListaObrasController::class, 'associarVariosUsuariosDashboard'])->name('usuarios.associar');
-        Route::post('/obra/desassociar', [ListaObrasController::class, 'desassociarVariosUsuariosDashboard'])->name('usuarios.desassociar');
     //Fim do Dashboard
 
     //Funcionalidades
@@ -57,6 +59,11 @@ Route::middleware('checklogin')->group(function () {
         Route::post('/obra/cliente', [UsuariosController::class, 'store'])->name('cliente.cadastrar');
         Route::post('/obra/associar', [ListaObrasController::class, 'associarVariosUsuarios'])->name('funcionario.associar');
     //Fim das funcionalidades
+
+    Route::post('/obra/associardashboard', [ListaObrasController::class, 'associarVariosUsuariosDashboard'])->name('usuarios.associar');
+    Route::post('/obra/desassociar', [ListaObrasController::class, 'desassociarVariosUsuariosDashboard'])->name('usuarios.desassociar');
+
+
 //fim de obras
 
 //inicio rota estoque feito por Ana
@@ -75,6 +82,7 @@ Route::get('/obra/{id}/arquivo', [SiteObraController::class, 'arquivo'])->name('
 Route::get('/projeto/download/{ida}', [ArquivoController::class, 'download'])->name('arquivo.download');
 Route::get('/projeto/visualizar/{ida}', [ArquivoController::class, 'visualizar'])->name('arquivo.visualizar');
 Route::post('/obra/{id}/foto', [ArquivoController::class, 'store'])->name('foto.store');
+Route::get('/projeto/pesquisar', [ArquivoController::class, 'pesquisarFoto'])->name('foto.pesquisar');
 Route::delete('/obra/{id}/foto/{ida}', [ArquivoController::class, 'destroy'])->name('foto.destroy');
 
 //fim de rota arquivos
@@ -102,10 +110,29 @@ ROUTE::DELETE('Card/Atividade/Deletar/{idCard}/{idobra}',[CardAtividadesControll
 //CRIAR COMENTARIO
 ROUTE::POST('Atividade/Comentarios/Criar_Comentarios/{Atividadeid}/{UsuariosID}',[ComentariosController::class,'criarComentarios'])->name('Comentario.Criar');
 
+
+//Relatorios por Carlos
+Route::get('/obra/relatorio/{id}', [SiteObraController::class, 'relatoriosView'])->name('obra.relatorios');
+Route::get('/relatorio/{id}', [RelatorioController::class, 'gerarRelatorioObra'])->name('relatorio.obra');
+Route::get('/relatorioMaterial/{id}', [RelatorioController::class, 'gerarRelatorioMaterias'])->name('relatorio.materiais');
+Route::get('/relatorioGeral', [RelatorioController::class, 'gerarRelatorioGeral'])->name('relatorio.geral');
+
+//Inicio materiais necessarios por Ana
+Route::get('/obra/materiais/{id}', [SiteObraController::class, 'verMaterialObra'])->name('obra.materiais');
+Route::post('/obra/materiais/associar/{id}', [MateriaisNecessariosController::class, 'associarMateriais'])->name("associar.material");
+Route::post('/obra/materiais/remover/{idMaterial}', [MateriaisNecessariosController::class, 'retirarQuantidadeMateriaisObra'])->name("remover.mNecessario");
+Route::post('/obra/materiais/desassociar/{idMateriais}', [MateriaisNecessariosController::class, 'desassociarMaterialObra'])->name('desassociar.material.obra');
+
+//FIM materiais necessarios
+
 });
 
 //login feito por Carlos
-Route::get('/login',[SiteDashboardController::class, 'index'])->name('login.form');
+Route::get('/',[SiteDashboardController::class, 'index'])->name('login.form');
 Route::post('/auth',[LoginController::class, 'auth'])->name('login.auth');
 Route::get('/logout',[LoginController::class, 'logout'])->name('login.logout');
 //fim do login
+
+
+
+

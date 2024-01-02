@@ -23,7 +23,7 @@
     <!-- Logo da empresa -->
     <div class="navbar-brand d-flex align-items-center">
         <a href="{{route('site.index')}}"> <img src="{{secure_asset("img/capacete.png")}}" alt="Logo da Empresa" width="60" height="60" class="d-none d-md-block"></a>
-        <span class="company-name ms-2 company-name-mobile">ConstruAdmin</span>
+        <a href="{{route('site.index')}}"><span class="company-name ms-2 company-name-mobile">ConstruAdmin</span></a>
         <span class="separator d-none d-md-block">|</span>
         <span class="portal-name ms-2 d-none d-md-block">{{$obra->nome}}</span>
     </div>
@@ -51,8 +51,6 @@
                 </a>
                     {{--Menu do usuario--}}
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a href="#" class="dropdown-item">Profile</a>
-                    <a href="#" class="dropdown-item">Setting</a>
                     <a href="{{route('login.logout')}}"  class="dropdown-item">Logout</a>
                 </div>
             </li>
@@ -82,10 +80,10 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Materiais</a>
+            <a class="nav-link active" href="{{route('obra.materiais', ['id' => $obra->idObras]) }}">Materiais</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Relatórios</a>
+            <a class="nav-link active" href="{{route('obra.relatorios', ['id' => $obra->idObras]) }}">Relatórios</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="{{route('Atividade.Kanban', ['id' => $obra->idObras]) }}">Atividades</a>

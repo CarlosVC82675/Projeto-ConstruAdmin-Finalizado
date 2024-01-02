@@ -17,6 +17,6 @@ class Estoque extends Model
     }
 
     public function materiaisEstoque(){
-        return $this->hasMany(Material::class);
+        return $this->hasMany(Materiais_Estoque::class);
     }
 }

@@ -26,7 +26,7 @@ rel="stylesheet"
     <title>ConstruAdmin/Login</title>
 </head>
 <body>
-<div class="bg-image"style="background-image: url('img/Login_BG.jpg');">
+<div class="bg-image" style="background-image: url('{{ secure_asset('img/Login_BG.jpg') }}');">
 
         <div class="container-fluid " style="position: absolute;">
                 @if ($mensagem = Session::get('erro'))

@@ -1,5 +1,5 @@
 @extends('site.siteObra.atividade.layoutdentro2')
-@section('title','Editando')
+@section('title','Atividades')
 @section('conteudo')
 
 <!-- LINKS DE THAUAN -->

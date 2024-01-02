@@ -19,7 +19,6 @@ class Atividades extends Model
         'dtFinal',
         'dtInicial',
         'status',
-        'responsavel',
         'card_atividades_idCard',
     ];
 

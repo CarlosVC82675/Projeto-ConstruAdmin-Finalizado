@@ -28,18 +28,18 @@
             @foreach ($obras as $obra)
                 @if($obra->status!='Finalizado')
                 <div class="col-sm-4 mb-3 mb-sm-0 " >
-                    <div class="card w-auto h-100" id="cardoso" style="background-image: url('/img/obra6.jpg');background-size: cover;--bs-card-border-color: #e9ecef !important;" >
+                    <div class="card w-auto h-100" id="cardoso" style="background-image: url('/img/tecada2.jpg');background-size: cover;--bs-card-border-color: #e9ecef !important;" >
                         <div class="card-body d-flex justify-content-between" >
-                          <div class="w-50" >
+                          <div class="w-100" >
 
-                          <h3 class="card-title text-break ">{{$obra->nome}} </h3>
+                          <h3 class="card-title text-break fw-bold ">{{$obra->nome}} </h3>
 
                         </div>
                         <div class="d-flex flex-column row-gap-2" >
                           <a href="{{route('obra.dashboard', ['id' => $obra->idObras])}}" class="btn btn-primary" style="width:  6.4rem !important">Acessar</a>
                           {{--@if(Auth::user()->atribuicao_Usuario_id_Atribuicao == 1)--}}
                           <a href="{{route('obra.editar', ['id' => $obra->idObras])}}" class="btn btn-primary" style="width:  6.4rem !important">Editar</a>
-                          <a href="{{route('obra.desativar', ['id' => $obra->idObras])}}" onclick="return confirm('Tem certeza que deseja desativar ?')" class="btn btn-danger" style="width: 6.4rem !important" >desativar</a>
+                          <a href="{{route('obra.desativar', ['id' => $obra->idObras])}}" onclick="return confirm('Tem certeza que deseja desativar ?')" class="btn btn-danger" style="width: 6.4rem !important" >Desativar</a>
                          {{-- @endif--}}
                         </div>
                         </div>
@@ -66,7 +66,7 @@
                   <div class="card-body d-flex justify-content-between" >
                     <div class="w-50" >
 
-                    <h3 class="card-title text-break ">{{$obra->nome}} </h3>
+                    <h3 class="card-title text-break fw-bold ">{{$obra->nome}} </h3>
 
                   </div>
                   <div class="d-flex flex-column row-gap-2" >

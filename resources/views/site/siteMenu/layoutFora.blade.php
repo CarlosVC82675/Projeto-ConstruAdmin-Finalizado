@@ -113,9 +113,9 @@
                 {{--Auth Icone--}}
 
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link" onclick="highlightItem(this)">
+                    <a href="{{route('relatorio.geral')}}" class="sidebar-link" onclick="highlightItem(this)">
                         <i class="fa-regular fa-file-lines"></i>
-                        <span>Relatorios</span>
+                        <span>Relatorio</span>
                     </a>
                 </li>
 

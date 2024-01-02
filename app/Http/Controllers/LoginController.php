@@ -23,9 +23,11 @@ class LoginController extends Controller
                 $request->session()->regenerate();
                 //vai fazer o redirecionamento, mas vai verificar se o usario veio de algum lugar
 
-                if(Auth::user()->atribuicao_Usuario_id_Atribuicao == 5){
-                    //redireciona ele para a pagina do cliente
+                if(Auth::user()->firstAccess) {
+                    // Redireciona para a página de redefinição de senha
+                    return redirect()->route('redefinir.senha');
                 }
+
                 return redirect()->route('site.index');
                 }
                 else{
@@ -42,6 +44,12 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
         //retorna para pagina de login
         return redirect()->route('login.form');
+    }
+
+
+    public function viewRedefinirSenha()
+    {
+        return view("site.login.access");
     }
 }
 

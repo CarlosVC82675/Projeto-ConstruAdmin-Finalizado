@@ -18,12 +18,13 @@ class PermissionSeeder extends Seeder
         'Projeto',
         'DownloadProjeto',
         'Materiais',
-        'Atividade'
+        'Atividade',
+        'relatorioGeral',
+        'relatorioMaterial',
+        'relatorioObra'
         ];
 
-        //'relatorioMaterial'
-        //'relatorioProjeto'
-        //'relatorioObra'
+
 
 
         foreach ($Permissions as $Permission) {
@@ -57,10 +58,10 @@ class PermissionSeeder extends Seeder
 
         //Atribuindo permissões
         $roleAdm->syncPermissions($permissoesAdmin);
-        $roleSupevisor->syncPermissions('Projeto','DownloadProjeto','Materiais','Atividade');
-        $roleApontador->syncPermissions('Estoque','Materiais','DownloadProjeto');
-        $roleEngenheiro->syncPermissions('Projeto','DownloadProjeto','Atividade');
-        $roleCliente->syncPermissions('DownloadProjeto');
+        $roleSupevisor->syncPermissions('Projeto','DownloadProjeto','Materiais','Atividade','relatorioMaterial','relatorioObra');
+        $roleApontador->syncPermissions('Estoque','Materiais','DownloadProjeto','relatorioMaterial');
+        $roleEngenheiro->syncPermissions('Projeto','DownloadProjeto','Atividade','relatorioObra');
+        $roleCliente->syncPermissions('DownloadProjeto','relatorioMaterial','relatorioObra');
         $roleComum->syncPermissions('DownloadProjeto');
     }
 

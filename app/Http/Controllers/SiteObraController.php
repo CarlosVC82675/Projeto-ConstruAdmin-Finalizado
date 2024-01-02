@@ -9,6 +9,8 @@ use App\Models\Atividades;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\DB;
 use App\Services\UserService;
+use App\Models\Materiais_Estoque;
+
 
 class SiteObraController extends Controller
 {
@@ -49,19 +51,19 @@ class SiteObraController extends Controller
             $atividadesFeitas = DB::table('atividade')
             ->join('card_atividades', 'atividade.card_atividades_idCard', '=', 'card_atividades.idCard')
             ->where('card_atividades.Obras_IdObras', $idobra)
-            ->where('atividade.status', 'FINALIZADA')
+            ->where('atividade.status', 'FINALIZADO')
             ->get();
 
             // Mesma coisa mais pega apenas as que ja não estão feitas
             $atividadesPendentes = DB::table('atividade')
             ->join('card_atividades', 'atividade.card_atividades_idCard', '=', 'card_atividades.idCard')
             ->where('card_atividades.Obras_IdObras', $idobra)
-            ->whereNotIn('atividade.status', ['FINALIZADA'])
+            ->whereNotIn('atividade.status', ['FINALIZADO'])
             ->get();
         //FIM DE DADOS DE ATIVIDADE
 
         //MATERIAIS
-            // pega todoas os baterias relacionados a obra especifica
+            // pega todoas os materias relacionados a obra especifica
              $materiaisNecessarios = $obra->materiais()->get();
              // dd($materiaisNecessarios);
 
@@ -124,7 +126,25 @@ class SiteObraController extends Controller
         return redirect()->route('Atividade.Listar', ['id' => $idobra]);
     }
 
+    public function relatoriosView($id)
+    {
+      $obra = Obras::find($id);
+      if (!$obra) {
+        abort(404);
+      }
 
+      return view('site.siteObra.relatorios.listaRelatorios', compact('obra'));
+    }
 
+      //inicio materiais ncessarios por ana
+      public function verMaterialObra($idobra){
+
+        $obra = Obras::find($idobra);
+        $materiaisDaObra = $obra->materiais;
+
+        $materiais = Materiais_Estoque::all();
+        return view('site.siteObra.estoqueNecessario.materiaisDentro', compact('obra', 'materiais', 'materiaisDaObra'));
+    }
+    //fim materiais necessarios por ana
 }
 

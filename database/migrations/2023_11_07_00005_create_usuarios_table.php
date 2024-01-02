@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable(false);
             $table->timestamps();
             $table->rememberToken();
+            $table->boolean('firstAccess')->default(true)->nullable();
         });
     }
 

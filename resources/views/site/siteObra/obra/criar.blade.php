@@ -64,6 +64,8 @@
                         <form action="{{ route('funcionario.associar') }}" id="formAssociando" method="POST"
                             enctype="multipart/form-data">
                             @csrf
+
+
                             <h2>Selecione os funcionários para essa obra:</h2>
                             <select name="usuarios[]" multiple class="form-select" multiple
                                 aria-label="multiple select example">>
@@ -81,7 +83,7 @@
                                 @endforeach
                                 @foreach ($usuarios as $usuario)
                                     @if ($usuario->hasRole('Comum'))
-                                        <option value="{{ $usuario->idUsuario }}">Comum: {{ $usuario->name }}
+                                        <option value="{{ $usuario->idUsuario }}">Engenheiro: {{ $usuario->name }}
                                         </option>
                                     @endif
                                 @endforeach
@@ -139,18 +141,18 @@
 
                             <div class="col-md-3">
                                 <label class="form-label">CEP</label>
-                                <input type="text" class="form-control" name="cep" placeholder="Digite seu CEP"
-                                    required>
+                                <input type="text" class="form-control" oninput="buscarCEPA()" id="cep" name="cep"
+                                    placeholder="Digite seu CEP" required>
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Cidade</label>
-                                <input type="text" class="form-control" name="cidade"
+                                <input type="text" id="cidada" class="form-control" name="cidade"
                                     placeholder="Digite sua cidade" required>
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">UF</label>
-                                <input type="text" class="form-control" name="estado"
+                                <input type="text" id="estada" class="form-control" name="estado"
                                     placeholder="Digite seu estado" required>
                             </div>
 
@@ -161,17 +163,17 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">CPF</label>
-                                <input type="text" class="form-control" name="cpf" placeholder="Digite seu CPF"
-                                    required>
+                                <input type="text" class="form-control"  id="cpf" name="cpf"
+                                    placeholder="Digite seu CPF" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Telefone</label>
-                                <input type="number" pattern="[0-9]{10}" class="form-control" name="telefone1"
+                                <input type="text" id="telefoneFixo" class="form-control" name="telefone1"
                                     placeholder="Digite seu telefone" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Celular</label>
-                                <input type="number" pattern="[0-9]{10}" class="form-control" name="telefone2"
+                                <input type="text" id="telefoneMovel" class="form-control" name="telefone2"
                                     placeholder="Digite seu Celular" required>
                             </div>
 
@@ -207,7 +209,7 @@
                 <label class="form-label">Nome</label>
                 <input type="text" class="form-control" name="nome" required placeholder="Nome">
                 <label class="form-label">Tamanho</label>
-                <input type="text" class="form-control" name="tamanho" required placeholder="Tamanho da sua obra">
+                <input type="text" class="form-control" name="tamanho" required placeholder="Em m² (Apenas Números)">
             </div>
             <div class="col-md-6">
                 <label>Descrição</label>
@@ -246,31 +248,32 @@
 
             <div class="col-md-6">
                 <label class="form-label">Logradouro</label>
-                <input type="text" class="form-control" name="logradouro" required placeholder="Logradouro">
+                <input type="text" class="form-control" id="logradouro" name="logradouro" required
+                    placeholder="Logradouro">
             </div>
             <div class="col-md-4">
                 <label class="form-label">Bairro</label>
-                <input type="text" class="form-control" name="bairro" required placeholder="Bairro">
+                <input type="text" class="form-control" id="bairro" name="bairro" required placeholder="Bairro">
             </div>
             <div class="col-md-2">
                 <label class="form-label">Numero Residencial</label>
-                <input type="text" class="form-control" name="numResidencial" required
-                    placeholder="Numero Residencial">
+                <input type="text" class="form-control" name="numResidencial" placeholder="Opcional">
             </div>
 
 
 
             <div class="col-md-6">
                 <label class="form-label">Cidade</label>
-                <input type="text" class="form-control" name="cidade" placeholder="Cidade" required>
+                <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Cidade" required>
             </div>
             <div class="col-md-4">
                 <label class="form-label">Estado</label>
-                <input type="text" class="form-control" name="estado" placeholder="Estado" required>
+                <input type="text" class="form-control" id="uf" name="estado" placeholder="Estado" required>
             </div>
             <div class="col-md-2">
                 <label class="form-label">CEP</label>
-                <input type="text" class="form-control" name="cep" placeholder="EX: 40750-226" required>
+                <input type="text" class="form-control" id="cepa" name="cep" oninput="buscarCEP()"
+                    placeholder="EX: 40750-226" required>
             </div>
 
             <div class="col-md-6">
@@ -290,7 +293,87 @@
 
         </form>
 
+        {{-- script CDN inputmask(formatação de valores) --}}
+        <script src="https://cdn.jsdelivr.net/npm/inputmask"></script>
+        <script src="https://cdn.jsdelivr.net/npm/inputmask/dist/inputmask.min.js"></script>
+        {{-- Fim do script CDN inputmask(formatação de valores) --}}
+
         <script>
+            // Função para buscar o CEP da obra
+            function buscarCEP() {
+
+                // chave: gea7Akb2TT2gK7liOo1Dy0TQKz7ieMGr8TddW5PY03jsqDEjlCCOviXPy0LXSDen
+
+                let cep = document.getElementById('cepa').value; // Remover espaços em branco
+                cep = cep.replace(/_/g, ''); // Remover apenas os traços
+
+                console.log(cep);
+                if (cep.length === 9) {
+                    const url = `https://brasilaberto.com/api/v1/zipcode/${cep}`;
+
+                    fetch(url)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('CEP não encontrado ou inválido.');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            const result = data.result;
+                            document.getElementById('cidade').value = result.city;
+                            document.getElementById('uf').value = result.state;
+                            document.getElementById('logradouro').value = result.street;
+                            document.getElementById('bairro').value = result.district;
+
+                        })
+                        .catch(error => {
+                            console.error('Erro ao buscar o CEP:', error);
+                        });
+                }
+            }
+            // função para buscar o cep do cliente
+            function buscarCEPA() {
+
+                // chave: gea7Akb2TT2gK7liOo1Dy0TQKz7ieMGr8TddW5PY03jsqDEjlCCOviXPy0LXSDen
+
+                let cep = document.getElementById('cep').value; // Remover espaços em branco
+                cep = cep.replace(/_/g, ''); // Remover apenas os traços
+
+                console.log(cep);
+                if (cep.length === 9) {
+                    const url = `https://brasilaberto.com/api/v1/zipcode/${cep}`;
+
+                    fetch(url)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('CEP não encontrado ou inválido.');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            const result = data.result;
+                            document.getElementById('cidada').value = result.city;
+                            document.getElementById('estada').value = result.stateShortname;
+
+                        })
+                        .catch(error => {
+                            console.error('Erro ao buscar o CEP:', error);
+                        });
+                }
+            }
+
+
+            //formatar cep
+            Inputmask("99999-999").mask("#cepa");
+            Inputmask("99999-999").mask("#cep");
+            //formatar cpf
+            Inputmask("999.999.999-99").mask("#cpf");
+            //formatar telefone fixo
+            Inputmask("(99)9999-9999").mask("#telefoneFixo");
+            //formatar telefone Movel
+            Inputmask("(99)99999-9999").mask("#telefoneMovel");
+            //formtar telefone reserva  
+
             $(document).ready(function() {
 
 

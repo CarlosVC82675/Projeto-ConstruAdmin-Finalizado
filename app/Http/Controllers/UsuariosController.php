@@ -7,7 +7,11 @@ use App\Services\ExceptionHandlerService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Services\UserService;
-
+use App\Mail\CredenciaisEmail;
+use App\Models\Usuario;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UsuariosController extends Controller
 {
@@ -31,11 +35,23 @@ class UsuariosController extends Controller
             return redirect()->back()->with('error', 'Você não tem Permissão para Fazer isso!');
         }
             //Validação de dados(Função auxiliar)
-             $this->validaçãoUsuario($request);
+           //  $this->validaçãoUsuario($request);
 
             try {
             //Criando Usuario(Fluxo Principal)
             $this->userService->criarUsuario($request);
+
+
+            $usuarioNome = request()->input('name');
+            $usuarioEmail = request()->input('email');
+            $cpf = request()->input('cpf');
+            $cpfSemPontuacao = str_replace(['.', '-'], '', $cpf);
+            $senha = $cpfSemPontuacao; // Remove os pontos do CPF
+
+            // Enviar email com as credenciais
+            $mail = new CredenciaisEmail($usuarioNome, $usuarioEmail, $senha);
+            Mail::to($usuarioEmail)->send($mail);
+
 
             } catch (\Exception $e) {
             //Tratamento de Erros(Fluxo altenativo)
@@ -119,6 +135,47 @@ class UsuariosController extends Controller
         return redirect()->route('usuarios.lista')->with('success','Usuario deletado com Sucesso!');
     }
 
+    public function redefinirSenha(Request $request)
+    {
+        $request->validate([
+            'novaSenha' => ['required', 'min:10', 'same:confirmacaoSenha', 'regex:/[A-Za-z]/'],
+            'confirmacaoSenha' => ['required','same:novaSenha'],
+        ],[
+            'novaSenha.required' => 'A nova senha é obrigatória.',
+            'novaSenha.min' => 'A senha deve ter no mínimo 10 caracteres.',
+            'novaSenha.same' => 'As senhas não coincidem.',
+            'novaSenha.regex' => 'A senha deve conter pelo menos uma letra.',
+            'confirmacaoSenha.required' => 'A confirmação de senha é obrigatória.',
+            'confirmacaoSenha.same' => 'As senhas não coincidem.',
+        ]);
+
+        try {
+            $usuario = Usuario::find(Auth::id());
+            // Atualiza a senha se o usuário foi encontrado
+            if ($usuario) {
+                $novaSenha = $request->input('novaSenha');
+
+                //adição de um "salt" (um valor aleatório único para cada usuário) ao armazenar senhas
+                //garante que mesmo que duas senhas sejam iguais, elas resultarão em hashes diferentes.
+
+                $usuario->setAttribute('password', Hash::make($novaSenha));
+                $usuario->firstAccess = false;
+                $usuario->save();
+            }
+        } catch (\Exception $e) {
+            //Tratamento de Erros(Fluxo altenativo)
+                $errorMessage = $e->getMessage(); // pega a mensagem da exceção
+                $errorCode = $e->getCode(); // pega o código da exceção
+                $errorData = [
+                    'message' => $errorMessage ?? 'Erro desconhecido.',
+                    'code' => $errorCode ?? 'Desconhecido'
+                ];
+                //Retornando o Erro(Fluxo altenativo)
+                return redirect()->back()->with('error', $errorData)->withInput();
+        }
+            //Caso esteja tudo Certo, Retornando Com sucesso(Fluxo Principal)
+            return redirect()->route('site.index');
+    }
 
     //Funções Auxiliares
     private function validaçãoUsuario($request)
@@ -137,7 +194,7 @@ class UsuariosController extends Controller
             'estado' => ['required', 'string'],
             'email' => ['required', 'email','unique:usuarios,email'],
             'telefone1' => ['required', 'string', 'unique:telefone_usuarios,telefone', 'regex:/^\(\d{2}\)\d{4}-\d{4}$/'],
-            'telefone2' => ['nullable', 'string', 'unique:telefone_usuarios,telefone', 'regex:/^\(\d{2}\)\d{5}-\d{4}$/'],
+            'telefone2' => ['required', 'string', 'unique:telefone_usuarios,telefone', 'regex:/^\(\d{2}\)\d{5}-\d{4}$/'],
             'telefone3' => ['nullable', 'string', 'unique:telefone_usuarios,telefone', 'regex:/^\(\d{2}\)\d{5}-\d{4}$/'],
         ],[
             'atribuicao.required'=>'o campo atribuicão é obrigatorio',
@@ -188,9 +245,9 @@ class UsuariosController extends Controller
             'cidade' => ['required', 'string'],
             'estado' => ['required', 'string'],
             'email' => ['required', 'email', Rule::unique('usuarios', 'email')->ignore($usuario->idUsuario, 'idUsuario')],
-            'telefone1' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario'), 'regex:/^\(\d{2}\)\d{4}-\d{4}$/'],
-            'telefone2' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario'), 'regex:/^\(\d{2}\)\d{5}-\d{4}$/'],
-            'telefone3' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario'), 'regex:/^\(\d{2}\)\d{5}-\d{4}$/'],
+            'telefone1' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario')],
+            'telefone2' => ['required', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario')],
+            'telefone3' => ['nullable', 'string', Rule::unique('telefone_usuarios','telefone')->ignore($usuario->idUsuario, 'Usuarios_idUsuario')],
         ],[
             'atribuicao.required'=>'o campo atribuicão é obrigatorio',
             'name.required'=>'O nome é obrigatório',
@@ -218,9 +275,6 @@ class UsuariosController extends Controller
             'cpf.unique'=>'Cpf já está em uso ou é invalido',
             'email.unique'=>'Email ja registrado ou invalido',
             'cep.regex' => 'O campo CEP deve estar no formato 99999-999.',
-            'telefone1.regex' => 'O campo Telefone Fixo deve estar no formato (99)9999-9999.',
-            'telefone2.regex' => 'O campo Telefone Móvel deve estar no formato (99)99999-9999.',
-            'telefone3.regex' => 'O campo Telefone Reserva deve estar no formato (99)99999-9999.'
         ]);
     }
 
