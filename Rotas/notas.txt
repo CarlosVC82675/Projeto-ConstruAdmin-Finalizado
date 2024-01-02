@@ -1,0 +1,2 @@
+Adicionado as rotas de excluir comentarios e as rotas 
+das novas views que eu criei, nada d+

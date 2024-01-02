@@ -1,0 +1,5 @@
+Crie as services de cada funcao como manda o S
+
+o unico que eu absitrai foi relamente o procurar
+
+nele tem sla...umas 6 funções que procuram de modos diferentes

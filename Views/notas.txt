@@ -1,0 +1,11 @@
+Creie tres views novas, 
+
+- relatorio de atividades
+obs: a ideia principal era para ser uma parte baixavel
+por isso tem a nossa logo na view, " marca d'agua", mas isso envolve
+bibliotecas a parte, ent dx quieto
+
+- Lista de funcionario rasos envolvidos com atividades
+
+- Lista de Funcionarios "altos" envolvidos com atividades
+
