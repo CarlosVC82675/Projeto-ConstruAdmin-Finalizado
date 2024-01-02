@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Services\ExceptionHandlerService;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Log;
+
 
 class RelatorioController extends Controller
 {
@@ -136,6 +138,7 @@ public function gerarRelatorioGeral()
 
 
     // Retorne os dados ou faça algo com eles
+    try {
     $data = [
         'obras' => $obras,
         'usuarioscadastrados' => $usuarioscadastrados,
@@ -147,8 +150,15 @@ public function gerarRelatorioGeral()
 
     // Gerar o PDF e fazer o download
     $pdf->download('relatorio_Geral.pdf');
-
+    
     return redirect()->back()->with('success','Relatorio Cadastrado com Sucesso!');
+    } catch (\Exception $e) {
+    // Registrar detalhes do erro
+    Log::error('Erro ao gerar o relatório: ' . $e->getMessage());
+
+    // Lançar uma exceção ou lidar com o erro de outra forma
+    return redirect()->back()->with('error', $e->getMessage());
+    }
 }
 
 
