@@ -98,17 +98,10 @@ public function gerarRelatorioMaterias($idObra)
     }
 
     $obra = Obras::findOrFail($idObra);
-
     $materiasEstoque = Materiais_Estoque::all();
-
     $materiaisDaObra = $obra->materiais()->get();
-             // dd($materiaisNecessarios);
-
-            // Soma a quantidade de todos os materias relacionados a obra especifica
     $totalQuantidade = $materiaisDaObra->sum('pivot.quantidade');
 
-
-    // Retorne os dados ou faça algo com eles
     $data = [
         'obra' => $obra,
         'materiasEstoque' => $materiasEstoque,
@@ -116,12 +109,27 @@ public function gerarRelatorioMaterias($idObra)
         'totalQuantidade' => $totalQuantidade,
     ];
 
-    // Renderizar a view com os dados
     $pdf = PDF::loadView('reports.relatorioMateriais', $data);
 
-    // Gerar o PDF e fazer o download
-    return $pdf->download('relatorio_Materiais.pdf');
+    $tempDir = 'public/temp/';
+
+     // Criar o diretório temporário se não existir
+     Storage::makeDirectory($tempDir);
+
+     // Caminho completo para o arquivo temporário
+     $tempPath = storage_path('app/' . $tempDir . 'relatorio_Materiais.pdf');
+
+      // Salvar o PDF
+      Storage::put($tempDir . 'relatorio_Materiais.pdf', $pdf->output());
+
+      return view('reports.visualizarRelatorioMateriais', compact('obra', 'materiasEstoque', 'materiaisDaObra','totalQuantidade'));
 }
+
+
+
+
+
+
 
 public function gerarRelatorioGeral()
 {
