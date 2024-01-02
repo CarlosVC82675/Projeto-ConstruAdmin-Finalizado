@@ -19,17 +19,17 @@
           
           <div class="col-md-6">
             <label for="">Peso em quilos:</label>
-            <input type="number" name="kg" class="form-control form-control-sm" step="any" required>
+            <input type="number" name="kg" class="form-control form-control-sm" min="0" step="any" required>
           </div>
 
           <div class="col-md-6">
             <label for="">Metros:</label>
-            <input type="number" name="metros" class="form-control form-control-sm" step="any">
+            <input type="number" name="metros" class="form-control form-control-sm" min="0" step="any">
           </div>
 
           <div class="col-md-6">
             <label for="">Quantidade:</label>
-            <input type="number" name="quantidade" class="form-control form-control-sm" required>
+            <input type="number" name="quantidade" min="1" class="form-control form-control-sm" required>
           </div>
 
           <div class="col-md-6">

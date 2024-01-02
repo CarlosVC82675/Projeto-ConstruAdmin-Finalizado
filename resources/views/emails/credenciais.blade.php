@@ -41,7 +41,7 @@
             <li><strong>Email:</strong> {{ $email }}</li>
             <li><strong>Senha:</strong> {{ $senha }}</li>
         </ul>
-        <p>Visite nosso site: <a href="https://tcc-senai-production.up.railway.app/">ConstruAdmin</a>.</p>
+        <p>Visite nosso site: <a href="https://tcc-senai-production.up.railway.app/login">ConstruAdmin</a>.</p>
         <p>Por favor, faça seu primeiro login utilizando essas credenciais. Você será direcionado posteriormente para redefinir sua senha.</p>
         <p>Obrigado por se juntar à nossa plataforma.</p>
         <p>Atenciosamente,<br>Equipe ConstruAdmin</p>

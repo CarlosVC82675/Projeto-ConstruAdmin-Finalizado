@@ -20,6 +20,7 @@
                             <th scope="col">Tamanho</th>
                             <th scope="col">Quantidade</th>
                             <th scope="col">Validade</th>
+                            <th scope="col">Saída</th>
                             <th scope="col">Data de Entrada</th>
                             <th scope="col">Status</th>
                             <th scope="col">Ações</th>
@@ -35,6 +36,11 @@
                                     <td>{{$material->quantidade}}</td>
                                     <td>@if ($material->dtVencimento)
                                         {{ \Carbon\Carbon::parse($material->dtVencimento)->format('d/m/Y') }}
+                                    @else
+                                        N.T.
+                                    @endif</td>
+                                    <td>@if ($material->dtSaida)
+                                        {{ \Carbon\Carbon::parse($material->dtSaida)->format('d/m/Y') }}
                                     @else
                                         N.T.
                                     @endif</td>
@@ -77,9 +83,9 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="quantidade" class="form-label">Insira a quantidade de materiais que deseja adicionar:</label>
-                                    <input type="number" name="quantidade" class="form-control" required>
+                                    <input type="number" name="quantidade" min="1" class="form-control" required>
+                                    <input type="hidden" name="dtEntrada">
                                 </div>
-                                <input type="hidden" name="dtEntrada" value="{{ now() }}">
                                 <div class="text-end">
                                     <button type="submit" class="btn btn-secondary btn-sm">Enviar</button>
                                 </div>
@@ -108,10 +114,9 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="quantidadeRemover" class="form-label">Insira a quantidade que deseja remover desse material:</label>
-                                    <input type="number" name="quantidade" class="form-control" id="quantidadeRemover" required>
+                                    <input type="number" name="quantidade" min="1" class="form-control" id="quantidadeRemover" required>
                                 </div>
                                 <input type="hidden" name="dtSaida" value="{{ now() }}">
-
                                 <div class="text-end">
                                     <button type="submit" class="btn btn-secondary btn-sm me-2">Enviar</button>
                                 </div>
@@ -149,12 +154,12 @@
 
                             <div class="mb-3">
                                 <label for="kg" class="form-label">Peso em quilos:</label>
-                                <input type="number" name="kg" class="form-control" step="any" placeholder="" value="" required>
+                                <input type="number" name="kg" class="form-control" min="0" step="any" placeholder="" min="0" value="" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="metros" class="form-label">Metros:</label>
-                                <input type="number" name="metros" class="form-control" step="any" placeholder="" value="">
+                                <input type="number" name="metros" min="0" class="form-control" step="any" placeholder="" value="">
                             </div>
 
                             <div class="mb-3">
