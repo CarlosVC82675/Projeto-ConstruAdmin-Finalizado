@@ -89,7 +89,7 @@ class MateriaisNecessariosController extends Controller
         $obra->materiais()->detach($material->idMateriais);
 
         // Verifica se já existe um registro de MaterialUsado para esse material
-        $materialUsadoExistente = Materiais_Estoque::where('nomeM', $material->nomeM)
+        $materialUsadoExistente = Materiais_Estoque::where('nomeM', $material->nomeM . ' (usado)')
             ->where('Status_2', 'usado')
             ->first();
 
