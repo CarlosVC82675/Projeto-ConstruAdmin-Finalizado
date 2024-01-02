@@ -214,5 +214,8 @@
         Este relatório serve como um registro abrangente do progresso e dos participantes envolvidos no projeto, facilitando a compreensão do estado atual da obra e de seus processos.
     </p>
 </div>
+
+<a href="{{ asset('storage/temp/relatorio_obra.pdf') }}" download="relatorio_obra.pdf">Baixar Relatório</a>
+
 </body>
 </html>

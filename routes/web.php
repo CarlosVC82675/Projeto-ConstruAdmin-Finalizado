@@ -43,7 +43,7 @@ Route::middleware('checklogin')->group(function () {
 
 //obras feito por Diego
     //views da obra
-        Route::get('/menu', [SiteDashboardController::class, 'dashboard'])->name('site.index');
+        Route::get('/', [SiteDashboardController::class, 'dashboard'])->name('site.index');
         Route::get('/obra/criar', [SiteDashboardController::class, 'criarobra'])->name('site.criarobra')->middleware('na0');
         Route::get('/obra/{id}/editar', [SiteDashboardController::class, 'edit'])->name('obra.editar')->middleware('na0');
     //fim das views
@@ -128,7 +128,7 @@ Route::post('/obra/materiais/desassociar/{idMateriais}', [MateriaisNecessariosCo
 });
 
 //login feito por Carlos
-Route::get('/',[SiteDashboardController::class, 'index'])->name('login.form');
+Route::get('/login',[SiteDashboardController::class, 'index'])->name('login.form');
 Route::post('/auth',[LoginController::class, 'auth'])->name('login.auth');
 Route::get('/logout',[LoginController::class, 'logout'])->name('login.logout');
 //fim do login

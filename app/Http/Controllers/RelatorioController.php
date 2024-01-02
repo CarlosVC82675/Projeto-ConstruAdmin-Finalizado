@@ -50,22 +50,13 @@ public function gerarRelatorioObra($idObra)
     ->whereYear('atividade.created_at', $anoAtual)
     ->get();
 
-
     $cardatividade = card_atividades::all();
-
 
      // Mesma coisa mais pega apenas as que ja não estão feitas
     $atividadesDaObra = DB::table('atividade')
     ->join('card_atividades', 'atividade.card_atividades_idCard', '=', 'card_atividades.idCard')
     ->where('card_atividades.Obras_IdObras', $idObra)
     ->get();
-
-    $usuariosAtividades = DB::table('lista_atividade')
-    ->join('usuarios', 'lista_atividade.Usuarios_idUsuario', '=', 'usuarios.idUsuario')
-    ->select('usuarios.*')
-    ->distinct()
-    ->get();
-
 
     // Informações resumidas dos usuários
     $usuariosObra = Usuario::whereHas('obras', function ($query) use ($idObra) {
@@ -85,8 +76,18 @@ public function gerarRelatorioObra($idObra)
     // Renderizar a view com os dados
     $pdf = PDF::loadView('reports.relatorio', $data);
 
-    // Gerar o PDF e fazer o download
-    return $pdf->download('relatorio_obra.pdf');
+    $tempDir = 'public/temp/';
+
+     // Criar o diretório temporário se não existir
+     Storage::makeDirectory($tempDir);
+
+     // Caminho completo para o arquivo temporário
+     $tempPath = storage_path('app/' . $tempDir . 'relatorio_obra.pdf');
+
+      // Salvar o PDF
+      Storage::put($tempDir . 'relatorio_obra.pdf', $pdf->output());
+
+      return view('reports.visualizarRelatorio', compact('obra', 'atividadesFeitasMesAtual', 'atividadesDaObra','usuariosObra','cardatividade'));
 }
 
 
