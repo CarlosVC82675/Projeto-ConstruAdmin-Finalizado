@@ -67,7 +67,7 @@
                                         @endforeach
                                     </select>
                                     <label for="" class="form-label">Insira a quantidade que deseja associada a obra:</label>
-                                    <input type="number" name="quantidade" class="form-control" required>
+                                    <input type="number" name="quantidade" min="1" class="form-control" required>
                                 </div>
                                 <div class="text-end">
                                     <button type="submit" class="btn btn-secondary btn-sm me-2">Enviar</button>
@@ -97,7 +97,7 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="" class="form-label">Insira a quantidade que deseja remover desse material:</label>
-                                    <input type="number" name="quantidade" class="form-control" required>
+                                    <input type="number" name="quantidade" min="1" class="form-control" required>
                                     <input type="hidden" name="idObra" value="{{$obra->idObras}}">
                                 </div>
                                 <div class="text-end">

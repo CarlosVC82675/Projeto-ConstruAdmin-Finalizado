@@ -89,17 +89,16 @@ class MaterialController extends Controller{
                 'quantidade.min' => 'insira um número maior que 0',
                 'quantidade.integer' => 'insira um número inteiro'
             ]);
+            $data = $request->all();
+            $data['dtEntrada'] = now();        
 
             //armazenamento e calculo do número informado pelo usuário
             $quantidade = $request->input('quantidade');
             $valorAdicionado = $quantidade + $material->quantidade;
 
-            //data de entrada pega na funcao now na view, armazenada na dtEntrada
-            $dtEntrada = $request->input('dtEntrada');
-
             //atributos passados para o banco
             $material->quantidade = $valorAdicionado;
-            $material->dtEntrada = $dtEntrada;
+            $material->dtEntrada = $data['dtEntrada'];
             try{
                 //salvo no banco
                 $material->save();
@@ -146,12 +145,12 @@ class MaterialController extends Controller{
             //diminui a quantidade
             $valorRemovido = $material->quantidade - $quantidade;
 
-            //armazena a datade saida com o now() e salva no dtSaida
-            $dtSaida = $request->input('dtSaida');
+            $data = $request->all();
+            $data['dtEntrada'] = now(); 
 
             //passa pro banco a quantidade armazenada nos atributos anteriores
             $material->quantidade = max(0, $valorRemovido);
-            $material->dtSaida = $dtSaida;
+            $material->dtSaida = $data['dtEntrada'];
             try{
                 $material->save();
             } catch (\PDOException $erro){
