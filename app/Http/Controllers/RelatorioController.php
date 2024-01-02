@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use App\Services\ExceptionHandlerService;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 
 class RelatorioController extends Controller
@@ -129,37 +130,36 @@ public function gerarRelatorioGeral()
         return redirect()->back()->with('error', 'Você não tem Permissão para Fazer isso!');
     }
 
-    // Obter informações da obra
-    $obras = Obras::all();
-    $usuarioscadastrados = Usuario::all();
-    $materiasEstoque = Materiais_Estoque::all();
-
-      // Informações resumidas dos usuários
-
-
-    // Retorne os dados ou faça algo com eles
     try {
-    $data = [
-        'obras' => $obras,
-        'usuarioscadastrados' => $usuarioscadastrados,
-        'materiasEstoque' => $materiasEstoque,
-    ];
+        // Obter informações da obra
+        $obras = Obras::all();
+        $usuarioscadastrados = Usuario::all();
+        $materiasEstoque = Materiais_Estoque::all();
 
-    // Renderizar a view com os dados
-    $pdf = PDF::loadView('reports.relatorioGeral', $data);
+        // Renderizar a view com os dados
+        $pdf = PDF::loadView('reports.relatorioGeral', compact('obras', 'usuarioscadastrados', 'materiasEstoque'));
 
-    $tempPath = storage_path('app/public/temp/relatorio_Geral.pdf');
-    $pdf->save($tempPath);
-    // Gerar o PDF e fazer o download
-    return view('reports.relatorioGeral', compact('tempPath','obras','usuarioscadastrados','materiasEstoque'));
+        // Caminho para o diretório temporário
+        $tempDir = 'public/temp/';
 
-    return redirect()->back()->with('success','Relatorio Cadastrado com Sucesso!');
+        // Criar o diretório temporário se não existir
+        Storage::makeDirectory($tempDir);
+
+        // Caminho completo para o arquivo temporário
+        $tempPath = storage_path('app/' . $tempDir . 'relatorio_Geral.pdf');
+
+        // Salvar o PDF
+        Storage::put($tempDir . 'relatorio_Geral.pdf', $pdf->output());
+
+        // Retornar a view com o link para download
+
+        return view('reports.visualizarRelatorioGeral', compact('obras', 'usuarioscadastrados', 'materiasEstoque'));
     } catch (\Exception $e) {
-    // Registrar detalhes do erro
-    Log::error('Erro ao gerar o relatório: ' . $e->getMessage());
+        // Registrar detalhes do erro
+        Log::error('Erro ao gerar o relatório: ' . $e->getMessage());
 
-    // Lançar uma exceção ou lidar com o erro de outra forma
-    return redirect()->back()->with('error', $e->getMessage());
+        // Lançar uma exceção ou lidar com o erro de outra forma
+        return redirect()->back()->with('error', $e->getMessage());
     }
 }
 
