@@ -148,9 +148,11 @@ public function gerarRelatorioGeral()
     // Renderizar a view com os dados
     $pdf = PDF::loadView('reports.relatorioGeral', $data);
 
+    $tempPath = storage_path('app/public/temp/relatorio_Geral.pdf');
+    $pdf->save($tempPath);
     // Gerar o PDF e fazer o download
-    $pdf->download('relatorio_Geral.pdf');
-    
+    return view('reports.relatorioGeral', compact('tempPath','obras','usuarioscadastrados','materiasEstoque'));
+
     return redirect()->back()->with('success','Relatorio Cadastrado com Sucesso!');
     } catch (\Exception $e) {
     // Registrar detalhes do erro
