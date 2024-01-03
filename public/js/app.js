@@ -223,10 +223,10 @@ $(document).ready(function() {
             'X-CSRF-TOKEN': csrfToken
           },
           success: function(response) {
-
+            console.log("to aqui1");
               if (response.redirect) {
                 debugger;
-                console.log("to aqui");
+                console.log("to aqui2");
                 window.location.href = response.redirect;
               } else {
                 debugger;
@@ -234,7 +234,7 @@ $(document).ready(function() {
               }
 
               debugger;
-
+              console.log("to aqui3");
               $('#ModalCriarAtividade').modal('hide');
           },
           error: function(xhr, status, error) {
