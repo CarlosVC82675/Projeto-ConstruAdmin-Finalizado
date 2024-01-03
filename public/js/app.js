@@ -225,10 +225,11 @@ $(document).ready(function() {
           success: function(response) {
 
               if (response.redirect) {
-
+                debugger;
+                console.log("to aqui");
                 window.location.href = response.redirect;
               } else {
-
+                debugger;
                 console.log(response);
               }
 
