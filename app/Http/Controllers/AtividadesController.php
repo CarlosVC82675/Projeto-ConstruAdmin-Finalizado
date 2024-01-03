@@ -2,118 +2,132 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Atividades;
-use App\Models\Comentarios;
-use App\Models\usuarios;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use App\Models\AtribuicaoUsuario;
 use App\Models\card_atividades;
 use App\Models\Obras;
-use App\Models\Usuario;
-use Illuminate\Validation\ValidationException;
+use App\Services\Atividade_Associar_Service;
+use App\Services\Atividade_Validar_Service;
+use App\Services\Atividade_Validar_Service_to_Update;
+use App\Services\Atividade_Criar_Service;
+use App\Services\Atividade_Procurar_Service;
+use App\Services\Atividade_Atualizar_Service;
+use App\Services\Atividade_Deletar_Sevice;
 use App\Services\UserService;
-use function Laravel\Prompts\error;
+
 
 class AtividadesController extends Controller
 {
+
+
+
+    protected $Atividade_Associar_Service;
+
+    protected $Atividade_Validar_Service;
+
+    protected $Atividade_Validar_Service_to_Update;
+
+    protected $Atividade_Criar_Service;
+
+    protected $Atividade_Procurar_Service;
+
+    protected $Atividade_Atualizar_Service;
+
+    protected $Atividade_Deletar_Sevice;
+
     protected $userService;
 
     //injeção de dependencia
-    public function __construct(UserService $userService)
+      public function __construct(
+        UserService $userService,
+         Atividade_Associar_service $Atividade_Associar_Service,
+         Atividade_Validar_Service $Atividade_Validar_Service,
+         Atividade_Criar_Service $Atividade_Criar_Service,
+         Atividade_Procurar_Service $Atividade_Procurar_Service,
+          Atividade_Atualizar_Service $Atividade_Atualizar_Service,
+           Atividade_Validar_Service_to_Update $Atividade_Validar_Service_to_Update, Atividade_Deletar_Sevice $Atividade_Deletar_Sevice)
     {
-        $this->userService = $userService;
+$this->Atividade_Associar_Service= $Atividade_Associar_Service;
+$this->Atividade_Validar_Service = $Atividade_Validar_Service;
+$this->Atividade_Validar_Service_to_Update = $Atividade_Validar_Service_to_Update;
+$this->Atividade_Criar_Service = $Atividade_Criar_Service;
+$this->Atividade_Procurar_Service=$Atividade_Procurar_Service;
+$this->Atividade_Atualizar_Service=$Atividade_Atualizar_Service;
+$this->Atividade_Deletar_Sevice=$Atividade_Deletar_Sevice;
+$this->userService = $userService;
     }
 
     public function Listar_ATV_Obra($idobra)
 {
-   //if (Auth::check()) {
-   // $idObra = Auth::user()->obra->idObra;
-
    $obra = Obras::find($idobra);
-
-
-
-   $cardAtividade = card_atividades::where('Obras_idObras', $idobra)
-   ->with([
-       'atividade' => function ($query) {
-           $query->with(['usuarios.roles', 'usuarios.Comentarios']);
-       }
-   ])
-   ->get();
-
-
-
+   $cardAtividade = $this->Atividade_Procurar_Service->GetAllCards($idobra);
    return view('site.siteObra.atividade.Lista_Atividade', compact('cardAtividade', 'idobra', 'obra'));
 }
+
+public function Relatorio_ATV($idobra)
+{
+    try{
+
+        $obra = Obras::find($idobra);
+$atividades = $this->Atividade_Procurar_Service->GetAllAtividades($idobra);
+return view('site.siteObra.atividade.Relatorio',compact('atividades','obra'));
+
+} catch (\Exception $e) {
+    log::error('Erro ao criar atividade: ' . $e->getMessage());
+    return response()->json(['error' => $e->getMessage()], 500);}
+}
+
+public function Lista_Funcionario($idobra)
+{
+    try{
+
+        $obra = Obras::find($idobra);
+$Usuarios = $this->Atividade_Procurar_Service->GetAllUser_WithAtv ($idobra);
+
+
+return view('site.siteObra.atividade.Lista_Funcionarios',compact('Usuarios','obra'));
+
+} catch (\Exception $e) {
+    log::error('Erro ao criar atividade: ' . $e->getMessage());
+    return response()->json(['error' => $e->getMessage()], 500);}
+}
+public function Lista_Responsaveis($idobra)
+{
+    try{
+
+        $obra = Obras::find($idobra);
+$Usuarios = $this->Atividade_Procurar_Service->GetAllUser_WithAtv ($idobra);
+
+
+return view('site.siteObra.atividade.Lista_Responsavei',compact('Usuarios','obra'));
+
+} catch (\Exception $e) {
+    log::error('Erro ao criar atividade: ' . $e->getMessage());
+    return response()->json(['error' => $e->getMessage()], 500);}
+}
+
+
+
+
     public function adicionarAtividade(Request $request)
     {
+        if (!$this->userService->VerificarPermissao('Atividade')) {
+            // Caso não tenha permissão (Controle de Acesso)
+            return redirect()->back()->with('error', 'Você não tem Permissão para Fazer isso!');
+        }
+
         try {
-        //
-            //if (Auth::check()) {
-             //   $userId = Auth::id();
-           // } else{
-             //   dd('nao tem usuario logado');
-            //}
-
-
-            $request->validate([
-                'nome' => 'required|string',
-                'etiqueta.*' => 'required|mimes:png,jpg,jpeg,application/pdf,docx',
-                'anexo.*' => 'required|mimes:png,jpg,jpeg,application/pdf,docx',
-                'descricao' => 'required|string',
-                'dtFinal' => 'required|date',
-                'dtInicial' => 'required|date',
-                'status' => 'required|in:COMEÇANDO,ANDAMENTO,FINALIZADO',
-                'card_atividades_idCard' => 'required|exists:card_atividades,idCard'
-            ]);
-
-
-            $anexosPaths = [];
-            $etiquetasPaths = [];
+            $userId = Auth::id();
             $idobra = $request->input('idobra');
 
 
-            if ($request->hasFile('anexo')) {
-                foreach ($request->file('anexo') as $file) {
-                    $anexoPath = $file->store('public/photos/atividade_anexo');
-                    $anexoPath = Storage::url($anexoPath);
-                    $anexosPaths[] = $anexoPath;
-                }
-            }
-
-
-            if ($request->hasFile('etiqueta')) {
-                foreach ($request->file('etiqueta') as $file) {
-                    $etiquetaPath = $file->store('public/photos/atividade_etiqueta');
-                    $etiquetaPath = Storage::url($etiquetaPath);
-                    $etiquetasPaths[] = $etiquetaPath;
-                }
-            }
-
-            $Atividades =  Atividades::create([
-                'nome' => $request->input('nome'),
-                'etiqueta' => implode(';', $etiquetasPaths),
-                'anexo' => implode(';', $anexosPaths),
-                'descricao' => $request->input('descricao'),
-                'dtFinal' => $request->input('dtFinal'),
-                'dtInicial' => $request->input('dtInicial'),
-                'status' => $request->input('status'),
-                'card_atividades_idCard' => $request->input('card_atividades_idCard')
-            ]);
-            $userId = Auth::id();
-            try {
-                $this->associarUsuarioAtividade($Atividades->idAtividade, $userId, $idobra);
-            } catch (QueryException $qe) {
-
-                log::error('Erro ao associar usuário à atividade: ' . $qe->getMessage());
-            }
-
+$this->Atividade_Validar_Service->Validar($request);
+$idAtividade = $this->Atividade_Criar_Service->adicionarAtividade($request);
+$this->Atividade_Associar_Service->Associar($idAtividade, $userId);
 
             return response()->json(['redirect' => route('Atividade.Listar', ['id' => $idobra])]);
         } catch (\Exception $e) {
@@ -125,84 +139,40 @@ class AtividadesController extends Controller
         }
     }
 
-
-
-
-
     public function associarUsuarioAtividade($atividadeId, $usuarioId, $idobra)
     {
-        {
+        if (!$this->userService->VerificarPermissao('Atividade')) {
+            // Caso não tenha permissão (Controle de Acesso)
+            return redirect()->back()->with('error', 'Você não tem Permissão para Fazer isso!');
+        }
 
-            if ($atividadeId !== null && $usuarioId !== null) {
-                try {
+        try{
 
-
-                    DB::table('lista_atividade')->insert([
-                        'Atividade_idAtividade' => $atividadeId,
-                        'Usuarios_idUsuario' => $usuarioId,
-                    ]);
-
-
+            $this->Atividade_Associar_Service->Associar($atividadeId, $usuarioId);
 
                     return response()->json(['redirect' => route('Atividade.Listar', ['id' => $idobra])]);
                 } catch (\Exception $e) {
                     log::error('Erro ao criar atividade: ' . $e->getMessage());
-                    return response()->json(['error' => $e->getMessage()], 500);
-
-
-
-
-    }
-}
-}
-}
-
+                    return response()->json(['error' => $e->getMessage()], 500);}
+                }
 
     public function atualizarAtividade(Request $request, $idAtividade)
     {
+        if (!$this->userService->VerificarPermissao('Atividade')) {
+            // Caso não tenha permissão (Controle de Acesso)
+            return redirect()->back()->with('error', 'Você não tem Permissão para Fazer isso!');
+        }
+
         try {
 
 
-            $atividade = Atividades::findOrFail($idAtividade);
+            $this->Atividade_Validar_Service_to_Update->Validar($request);
 
-            $request->validate([
-                'nomeV' => 'required|string',
-                'etiquetaV.*' => 'required|mimes:png,jpg,jpeg,application/pdf,docx',
-                'anexoV.*' => 'required|mimes:png,jpg,jpeg,application/pdf,docx',
-                'descricaoV' => 'required|string',
-                'dtFinalV' => 'required|date',
-                'dtInicialV' => 'required|date',
-                'statusV' => 'required|in:COMEÇANDO,ANDAMENTO,FINALIZADO',
-                'card_atividades_idCardV' => 'required|exists:card_atividades,idCard',
-            ]);
             $idobra = $request->input('idobra');
-            $anexosPaths = [];
-            if ($request->hasFile('anexo')) {
-                foreach ($request->file('anexo') as $file) {
-                    $anexoPath = $file->store('public/photos/atividade_anexo');
-                    $anexoPath = Storage::url($anexoPath);
-                    $anexosPaths[] = $anexoPath;
-                }
-            }
-            $etiquetasPaths = [];
-            if ($request->hasFile('etiqueta')) {
-                foreach ($request->file('etiqueta') as $file) {
-                    $etiquetaPath = $file->store('public/photos/atividade_etiqueta');
-                    $etiquetaPath = Storage::url($etiquetaPath);
-                    $etiquetasPaths[] = $etiquetaPath;
-                }
-            }
 
-            $atividade->update([
-                'nome' => $request->input('nomeV'),
-                'descricao' => $request->input('descricaoV'),
-                'dtFinal' => $request->input('dtFinalV'),
-                'dtInicial' => $request->input('dtInicialV'),
-                'status' => $request->input('statusV'),
-                'anexo' => implode(';', $anexosPaths),
-                'etiqueta' => implode(';', $etiquetasPaths),
-                'card_atividades_idCard' => $request->input('card_atividades_idCardV'),
-            ]);
+
+            $atividade= $this->Atividade_Procurar_Service->findAtividade($idAtividade);
+            $this->Atividade_Atualizar_Service->atualizarAtividade($request, $atividade);
 
 
 
@@ -215,17 +185,16 @@ class AtividadesController extends Controller
         }
     }
 
-
-
-
-
-
     public function delete_atv($idAtividade,$idobra)
     {
+        if (!$this->userService->VerificarPermissao('Atividade')) {
+            // Caso não tenha permissão (Controle de Acesso)
+            return redirect()->back()->with('error', 'Você não tem Permissão para Fazer isso!');
+        }
+
         try {
 
-            DB::table('lista_atividade')->where('Atividade_idAtividade', $idAtividade)->delete();
-            Atividades::findOrFail($idAtividade)->delete();
+            $this->Atividade_Deletar_Sevice->delete_atv($idAtividade);
 
             return response()->json(['redirect' => route('Atividade.Listar', ['id' => $idobra])]);
         } catch (\Exception $e) {

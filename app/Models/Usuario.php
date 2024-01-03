@@ -65,7 +65,7 @@ class Usuario extends Authenticatable
     }
 
     public function atividades(){
-        return $this->belongsToMany(Atividades::class,'lista_Atividades','Usuarios_idUsuario','Atividade_idAtividade');
+        return $this->belongsToMany(Atividades::class,'lista_Atividade','Usuarios_idUsuario','Atividade_idAtividade');
     }
 
 

@@ -2,55 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\card_atividades;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Services\CardAtividade_Criar_Service;
+use App\Services\CardAtividade_Deletar_Service;
+use App\Services\CardAtividade_Validar_Service;
 use App\Services\UserService;
+
 
 class CardAtividadesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    /**
-     * Show the form for creating a new resource.
-     */
-    protected $userService;
 
+    protected $CardAtividade_Criar_Service;
+    protected $CardAtividade_Validar_Service;
+protected $CardAtividade_Deletar_Service;
+protected $userService;
     //injeção de dependencia
-    public function __construct(UserService $userService)
+    public function __construct(
+        UserService $userService,
+        CardAtividade_Criar_Service $CardAtividade_Criar_Service,
+    CardAtividade_Validar_Service $CardAtividade_Validar_Service,
+    CardAtividade_Deletar_Service $CardAtividade_Deletar_Service)
     {
+        $this->CardAtividade_Criar_Service = $CardAtividade_Criar_Service;
+        $this->CardAtividade_Validar_Service = $CardAtividade_Validar_Service;
+        $this->CardAtividade_Deletar_Service = $CardAtividade_Deletar_Service;
         $this->userService = $userService;
     }
 
     public function criar_card(Request $request)
     {
+        if (!$this->userService->VerificarPermissao('Atividade')) {
+            // Caso não tenha permissão (Controle de Acesso)
+            return redirect()->back()->with('error', 'Você não tem Permissão para Fazer isso!');
+        }
+
         try {
-            $request->validate([
-                'titulo' => 'required|string',
-                'Obras_idObras' => 'required|exists:obras,idObras',
 
-            ]);
+$this->CardAtividade_Validar_Service->ValidarCard($request);
+$this->CardAtividade_Criar_Service->criar_card($request);
 
-            // Cria o novo card
-            card_atividades::create([
-                'titulo' => $request->input('titulo'),
-                'Obras_idObras' => $request->input('Obras_idObras')
-            ]);
-
-            // Obtém todos os cards
-            $cardAtividade = card_atividades::all();
-
-            // Log para verificar se a função está sendo chamada
-            Log::info('Função criar_card chamada com sucesso.');
-
-            // Log para verificar se há cards após a criação
-            Log::info('Número de cards após a criação: ' . count($cardAtividade));
-
-            // Adiciona $cardAtividade à sessão
-
-
-            // Redireciona para a rota 'Atividade.Lista'
             return redirect()->route('Atividade.Kanban');
 
         } catch (\Exception $e) {
@@ -66,23 +57,14 @@ class CardAtividadesController extends Controller
 
     public function deleteCard($idCard,$idobra)
     {
+        if (!$this->userService->VerificarPermissao('Atividade')) {
+            // Caso não tenha permissão (Controle de Acesso)
+            return redirect()->back()->with('error', 'Você não tem Permissão para Fazer isso!');
+        }
+        
         try {
-            $card = card_atividades::findOrFail($idCard);
 
-            $atividades = $card->atividade;
-
-
-            foreach ($atividades as $atividade) {
-
-                $atividade->usuarios()->detach();
-            }
-
-
-            $card->atividade()->delete();
-
-
-            $card->delete();
-
+$this->CardAtividade_Deletar_Service->deleteCard($idCard);
 
             return response()->json(['redirect' => route('Atividade.Listar', ['id' => $idobra])]);
         } catch (\Exception $e) {

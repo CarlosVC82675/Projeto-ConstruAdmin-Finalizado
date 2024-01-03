@@ -45,36 +45,34 @@ rel="stylesheet"
 
 <div style="margin-top: 20vh;">
 
-      <!-- SIDE BAR -->
- <!--Main Navigation-->
+  <!-- SIDE BAR -->
+<!--Main Navigation-->
 
 
 <!-- Brand -->
 <header>
-  <!-- Sidebar -->
+<!-- Sidebar -->
 
-  <nav id="sidebarMenu" class=" collapse d-lg-block sidebar collapse bg-white">
-    <div class="position-sticky">
-      <div class="list-group list-group-flush mx-3 mt-4">
-        <a
-          href="#"
-          class="list-group-item list-group-item-action py-2 ripple active bg bg-warning"
-          aria-current="true"
-        >
-          <i id="menu_" class="fas fa-tachometer-alt fa-fw me-3"></i><span>Menu Rapido</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-chart-pie fa-fw me-3"></i><span>Planejamento</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"
-          ><i class="fas fa-building fa-fw me-3"></i><span>Responsaveis vinculados</span></a
-        >
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"
-          ><i class="fas fa-calendar fa-fw me-3"></i><span>Relatorio de Atividades</span></a
-        >
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"
-          ><i class="fas fa-users fa-fw me-3"></i><span>Funcionarios rasos Vinculados</span></a
-        >
+<nav id="sidebarMenu" class=" collapse d-lg-block sidebar collapse bg-white">
+<div class="position-sticky">
+  <div class="list-group list-group-flush mx-3 mt-4">
+    <a
+      href="#"
+      class="list-group-item list-group-item-action py-2 ripple active bg bg-warning"
+      aria-current="true"
+    >
+      <i id="menu_" class="fas fa-tachometer-alt fa-fw me-3"></i><span>Menu Rapido</span>
+    </a>
+    <a href="{{route('Lista_Responsaveis.Atividade', ['idObra' => $obra->idObras])}}"  class="list-group-item list-group-item-action py-2 ripple"
+      ><i class="fas fa-building fa-fw me-3"></i><span>Responsaveis vinculados</span></a
+    >
+    <a href="{{route('Lista_Funcionario.Atividade', ['idObra' => $obra->idObras])}}" class="list-group-item list-group-item-action py-2 ripple"
+      ><i class="fas fa-users fa-fw me-3"></i><span>Funcionarios rasos Vinculados</span></a
+    >
+    <a href="{{route('Relatorio.Atividade', ['idObra' => $obra->idObras])}}" class="list-group-item list-group-item-action py-2 ripple"
+      ><i class="fas fa-calendar fa-fw me-3"></i><span>Relatorio de Atividades</span></a
+    >
+
 
 
       </div>
@@ -95,7 +93,7 @@ rel="stylesheet"
   <nav class=" card navbar-brand bg-body-tertiary  mx-auto mt-auto">
       <div id="teste_a" class="container-fluid">
         <span class="navbar-text ">
-      Atividades da Obra SENAI
+      Atividades da {{$obra->nome}}
         </span>
       </div>
    </div>
@@ -126,31 +124,53 @@ rel="stylesheet"
         @if (isset($cardAtividade) && $cardAtividade->count() > 0)
             @foreach ($cardAtividade as $card)
 
-            <div class="col-md-4  mx-4 bg-dark bg-opacity-40 rounded p-3 rounded   " >
+            <div class="col-md-4  mx-4 bg-warning bg-opacity-25 border border-warning rounded p-3 rounded " >
 
               <!-- BOTAO MODAL CARD -->
 
-              <div class="row d-flex justify-content-around">
-<button type="button" class=" col-4 btn btn-warning"
- data-mdb-ripple-init
- data-mdb-modal-init
- data-mdb-target="#exampleModal">
-  Criar novo card
- </button>
+              <div class="row d-flex justify-content-around" >
 
- <button
- type="button"
- class="col-4  btn btn-primary create-activity"
- data-card='@json($card)'
- data-mdb-ripple-init
- data-mdb-toggle="modal"
- data-mdb-target="#ModalCriarAtividade"
- id="openModalButton"
->
-Adicionar Atividade
-</button>
+                <div class=" dropdown">
+
+                  <button
+                  class="btn btn-light border border-success btn-lg btn-floating mx-1 "
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-mdb-dropdown-init
+                    data-mdb-ripple-init
+                    aria-expanded="false"
+                  >
+                  <i class="fas fa-circle-plus fa-lg text-success"></i>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li> <button
+                      type="button"
+                      class="btn btn-primary create-activity" style="min-width: 100%;"
+                      data-card='@json($card)'
+                      data-mdb-ripple-init
+                      data-mdb-toggle="modal"
+                      data-mdb-target="#ModalCriarAtividade"
+                      id="openModalButton"
+                     >
+                     Adicionar Atividade
+                     </button></li>
+                    <li><button type="button" class="  btn btn-warning "style="min-width: 100%;"
+                      data-mdb-ripple-init
+                      data-mdb-modal-init
+                      data-mdb-target="#exampleModal">
+                       Criar novo card
+                      </button></li>
+                  </ul>
+                </div>
+
+
+
+
+
+
+
 </div>
-                <div class="border-0   my-4 d-flex  card card text-center bg-secondary bg-opacity-40 border border-dark mx-2 " style="max-height: 40vh;overflow-y: auto; min-height: 20vh;">
+                <div class="border-0   my-4 d-flex  card card text-center bg-white bg-opacity-40 border border-dark mx-2 " style="max-height: 40vh;overflow-y: auto; min-height: 20vh;">
 
 
 
@@ -164,7 +184,7 @@ Adicionar Atividade
                           <h4><span class="badge badge-warning container-fluid"> {{ $card->titulo }}</span></h4>
 
                         </div>
-                    <div class="card-body ">
+                    <div class="card-body   ">
                         <div id="areaCards" >
 
                             <!-- CORPO PRINCIPAL DOS CARDS DAS ATIVIDADES -->
@@ -173,7 +193,7 @@ Adicionar Atividade
 
                                 <div class="card mt-3 border  "style=" overflow-y: auto;overflow-x: hidden;  max-width:60vh;white-space: wrap;">
                                     <div class="card-body position-relative"  >
-                                        <h5 class="card-title">Atividade: {{ $atividade->nome }}</h5>
+                                        <h5 class="card-title"><strong>  Atividade: {{ $atividade->nome }}</strong> </h5>
 
 
 
@@ -214,11 +234,11 @@ data-mdb-target="#staticBackdrop"
 
                                     <!-- PARTE DOS STATUS COLORIDOS NOS CARDS -->
                                         @if($atividade->status == 'COMEÇANDO')
-                                            <div class="position-absolute top-0 end-0 bg-success rounded" style="height: 100%; width: 10%;"></div>
+                                            <div class="position-absolute top-0 end-0  rounded" style="height: 100%; width: 10%;background: linear-gradient(90deg, rgb(198, 255, 206) 9%, rgb(169, 255, 116) 58%, rgb(81, 241, 52) 100%);"></div>
                                         @elseif($atividade->status == 'ANDAMENTO')
-                                            <div class="position-absolute top-0 end-0 bg-warning rounded" style="height: 100%; width: 10%;"></div>
+                                            <div class="position-absolute top-0 end-0 rounded" style="height: 100%; width: 10%;background: linear-gradient(90deg, rgb(250, 249, 176) 9%, rgba(255,242,14,1) 58%, rgb(219, 223, 2) 100%);"></div>
                                         @else
-                                            <div class="position-absolute top-0 end-0 bg-danger rounded" style="height: 100%; width: 10%;"></div>
+                                            <div class="position-absolute top-0 end-0 rounded" style="height: 100%; width: 10%;background: linear-gradient(90deg, rgb(245, 177, 158) 9%, rgb(255, 106, 98) 53%, rgba(255,0,0,1) 100%);"></div>
                                         @endif
                                      <!-- FIM -->
 
@@ -265,13 +285,13 @@ data-mdb-target="#staticBackdrop"
 
                     </div>
                 </div>
-                <button type="button" class="d-flex flex-row-reverse align-items-center justify-content-center  btn btn-danger Delete_card_Button"
+                <button type="button" class="d-flex flex-row-reverse align-items-center justify-content-center btn btn-light border border-danger Delete_card_Button"
                 style="width: 2vh;height:3vh"
                 data-card="{{$card->idCard}}"
-                data-obra="{{$idobra}}"
-                id="Delete_card_Button">
-                <i class="fas fa-trash-can"></i>
-                </button>
+                data-obra="{{$idobra}}">
+                <i class="fas fa-trash-can text-danger"></i>
+            </button>
+
             </div>
 
         @endforeach
@@ -334,7 +354,7 @@ data-mdb-target="#staticBackdrop"
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Associar Usuario</h5>
-        <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" id="FecharAssociar" data-mdb-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex justify-content-center">
         <form id="Form_Assoc_User" method="PUT" style="width: 22rem; ">
@@ -371,11 +391,11 @@ data-mdb-target="#staticBackdrop"
 
 <!-- MODAL DE CRIAR ATIViDADE -->
 <div class="modal fade" id="ModalCriarAtividade" tabindex="-1" aria-labelledby="ModalCriarAtividadeLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="ModalCriarAtividadeLabel">Criar atividade</h5>
-        <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content border border-warning" style="width: 70vw;">
+      <div class="modal-header text-center  badge badge-warning">
+        <h5 class="modal-title w-100" id="ModalCriarAtividadeLabel">Criar atividade</h5>
+        <button type="button" class="btn-close" id="FecharCriarATV" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
@@ -401,18 +421,22 @@ data-mdb-target="#staticBackdrop"
       </div>
     </div>
   </div>
-
+<div class="row mb-4">
+<div class="col">
   <!-- Text input -->
   <div data-mdb-input-init class="form-outline mb-4">
     <input name='dtInicial' type="date" class="form-control" />
     <label class="form-label" for="form6Example3">Data de Inicio</label>
   </div>
-
+  </div>
+  <div class="col">
   <!-- Text input -->
   <div data-mdb-input-init class="form-outline mb-4">
     <input name='dtFinal' type="date" class="form-control" />
     <label class="form-label" for="form6Example4">Data de Termino</label>
   </div>
+</div>
+</div>
 
 
   <div class="input-group mb-3">
@@ -420,9 +444,9 @@ data-mdb-target="#staticBackdrop"
       <label class="input-group-text" >STATUS</label>
     </div>
     <select name="status" class="custom-select" id="inputGroupSelect01">
-      <option selected value="COMEÇANDO">INIÇIANDO</option>
-      <option value="ANDAMENTO">ANDAMENTO</option>
-      <option value="FINALIZADO">FINALIZADO</option>
+      <option selected value="COMEÇANDO" class=" text-success badge badge-success">INIÇIANDO</option>
+      <option value="ANDAMENTO" class=" text-warning badge badge-warning">ANDAMENTO</option>
+      <option value="FINALIZADO" class=" text-danger badge badge-danger">FINALIZADO</option>
     </select>
   </div>
 
@@ -440,21 +464,21 @@ data-mdb-target="#staticBackdrop"
 
 
 <div class="row">
-  <div class="mb-3 col-6">
+  <div class="mb-4 col-9">
     <label for="etiqueta" class="form-label">Etiqueta</label>
-    <input type="file"  class="form-control border border-warning" id="etiqueta" name="etiqueta[]" enctype="multipart/form-data" accept="image/*,.pdf" multiple>
+    <input type="file"  class="form-control " id="etiqueta" name="etiqueta[]" enctype="multipart/form-data" accept="image/*,.pdf" multiple>
     <!--<div id="etiquetaList"></div> -->
 </div>
-<div class="mb-3 col-6">
+<div class="mb-4 col-9">
     <label for="anexo" class="form-label ">Anexo</label>
-    <input type="file"  class="form-control  border border-warning" id="anexo" name="anexo[]" enctype="multipart/form-data" accept="image/*,.pdf" multiple>
+    <input type="file"  class="form-control  " id="anexo" name="anexo[]" enctype="multipart/form-data" accept="image/*,.pdf" multiple>
    <!-- <div id="anexoList"></div>-->
 </div>
 </div>
 
 
   <!-- Submit button -->
-  <button type="submit"  class="btn btn-primary btn-block mb-4">Criar Atividade</button>
+  <button type="submit"  class="btn btn-warning badge badge-warning btn-block mb-4">Criar Atividade</button>
 
 </form>
 
@@ -484,50 +508,62 @@ data-mdb-target="#staticBackdrop"
 
 
 <!-- MODAL DE COMENTARIOS -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog modal-xl" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Comentários do Usuário</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+    <div class="modal-content" style="min-height: 70vh;">
+      <div class="  text-center modal-header badge badge-primary " >
+
+          <span name='titulo' class='display-6  text-center container-fluid'></span>
+
+        <button type="button" id="FecharComent"  class="btn btn-light border border-danger text-danger" data-mdb-ripple-init data-mdb-dismiss="modal">Close</button>
         </button>
       </div>
-      <h1 class="text-center">
-        <span name='titulo' class='badge badge-primary container-fluid'></span>
-    </h1>
-
-      <div class="d-flex  justify-content-center mt-3">
-      <form id="formComentario" method="POST" style="width: 90%;margin-top:10vh;">
-        @csrf
 
 
-        <input type="hidden" name="Atividade_idAtividade" id="Atividade_idAtividade">
-        <input type="hidden" name="Usuarios_idUsuario" id="Usuarios_idUsuario" >
 
-<div class="row">
-<textarea class="form-control" id="comentario" name="comentario" placeholder="Digitar Comentario"></textarea>
-</div>
-<div class="row">
-<button type="submit" class="btn btn-secondary">Enviar</button>
-</div>
-      </form>
+
+    <hr class="hr mt-4   "  />
+<div class="d-flex">
+      <div class="note note-danger mb-3 mx-4 w-50 ">
+        <strong>Nota de Aviso:</strong> Por favor não proferir palavras de baixo calão e evitar comentario que
+        não são voltados a atividade em questão
       </div>
-      <hr class="hr mt-4" />
-
-  <h2 class="text-center "><span class="badge badge-primary">comentarios</span></h2>
-  <div id="hr_line"></div>
-      <div class="modal-body" id="modal-comentarios">
-
-        <!-- Aqui serão exibidos os comentários -->
-      </div>
-
-      <div class="modal-footer">
-        <!-- Botão para fechar o modal -->
-        <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Close</button>
+      <div class="note note-warning mb-3 mx-4 w-50 ">
+        <strong>Nota de Alerta:</strong> Esse chat é destinado a apenas comentarios relevantes a atividades, comente qualquer coisa que seja relevante a atividade
       </div>
     </div>
+      <hr class="hr mt-4 bg" />
+
+
+
+
+<!-- TESTANDO -->
+
+
+<div class="d-flex  justify-content-center mt-3">
+  <form id="formComentario" method="POST" style="width: 90%;margin-top:10vh;">
+    @csrf
+
+
+    <input type="hidden" name="Atividade_idAtividade" id="Atividade_idAtividade">
+    <input type="hidden" name="Usuarios_idUsuario" id="Usuarios_idUsuario" >
+
+    <div  style="display: flex; align-items: center;">
+      <input class="form-control " id="comentario" name="comentario" placeholder="Digitar Comentario" style="border-bottom: 1px solid #000; border-left: none; border-right: none; border-top: none; width: 40vw;">
+       <button type="submit" class="bg bg-white " style="position:absolute; left:48%;border: none;"><i class="fas fa-paper-plane text-primary"></i></button>
+    </div>
+
+  </form>
   </div>
+
+<table class="table align-middle mb-0 bg-white ">
+
+  <tbody id="comentarios">
+       <!-- Aqui serão exibidos os comentários -->
+  </tbody>
+</table>
+  </div>
+</div>
 </div>
 
 
@@ -545,8 +581,8 @@ data-mdb-target="#staticBackdrop"
 <div class="modal fade" id="staticBackdrop" data-mdb-backdrop="static" data-mdb-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
       <div class="modal-content">
-        <div class="modal-header bg-secondary bg-opacity-10 border-bottom">
-          <img class="card-img-top border border-dark" name="etiqueta[]" id="etiqueta[]" src="" alt="Card image cap" style="max-height: 30vh; min-height: 30vh;">
+        <div class="modal-header badge badge-warning border-bottom">
+          <img class="card-img-top " name="etiqueta[]" id="etiqueta[]" src="" alt="Card image cap" style="max-height: 30vh; min-height: 30vh;">
         </div>
 
         <form class="modal-body" id="atividadeForm" enctype="multipart/form-data" method="POST">
@@ -654,9 +690,9 @@ data-mdb-target="#staticBackdrop"
           <!-- Adicione aqui os outros campos do seu formulário -->
 
           <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Close</button>
-
+            <button type="button" id="FecharView" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Close</button>
           </div>
+
         </form>
       </div>
     </div>
@@ -690,8 +726,8 @@ data-mdb-target="#staticBackdrop"
           </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" id="FecharCreateCard" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
       </div>
     </div>
   </div>

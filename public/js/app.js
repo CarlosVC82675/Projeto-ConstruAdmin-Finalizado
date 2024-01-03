@@ -150,7 +150,7 @@ $('.button_Assoc').on('click', function() {
 
 
 
-})
+});
 
 $(document).ready(function(){
 $('#Form_Assoc_User').submit(function(e){
@@ -197,7 +197,7 @@ $.ajax({
 
 })
 
-})
+});
 
 
 
@@ -280,9 +280,9 @@ if (atividade && atividade.hasOwnProperty('usuarios') && Array.isArray(atividade
       debugger;
       document.querySelector('input[name="Atividade_idAtividade"').value = atividade.idAtividade;
       document.querySelector('input[name="Usuarios_idUsuario"').value = authId;
-      document.querySelector('span[name="titulo"').innerText = atividade.nome;
+      document.querySelector('span[name="titulo"').innerText = 'Comentarios da '+atividade.nome;
 
-
+      $('#comentarios').empty();
 
 
       for (var u = 0; u < atividade.usuarios.length; u++) {
@@ -292,22 +292,79 @@ if (atividade && atividade.hasOwnProperty('usuarios') && Array.isArray(atividade
         });
 
         if (comentariosAtividade.length > 0) {
-            $('#hr_line').append('<hr>').addClass('hr');
-            $('#modal-comentarios').append('<h3><span>Usuário: ' + atividade.usuarios[u].name + '</span></h3>').addClass('badge badge-light');
+          for (var o = 0; o < comentariosAtividade.length; o++) {
 
-            for (var o = 0; o < comentariosAtividade.length; o++) {
-                var row = $('<div>').addClass('row');
-                var comentarioDiv = $('<h1><span>').addClass('badge badge-info border');
-                comentarioDiv.append('<strong>Comentário:</strong> ' + comentariosAtividade[o].comentario);
+          var trContainer = $('<tr>');
 
-                $('#modal-comentarios').append(row.append(comentarioDiv));
-            }
+  var tdPerfil = $('<td>');
+
+  var divInfosPrincipais = $('<div>',{
+    class: 'd-flex align-items-center'
+  });
+
+  var ImgPerfil = $('<img>',{
+      src: 'https://mdbootstrap.com/img/new/avatars/8.jpg',
+      alt: '',
+      style: 'width: 45px; height: 45px',
+      class: 'rounded-circle'
+
+  });
+
+  var divNameUser = $('<div>',{
+    class: 'ms-3',
+    style:'width:50vw'
+  });
+
+const data = comentariosAtividade[o].updated_at;
+const dataV = new Date(data);
+const dataCon = dataV.toLocaleString();
+
+  var PnomeEtime = $('<p>',{
+    class:'fw-bold mb-1',
+    style:'margin-right:2vw',
+    text:atividade.usuarios[u].name + ' | ' + dataCon
+  });
+
+
+  var pComentario = $('<p>',{
+text:comentariosAtividade[o].comentario,
+class:'text-break'
+
+  });
+
+  var tdSecundaria = $('<td>');
+
+  var pAtribuicao = $('<p>',{
+    class:'fw-normal mb-1'
+  })
+
+
+
+  var tdEditar = $('<td>');
+
+  var buttoneditar = $('<button>',{
+    type:'button',
+    class:'border border-danger text-danger  btn btn-link btn-sm btn-rounded delete-comment-btn',
+    text:'Apagar',
+    'data-comment-id': comentariosAtividade[o].idComentarios
+
+  });
+
+tdEditar.append(buttoneditar);
+tdSecundaria.append(pAtribuicao);
+divNameUser.append(PnomeEtime,pComentario);
+divInfosPrincipais.append(ImgPerfil,divNameUser);
+tdPerfil.append(divInfosPrincipais);
+
+trContainer.append(tdPerfil,tdSecundaria,tdEditar);
+
+
+$('#comentarios').append(trContainer);
+          }
+
         }
         debugger;
     }
-
-
-
       debugger;
 
       // Mostrar o modal
@@ -319,11 +376,55 @@ if (atividade && atividade.hasOwnProperty('usuarios') && Array.isArray(atividade
     }
 
 
+  })
+});
+
+
+$(document).ready(function () {
+  // Use on para lidar com elementos dinâmicos
+  $('#comentarios').on('click', '.delete-comment-btn', function () {
+    var commentId = $(this).data('comment-id');
+    console.log(commentId);
+    debugger;
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+debugger;
+    $.ajax({
+      url: '/Atividade/Comentarios/Deletar_Comentario/' + commentId,
+      type: 'DELETE',
+      processData: false,
+      contentType: false,
+      headers: {
+        'X-CSRF-TOKEN': csrfToken
+      },
+      success: function (response) {
+        debugger;
+        // Lógica de sucesso, se necessário
+        console.log('Comentário excluído com sucesso');
+        window.location.reload();
+        if (response.redirect) {
+
+          window.location.href = response.redirect;
+        } else {
+
+          console.log(response);
+        }
+      },
+      error: function (xhr, status, error) {
+        debugger;
+        // Lógica de erro, se necessário
+        console.error('Erro na solicitação DELETE', error, status, xhr);
+      }
+    });
   });
+});
 
 
 
 
+
+
+
+$(document).ready(function(){
   $('#formComentario').on('submit', function (event) {
     event.preventDefault();
     var atividadeId = $('#Atividade_idAtividade').val();
@@ -346,9 +447,17 @@ if (atividade && atividade.hasOwnProperty('usuarios') && Array.isArray(atividade
         var comentarioDiv = $('<h1><span>').addClass('badge badge-success');
         $('#modal-comentarios').append(comentarioDiv.append('<div><strong>Novo Comentário:</strong> ' + novocomentario + '</div>'));
         debugger;
-
+        window.location.reload();
         // Limpar o campo do novo comentário
         $('#comentario').val('');
+        if (response.redirect) {
+
+          window.location.href = response.redirect;
+
+        } else {
+
+          console.log(response);
+        }
       },
       error: function (error) {
 
@@ -432,7 +541,7 @@ console.log(atividade);
 
           // Criar a estrutura da coluna (column) com a classe Bootstrap
           var colContainer = $('<div>', {
-              class: 'col-xl-6 mb-4'
+              class: 'col-xl-6 mb-4   '
           });
 
           var card = $('<div>', {
@@ -445,7 +554,7 @@ console.log(atividade);
           });
 
           var cardHeader = $('<div>', {
-              class: 'd-flex justify-content-between align-items-center',
+              class: 'd-flex justify-content-between align-items-center ',
 
           });
 
@@ -649,39 +758,74 @@ $(document).ready(function () {
 
 
 $(document).ready(function(){
-$('#Delete_card_Button').on('click', function(){
+  $('.Delete_card_Button').on('click', function(){
+    var idCard = $(this).data('card');
+    var idobra = $(this).data('obra');
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-  var idCard = $(this).data('card');
-  var idobra = $(this).data('obra');
-  var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-
-  $.ajax({
-    url: '/Card/Atividade/Deletar/' + idCard+ '/' + idobra,
-    type: 'DELETE',
-    headers: {
-      'X-CSRF-TOKEN': csrfToken
-    },
-    success: function (response) {
-
-      if (response.redirect) {
-
-        window.location.href = response.redirect;
-      } else {
-
-        console.log(response);
+    $.ajax({
+      url: '/Card/Atividade/Deletar/' + idCard + '/' + idobra,
+      type: 'DELETE',
+      headers: {
+        'X-CSRF-TOKEN': csrfToken
+      },
+      success: function (response) {
+        if (response.redirect) {
+          window.location.href = response.redirect;
+        } else {
+          console.log(response);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error('Erro na solicitação DELETE', error, status, xhr);
       }
-    },
-    error: function (xhr, status, error) {
-
-      console.error('Erro na solicitação DELETE', error, status, xhr);
-    }
+    });
   });
 });
-});
+
 
 
 
 $(document).ready(function () {
   $('#menu_').on('click', function () {
     $('#sidebarMenu').collapse('toggle');})})
+
+
+
+    // fechar modais //
+
+    $(document).ready(function(){
+    document.getElementById('FecharAssociar').addEventListener('click', function () {
+
+      $('#Modal_Associar_Usuario ').modal('hide');
+    });
+  });
+
+  $(document).ready(function(){
+    document.getElementById('FecharCriarATV').addEventListener('click', function () {
+
+      $('#ModalCriarAtividade ').modal('hide');
+    });
+  });
+
+
+$(document).ready(function(){
+    document.getElementById('FecharComent').addEventListener('click', function () {
+
+      $('#myModal').modal('hide');
+    });
+  });
+
+  $(document).ready(function(){
+    document.getElementById('FecharView').addEventListener('click', function () {
+
+      $('#staticBackdrop ').modal('hide');
+    });
+  });
+
+  $(document).ready(function(){
+    document.getElementById('FecharCreateCard').addEventListener('click', function () {
+
+      $('#exampleModal').modal('hide');
+    });
+  });

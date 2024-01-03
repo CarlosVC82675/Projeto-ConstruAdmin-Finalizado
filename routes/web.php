@@ -109,6 +109,20 @@ ROUTE::DELETE('Card/Atividade/Deletar/{idCard}/{idobra}',[CardAtividadesControll
 //COMENTARIOS
 //CRIAR COMENTARIO
 ROUTE::POST('Atividade/Comentarios/Criar_Comentarios/{Atividadeid}/{UsuariosID}',[ComentariosController::class,'criarComentarios'])->name('Comentario.Criar');
+//DELETAR COMENTARIO
+ROUTE::DELETE('Atividade/Comentarios/Deletar_Comentario/{idComentario}',[ComentariosController::class,'DeletarComentario'])->name('Deletar.Comentario');
+
+// ---- VIEWS DO SIDEBAR --//
+
+//RELATORIO DE ATIVIDADES
+//ROTA PARA A VIEW
+ROUTE::GET('Atividade/Relatorio/{idObra}',[AtividadesController::class,'Relatorio_ATV'])->name('Relatorio.Atividade');
+//LISTA DE FUNCIONARIOS RASOS
+//ROTA PARA A VIEW
+ROUTE::GET('Atividade/Lista_Funcionario/{idObra}',[AtividadesController::class,'Lista_Funcionario'])->name('Lista_Funcionario.Atividade');
+//LISTA DE RESPONSAVEIS
+//ROTA PARA A VIEW
+ROUTE::GET('Atividade/Lista_Responsaveis/{idObra}',[AtividadesController::class,'Lista_Responsaveis'])->name('Lista_Responsaveis.Atividade');
 
 
 //Relatorios por Carlos

@@ -12,7 +12,7 @@
 <body>
 
 
-  <div class="fixed-top" >
+  <div class="fixed-top " >
    <nav class="navbar navbar-expand px-3 border-bottom navbar-main" style="border-bottom: var(--bs-border-width) var(--bs-border-style) #00000000!important;">
 
 
@@ -23,7 +23,7 @@
     <!-- Logo da empresa -->
     <div class="navbar-brand d-flex align-items-center">
         <a href="{{route('site.index')}}"> <img src="{{secure_asset("img/capacete.png")}}" alt="Logo da Empresa" width="60" height="60" class="d-none d-md-block"></a>
-        <a href="{{route('site.index')}}"><span class="company-name ms-2 company-name-mobile">ConstruAdmin</span></a>
+        <span class="company-name ms-2 company-name-mobile">ConstruAdmin</span>
         <span class="separator d-none d-md-block">|</span>
         <span class="portal-name ms-2 d-none d-md-block">{{$obra->nome}}</span>
     </div>
@@ -99,6 +99,36 @@
 
 
     </div>
+
+    {{--Mensagens--}}
+    @if (session('success'))
+    <div class="card">
+        <h5 class="card-header">Sucesso!!</h5>
+        <div class="card-body">
+        <p>{{ session('success') }}</p>
+    </div>
+    </div>
+    @endif
+
+    @if(session('error') && session('confirm'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
+
+    @if(session('error') && isset(session('error')['code']))
+    <div class="alert alert-danger">
+    <strong>{{ session('error')['message'] }}</strong> - Código: {{ session('error')['code'] }}
+    </div>
+    @endif
+    {{--Fim das Mensagens--}}
+    
     @yield('conteudo')
 
 
