@@ -679,6 +679,7 @@ console.log(atividade);
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
     var formData = new FormData(this);
     var idAtividade = $('[name="idAtividade"]').val();
+    var etiqueta = $('[name="etiqueta[]"]').val();
     debugger;
     $.ajax({
       url: '/Atividade/Atualizar_Atividade/' + idAtividade,
@@ -691,7 +692,11 @@ console.log(atividade);
       },
       success: function (response) {
         console.log('Requisição POST bem-sucedida:');
+        if(etiqueta == null){
+
+        }else{
         updateModalImages();
+        }
         window.location.reload();
     if (response.redirect) {
 
