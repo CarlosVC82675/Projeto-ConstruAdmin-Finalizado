@@ -38,8 +38,11 @@
             </i>
             <li class="nav-item dropdown">
                 <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0 d-flex align-items-center">
-                    {{--Imagem do Usuario--}}
+                    @if (Auth::user()->genero == 'MASCULINO')
                     <img src="{{secure_asset("img/avatar.png")}}" class="avatar img-fluid rounded " alt="">
+                    @else
+                    <img src="{{secure_asset("img/avatarFeminine.png")}}" class="avatar img-fluid rounded " alt="">
+                    @endif
                     {{--Nome do usuario--}}
                     <span class="company-name ms-2 d-none d-md-block">
                         @if (Auth::check())
@@ -128,7 +131,7 @@
     </div>
     @endif
     {{--Fim das Mensagens--}}
-    
+
     @yield('conteudo')
 
 

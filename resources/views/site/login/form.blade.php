@@ -58,7 +58,7 @@ rel="stylesheet"
                         class="img-fluid" style="max-width:100%;max-height:10vh;">
                     </div>
                     <div class="row mt-4 text-center">
-                        <p class="text-warning fst-italic fw-bold">CONSTRUBungas <i class="fas fa-helmet-safety"></i><p class="text-primary fst-italic fw-bold">ADMIN <i class="fas fa-business-time"></i></p> </p>
+                        <p class="text-warning fst-italic fw-bold">CONSTRU <i class="fas fa-helmet-safety"></i><p class="text-primary fst-italic fw-bold">ADMIN <i class="fas fa-business-time"></i></p> </p>
                     </div>
                 </div>
                 <div class="col-md-8">

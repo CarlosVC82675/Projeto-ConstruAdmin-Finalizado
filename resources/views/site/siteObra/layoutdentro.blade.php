@@ -46,8 +46,11 @@
             </i>
             <li class="nav-item dropdown">
                 <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0 d-flex align-items-center">
-                    {{--Imagem do Usuario--}}
+                    @if (Auth::user()->genero == 'MASCULINO')
                     <img src="{{secure_asset("img/avatar.png")}}" class="avatar img-fluid rounded " alt="">
+                    @else
+                    <img src="{{secure_asset("img/avatarFeminine.png")}}" class="avatar img-fluid rounded " alt="">
+                    @endif
                     {{--Nome do usuario--}}
                     <span class="company-name ms-2 d-none d-md-block">
                         @if (Auth::check())
@@ -59,8 +62,6 @@
                 </a>
                     {{--Menu do usuario--}}
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a href="#" class="dropdown-item">Profile</a>
-                    <a href="#" class="dropdown-item">Setting</a>
                     <a href="{{route('login.logout')}}"  class="dropdown-item">Logout</a>
                 </div>
             </li>

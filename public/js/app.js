@@ -223,11 +223,9 @@ $(document).ready(function() {
             'X-CSRF-TOKEN': csrfToken
           },
           success: function(response) {
-          
-            console.log("to aqui1");
+            window.location.reload();
+
               if (response.redirect) {
-                debugger;
-                console.log("to aqui2");
                 window.location.href = response.redirect;
               } else {
                 debugger;
@@ -694,7 +692,7 @@ console.log(atividade);
       success: function (response) {
         console.log('Requisição POST bem-sucedida:');
         updateModalImages();
-
+        window.location.reload();
     if (response.redirect) {
 
       window.location.href = response.redirect;
@@ -741,7 +739,7 @@ $(document).ready(function () {
         'X-CSRF-TOKEN': csrfToken
       },
       success: function (response) {
-
+        window.location.reload();
         if (response.redirect) {
 
           window.location.href = response.redirect;
