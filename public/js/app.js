@@ -223,6 +223,7 @@ $(document).ready(function() {
             'X-CSRF-TOKEN': csrfToken
           },
           success: function(response) {
+            window.location.reload();
             console.log("to aqui1");
               if (response.redirect) {
                 debugger;
