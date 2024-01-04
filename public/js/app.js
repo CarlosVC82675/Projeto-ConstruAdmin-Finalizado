@@ -174,7 +174,7 @@ $.ajax({
     'X-CSRF-TOKEN': csrfToken
   },
   success: function (response) {
-
+    window.location.reload();
     if (response.redirect) {
 
       window.location.href = response.redirect;
