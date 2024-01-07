@@ -116,19 +116,19 @@
                             <div class="col-md-4">
                                 <label class="form-label">Nome</label>
                                 <input type="text" class="form-control" name="name" placeholder="Digite seu nome"
-                                    required>
+                                    >
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Sobrenome</label>
                                 <input type="text" class="form-control" name="lastName"
-                                    placeholder="Digite seu Sobrenome" required>
+                                    placeholder="Digite seu Sobrenome" >
                             </div>
 
                             <div class="col-md-8">
                                 <div class="mb-3">
                                     <label class="form-label">Email</label>
                                     <input type="email" class="form-control" name="email" placeholder="Digite seu Email"
-                                        required>
+                                        >
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -142,39 +142,39 @@
                             <div class="col-md-3">
                                 <label class="form-label">CEP</label>
                                 <input type="text" class="form-control" oninput="buscarCEPA()" id="cep" name="cep"
-                                    placeholder="Digite seu CEP" required>
+                                    placeholder="Digite seu CEP" >
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Cidade</label>
                                 <input type="text" id="cidada" class="form-control" name="cidade"
-                                    placeholder="Digite sua cidade" required>
+                                    placeholder="Digite sua cidade" >
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">UF</label>
                                 <input type="text" id="estada" class="form-control" name="estado"
-                                    placeholder="Digite seu estado" required>
+                                    placeholder="Digite seu estado" >
                             </div>
 
                             <div class="col-md-4">
                                 <label class="form-label">Cidadania</label>
                                 <input type="text" class="form-control" name="pais"
-                                    placeholder="Digite seu Pais de Origem" required>
+                                    placeholder="Digite seu Pais de Origem" >
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">CPF</label>
                                 <input type="text" class="form-control"  id="cpf" name="cpf"
-                                    placeholder="Digite seu CPF" required>
+                                    placeholder="Digite seu CPF" >
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Telefone</label>
                                 <input type="text" id="telefoneFixo" class="form-control" name="telefone1"
-                                    placeholder="Digite seu telefone" required>
+                                    placeholder="Digite seu telefone" >
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Celular</label>
                                 <input type="text" id="telefoneMovel" class="form-control" name="telefone2"
-                                    placeholder="Digite seu Celular" required>
+                                    placeholder="Digite seu Celular" >
                             </div>
 
                             <div class="col-md-4">
@@ -207,14 +207,14 @@
 
             <div class="col-md-6">
                 <label class="form-label">Nome</label>
-                <input type="text" class="form-control" name="nome" required placeholder="Nome">
+                <input type="text" class="form-control" name="nome"  placeholder="Nome">
                 <label class="form-label">Tamanho</label>
-                <input type="text" class="form-control" name="tamanho" required placeholder="Em m² (Apenas Números)">
+                <input type="text" class="form-control" name="tamanho"  placeholder="Em m² (Apenas Números)">
             </div>
             <div class="col-md-6">
                 <label>Descrição</label>
                 <div class="form-floating">
-                    <textarea class="form-control" name="descricao" required style="height: 116px"></textarea>
+                    <textarea class="form-control" name="descricao"  style="height: 116px"></textarea>
                 </div>
             </div>
 
@@ -242,18 +242,18 @@
             <div class="col-md-6">
                 <label>Proposito</label>
                 <div class="form-floating">
-                    <textarea class="form-control" name="proposito" required style="height: 116px"></textarea>
+                    <textarea class="form-control" name="proposito"  style="height: 116px"></textarea>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <label class="form-label">Logradouro</label>
-                <input type="text" class="form-control" id="logradouro" name="logradouro" required
+                <input type="text" class="form-control" id="logradouro" name="logradouro"
                     placeholder="Logradouro">
             </div>
             <div class="col-md-4">
                 <label class="form-label">Bairro</label>
-                <input type="text" class="form-control" id="bairro" name="bairro" required placeholder="Bairro">
+                <input type="text" class="form-control" id="bairro" name="bairro"  placeholder="Bairro">
             </div>
             <div class="col-md-2">
                 <label class="form-label">Numero Residencial</label>
@@ -264,26 +264,26 @@
 
             <div class="col-md-6">
                 <label class="form-label">Cidade</label>
-                <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Cidade" required>
+                <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Cidade" >
             </div>
             <div class="col-md-4">
                 <label class="form-label">Estado</label>
-                <input type="text" class="form-control" id="uf" name="estado" placeholder="Estado" required>
+                <input type="text" class="form-control" id="uf" name="estado" placeholder="Estado" >
             </div>
             <div class="col-md-2">
                 <label class="form-label">CEP</label>
                 <input type="text" class="form-control" id="cepa" name="cep" oninput="buscarCEP()"
-                    placeholder="EX: 40750-226" required>
+                    placeholder="EX: 40750-226" >
             </div>
 
             <div class="col-md-6">
                 <label class="form-label">Data de inicio</label>
                 <input type="date" class="form-control" name="dtInicial" min="2020-01-01" max="2025-12-31"
-                    required />
+                     />
             </div>
             <div class="col-md-6">
                 <label class="form-label">Data de terminio</label>
-                <input type="date" class="form-control" name="dtFinal" min="2020-01-01" max="2025-12-31" required />
+                <input type="date" class="form-control" name="dtFinal" min="2020-01-01" max="2025-12-31"  />
             </div>
 
 
@@ -372,7 +372,7 @@
             Inputmask("(99)9999-9999").mask("#telefoneFixo");
             //formatar telefone Movel
             Inputmask("(99)99999-9999").mask("#telefoneMovel");
-            //formtar telefone reserva  
+            //formtar telefone reserva
 
             $(document).ready(function() {
 
@@ -380,9 +380,7 @@
                 $("#formCadastro").on("submit", function(event) {
                     event.preventDefault();
                     $('#cadastroModal').modal('show');
-                    $('#cadastroModal').on('hide.bs.modal', function(event) {
-                        return false; // previne o fechamento do modal
-                    });
+
                 });
 
                 $("#cliente").on("submit", function(event) {
@@ -391,9 +389,7 @@
                     $('#cadastroModal').off('hide.bs.modal');
                     $("#cadastroModal").modal('hide');
                     $('#associando').modal('show');
-                    $('#associando').on('hide.bs.modal', function(event) {
-                        return false; // previne o fechamento do modal
-                    });
+
                 });
 
                 $("#associando").on("submit", function(event) {
@@ -431,9 +427,6 @@
                         $('#associando').off('hide.bs.modal');
                         $("#associando").modal('hide');
                         $("#finalizar").modal('show');
-                        $('#finalizar').on('hide.bs.modal', function(event) {
-                            return false; // previne o fechamento do modal
-                        });
 
                     }).catch(function(jqXHR, textStatus) {
                         // Se ocorreu algum erro na chamada AJAX, exiba o modal de erro
@@ -441,9 +434,7 @@
                             $('#associando').off('hide.bs.modal');
                             $("#associando").modal('hide');
                             $('#errorModal').modal('show');
-                            $('#errorModal').on('hide.bs.modal', function(event) {
-                                return false; // previne o fechamento do modal
-                            });
+
                         };
 
                     });

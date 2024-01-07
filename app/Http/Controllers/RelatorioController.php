@@ -29,6 +29,7 @@ class RelatorioController extends Controller
         $this->exceptionHandler = $exceptionHandler;
     }
 
+    
 public function gerarRelatorioObra($idObra)
 {
     if (!$this->userService->VerificarPermissao('relatorioObra')) {

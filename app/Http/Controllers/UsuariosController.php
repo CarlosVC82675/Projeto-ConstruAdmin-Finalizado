@@ -35,7 +35,7 @@ class UsuariosController extends Controller
             return redirect()->back()->with('error', 'Você não tem Permissão para Fazer isso!');
         }
             //Validação de dados(Função auxiliar)
-           //  $this->validaçãoUsuario($request);
+           $this->validaçãoUsuario($request);
 
             try {
             //Criando Usuario(Fluxo Principal)
