@@ -68,7 +68,7 @@
                     </table>
                 @endif
             </div>
-            <button type="button" class="btn btn-secondary mt-3">Opções</button>
+           
             <button type="button" class="btn btn-secondary mt-3" data-bs-toggle="modal" data-bs-target="#cadastroModalMateriais"> Cadastrar </button>
             {{-- Modal adicionar materiais ANA--}}
             <div class="modal fade" id="adicionarModalMateriais" tabindex="-1" aria-labelledby="adicionarModalMateriaisLabel" aria-hidden="true">
