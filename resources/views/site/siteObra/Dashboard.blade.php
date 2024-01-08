@@ -57,7 +57,7 @@
 
                     <!-- Linha com o segundo gráfico e a lista de usuários e atividades -->
                     <div class="row">
-                        <div class="col-md-6 col-12"><
+                        <div class="d-none d-md-block col-md-6 col-12">
 
                             @if (isset($dadosGrafico['data']) && !empty($dadosGrafico['data']))
                             <!-- Se houver dados no array 'data', exibir o gráfico -->

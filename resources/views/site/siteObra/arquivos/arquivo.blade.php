@@ -40,7 +40,7 @@
             <h1>Não é possivel modificar</h1>
         @endif
 
-        
+
 
         @if ($arquivos->isEmpty())
         <div class="d-flex flex-column justify-content-center align-items-center ">
@@ -77,7 +77,7 @@
                                                     @csrf
                                                     @method('get')
                                                     <button class="btn btn-primary mb-2" style="width:  6.4rem !important"
-                                                        type="submit">download</button>
+                                                        type="submit">Download</button>
                                                 </form>
                                             </div>
                                             <div class="col-md-4">
@@ -87,7 +87,7 @@
                                                         @csrf
                                                         @method('delete')
                                                         <button class="btn btn-danger" style="width:  6.4rem !important"
-                                                            type="submit">deletar</button>
+                                                            type="submit">Deletar</button>
                                                 @endif
                                                 </form>
 
