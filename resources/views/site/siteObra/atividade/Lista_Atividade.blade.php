@@ -53,7 +53,7 @@ rel="stylesheet"
 <header>
 <!-- Sidebar -->
 
-<nav id="sidebarMenu" class=" collapse d-lg-block sidebar collapse bg-white">
+<nav id="sidebarMenu" class=" collapse d-none d-lg-block sidebar collapse bg-white">
 <div class="position-sticky">
   <div class="list-group list-group-flush mx-3 mt-4">
     <a
