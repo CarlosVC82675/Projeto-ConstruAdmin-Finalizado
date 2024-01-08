@@ -492,22 +492,26 @@ console.log(atividade);
       imagemAntigaEtiqueta = imageSrcEtiqueta;
       imagemAntigoAnexo = imageSrcAnexo;
       debugger;
-      $('#antigaEtiqueta').attr('src', imagemAntigaEtiqueta);
-      $('#antigoAnexo').attr('src', imagemAntigoAnexo);
+
+      var default_imagem = 'public/img/obra.jpg';
       debugger;
+      $('#antigaEtiqueta').attr('src', imagemAntigaEtiqueta);
+      $('#anexoV').attr('src', imagemAntigoAnexo);
+
+
+
 
       debugger;
-      $('#staticBackdrop img[name="etiqueta[]"]').attr('src', imageSrcEtiqueta);
-      $('#staticBackdrop img[name="anexo[]"]').attr('src', imageSrcAnexo);
-      debugger;
       var etiquetaImage = document.getElementById('etiquetaV');
-      if (etiquetaImage) {
-        etiquetaImage.src = imageSrcEtiqueta;
+      if (etiquetaImage.src == imagemAntigaEtiqueta) {
+        debugger;
+        etiquetaImage.src = default_imagem;
       }
 
       var anexoImage = document.getElementById('anexoV');
-      if (anexoImage) {
-        anexoImage.src = imageSrcAnexo;
+      if (anexoImage.src == imagemAntigoAnexo) {
+        debugger;
+        anexoImage.src = default_imagem;
       }
       var statusDropdown = document.querySelector('select[name="statusV"]');
 
@@ -520,6 +524,47 @@ console.log(atividade);
       }
 
 
+
+      var previewImage = document.getElementById('preview');
+      var inputfile = document.getElementById('etiquetaV');
+debugger;
+previewImage.src = imagemAntigaEtiqueta;
+
+
+
+
+
+      inputfile.addEventListener('change', function(event) {
+        // Verificando se o usuário selecionou algum arquivo
+        debugger;
+
+        if (event.target.files.length > 0) {
+          // Se sim, exibimos a imagem selecionada
+          debugger;
+
+
+          var file = event.target.files[0];
+          previewImage.src = URL.createObjectURL(file);
+          debugger;
+
+          // Atualizar o arquivo antigo com o novo arquivo
+          imagemAntigaEtiqueta = file;
+          debugger;
+
+        } else {
+          // Se não, exibimos a imagem padrão
+          debugger;
+
+          previewImage.src = imagemAntigaEtiqueta;
+          debugger;
+
+        }
+      })
+
+
+
+
+
       debugger;
       document.querySelector('input[name="nomeV"]').value = atividade.nome;
       document.querySelector('textarea[name="descricaoV"]').value = atividade.descricao;
@@ -527,6 +572,7 @@ console.log(atividade);
       document.querySelector('input[name="dtInicialV"]').value = atividade.dtInicial;
       document.querySelector('input[name="idAtividade"]').value = atividade.idAtividade;
       document.querySelector('input[name="card_atividades_idCardV"]').value = atividade.card_atividades_idCard;
+
       debugger;
 
 
@@ -661,8 +707,8 @@ console.log(atividade);
   });
 
   function updateModalImages() {
-    $('#staticBackdrop img[name="etiqueta[]"]').attr('src', imagemAntigaEtiqueta);
-    $('#staticBackdrop img[name="anexo[]"]').attr('src', imagemAntigoAnexo);
+    $('#etiquetaV').attr('src', imagemAntigaEtiqueta);
+    $('#anexoV').attr('src', imagemAntigoAnexo);
     debugger;
 
   }
@@ -676,10 +722,19 @@ console.log(atividade);
   $('#atividadeForm').on('submit', function (event) {
     event.preventDefault();
     debugger;
+
+
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
     var formData = new FormData(this);
+
+    formData.forEach(function(value, key){
+      console.log(key, value);
+  });
+
+
+
+    debugger;
     var idAtividade = $('[name="idAtividade"]').val();
-    var etiqueta = $('[name="etiqueta[]"]').val();
     debugger;
     $.ajax({
       url: '/Atividade/Atualizar_Atividade/' + idAtividade,
@@ -692,11 +747,9 @@ console.log(atividade);
       },
       success: function (response) {
         console.log('Requisição POST bem-sucedida:');
-        if(etiqueta == null){
 
-        }else{
         updateModalImages();
-        }
+
         window.location.reload();
     if (response.redirect) {
 

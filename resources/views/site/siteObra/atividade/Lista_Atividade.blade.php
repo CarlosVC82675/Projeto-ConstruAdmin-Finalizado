@@ -582,18 +582,20 @@ data-mdb-target="#staticBackdrop"
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
       <div class="modal-content">
         <div class="modal-header badge badge-warning border-bottom">
-          <img class="card-img-top " name="etiqueta[]" id="etiqueta[]" src="" alt="Card image cap" style="max-height: 30vh; min-height: 30vh;">
+          <img class="card-img-top "  onerror="this.src='/img/teste3.png'" id="antigaEtiqueta" src="" alt="Card image cap" style="max-height: 30vh; min-height: 30vh;">
+
         </div>
 
         <form class="modal-body" id="atividadeForm" enctype="multipart/form-data" method="POST">
           @csrf
           @method('PUT')
-        <input name='idobra' type="hidden" value= '{{$idobra}}' readonly/>
-        <input type="hidden" name="_method" value="PUT">
-        <input type="hidden" name="idAtividade" readonly/>
-  <input name='card_atividades_idCardV' type="hidden" readonly/>
+        <input type="hidden" name='idobra' value= '{{$idobra}}' readonly/>
+        <input type="hidden" name='idAtividade' readonly/>
+  <input type="hidden" name='card_atividades_idCardV'  readonly/>
 
-
+  <div class="note note-danger mb-3">
+    <strong>Nota:</strong> A imagem da capa sera apagada ao atualizar quaisquer informações da atividade e sera substituida por uma imagem default
+  </div>
 
 
         <div class="row">
@@ -654,27 +656,31 @@ data-mdb-target="#staticBackdrop"
             </div>
 
 
-
+            <div class="mb-3">
+              <label for="descricao" class="form-label">Descrição</label>
+              <textarea class="form-control " name="descricaoV" rows="3"></textarea>
+            </div>
 
 
 
 <div class="row">
   <div class="mb-3 col-6">
     <label for="etiqueta" class="form-label">Etiqueta</label>
-    <input type="file"  class="form-control border border-warning" id="etiquetaV" name="etiqueta[]" enctype="multipart/form-data" accept="image/*,.pdf" multiple>
+    <input type="file"  class="form-control border border-warning" id="etiquetaV" name="etiquetaV[]" enctype="multipart/form-data" accept="image/*,.pdf" multiple>
+
+
+    <p class="" >Etiqueta Preview</p>
+    <img id="preview" src=""onerror="this.src='/img/no_IMG.jpg'"   class="img-thumbnail" alt="Escolha uma imagem " >
     <!--<div id="etiquetaList"></div> -->
 </div>
 <div class="mb-3 col-6">
     <label for="anexo" class="form-label ">Anexo</label>
-    <input type="file"  class="form-control  border border-warning" id="anexoV" name="anexo[]" enctype="multipart/form-data" accept="image/*,.pdf" multiple>
+    <input type="file"  class="form-control  border border-warning" id="anexoV" name="anexoV[]" enctype="multipart/form-data" accept="image/*,.pdf" multiple>
    <!-- <div id="anexoList"></div>-->
 </div>
 </div>
 
-<div class="mb-3">
-  <label for="descricao" class="form-label">Descrição</label>
-  <textarea class="form-control " name="descricaoV" rows="3"></textarea>
-</div>
+
 
 
 
