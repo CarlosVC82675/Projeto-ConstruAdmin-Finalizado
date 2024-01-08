@@ -40,10 +40,10 @@ class MateriaisNecessariosController extends Controller
                 // Se não existe, cria um novo registro
                 $obra->materiais()->attach($materialId, ['quantidade' => $quantidade]);
             }
-            // Atualizando a quantidade disponível do material  
+            // Atualizando a quantidade disponível do material
             $material->decrement('quantidade', $quantidade);
 
-            return back();
+            return redirect()->back()->with('sucesso', 'Quantidade associada!');
         }
     }
 
@@ -71,7 +71,7 @@ class MateriaisNecessariosController extends Controller
                 $materialNaObra->pivot->quantidade -= $quantidade;
                 $materialNaObra->pivot->save();
             }
-            return back();
+            return redirect()->back()->with('sucesso', 'Quantidade removida!');
         }
     }
 
@@ -110,11 +110,9 @@ class MateriaisNecessariosController extends Controller
         } elseif ($materialUsadoExistente) {
             $materialUsadoExistente->quantidade += $quantidadeAssociadaAntes;
             $materialUsadoExistente->save();
-
-            $materialUsadoExistente->refresh();
         }
 
-        return back();
+        return redirect()->back()->with('sucesso', 'material desassociado!');
     }
 
 }

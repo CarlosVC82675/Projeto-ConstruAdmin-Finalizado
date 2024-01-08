@@ -45,8 +45,6 @@
                         <li><hr class="dropdown-divider"></li>
                         <li><span class="dropdown-header">Filtrar:</span></li>
                         <li><a href="#" class="dropdown-item filtro-alfabetico">Ordem alfabética</a></li>
-                        <li><a href="#" class="dropdown-item">Nº Acesso</a></li>
-                        <li><a href="#" class="dropdown-item">Gênero</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a href="#" id="btnBuscar" class="dropdown-item">Consultar</a></li>
                     </ul>
