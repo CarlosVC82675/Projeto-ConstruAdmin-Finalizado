@@ -23,7 +23,7 @@
     <!-- Logo da empresa -->
     <div class="navbar-brand d-flex align-items-center">
         <a href="{{route('site.index')}}"> <img src="{{secure_asset("img/capacete.png")}}" alt="Logo da Empresa" width="60" height="60" class="d-none d-md-block"></a>
-        <span class="company-name ms-2 company-name-mobile">ConstruAdmin</span>
+        <a href="{{route('site.index')}}"><span class="company-name ms-2 company-name-mobile">ConstruAdmin</span></a>
         <span class="separator d-none d-md-block">|</span>
         <span class="portal-name ms-2 d-none d-md-block">{{$obra->nome}}</span>
     </div>
