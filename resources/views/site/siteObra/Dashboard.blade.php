@@ -72,7 +72,7 @@
                             @endif
 
                         </div>
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-6 col-12 mt-2">
                             <h5>Usuários Associados à Obra</h5>
                             <ul class="list-group" id="listaUsuarios">
                                 @php
