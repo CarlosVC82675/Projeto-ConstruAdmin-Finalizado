@@ -1,4 +1,4 @@
-<?php  
+<?php
 
  namespace App\Services;
  use App\Models\Atividades;
@@ -14,23 +14,29 @@ class Atividade_Atualizar_Service
 
 
 
-            
         $anexosPaths = [];
-        if ($request->hasFile('anexo')) {
-            foreach ($request->file('anexo') as $file) {
-                $anexoPath = $file->store('public/photos/atividade_anexo');
-                $anexoPath = Storage::url($anexoPath);
-                $anexosPaths[] = $anexoPath;
+        if ($request->hasFile('anexoV')) {
+            foreach ($request->file('anexoV') as $file) {
+                if ($file instanceof \Illuminate\Http\UploadedFile) {
+                    $anexoPath = $file->store('public/photos/atividade_anexo');
+                    $anexoPath = Storage::url($anexoPath);
+                    $anexosPaths[] = $anexoPath;
+                }
             }
         }
+
         $etiquetasPaths = [];
-        if ($request->hasFile('etiqueta')) {
-            foreach ($request->file('etiqueta') as $file) {
-                $etiquetaPath = $file->store('public/photos/atividade_etiqueta');
-                $etiquetaPath = Storage::url($etiquetaPath);
-                $etiquetasPaths[] = $etiquetaPath;
+        if ($request->hasFile('etiquetaV')) {
+            foreach ($request->file('etiquetaV') as $file) {
+                if ($file instanceof \Illuminate\Http\UploadedFile) {
+                    $etiquetaPath = $file->store('public/photos/atividade_etiqueta');
+                    $etiquetaPath = Storage::url($etiquetaPath);
+                    $etiquetasPaths[] = $etiquetaPath;
+                }
             }
         }
+
+
 
         $atividade->update([
             'nome' => $request->input('nomeV'),
