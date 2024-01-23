@@ -4,10 +4,10 @@ Projeto feito como trabalho de conclusão do curso de desenvolvimento de sistema
 
 Equipe envolvida: 
 
-- Carlos Vinicius(Product Owner/Desenvolvedor)
-- Ana Carolina(Desenvolvedora)
-- Diego Oliveria(Desenvolvedor)
-- Thauan Peixoto(Desenvolvedor)
+- Carlos Vinicius/DevCarlos82675(Product Owner/Desenvolvedor)
+- Ana Carolina/linaazul(Desenvolvedora)
+- Diego Oliveria/DiegoNaneve(Desenvolvedor)
+- Thauan Peixoto/Thauanpeixoto(Desenvolvedor)
 
 
 
@@ -42,7 +42,7 @@ O projeto teve sucesso de acordo com a proposta inicial. Embora tenha sido traba
 
 ## Informações Gerais:
 - Nome Projeto: ConstruAdmin.
-- Membros: Carlos Vinicius, Ana Carolina, Diego Oliveria e Thauan Peixoto.
+- Membros: DevCarlos82675, linaazul, DiegoNaneve e Thauanpeixoto.
 - Funcionalidades: Gerenciamento de obras, gestão de usuários, controle de estoque, registro de atividades, geração de relatórios, anexação de arquivos e fotos.
 - Linguagem principal: PHP.
 - Outras Linguagens: html e css e javascript.
