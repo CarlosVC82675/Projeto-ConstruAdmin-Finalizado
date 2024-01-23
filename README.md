@@ -66,6 +66,8 @@ O projeto teve sucesso de acordo com a proposta inicial. Embora tenha sido traba
 
 - OBS3: Caso seja encontrado no projeto palavras de baixo calão, bem, era uma das maneiras de expressar a raiva durante o desenvolvimento. Peço desculpas por isso.
 
+- OBS4: Infelizmente o plano do host não nos disponibilizou acesso a um certificado SSL.
+
 
 
 
