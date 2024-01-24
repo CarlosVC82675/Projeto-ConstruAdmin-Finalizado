@@ -4,7 +4,7 @@ Projeto feito como trabalho de conclusão do curso de desenvolvimento de sistema
 
 Equipe envolvida: 
 
-- Carlos Vinicius/DevCarlos82675(Product Owner/Desenvolvedor)
+- Carlos Vinicius/CarlosVC82675(Product Owner/Desenvolvedor)
 - Ana Carolina/linaazul(Desenvolvedora)
 - Diego Oliveria/DiegoNaneve(Desenvolvedor)
 - Thauan Peixoto/Thauanpeixoto(Desenvolvedor)
@@ -29,7 +29,7 @@ Para organizar o projeto, utilizamos um quadro Trello e realizamos reuniões sem
 - Após a conclusão de uma etapa de desenvolvimento, eu realizava a junção do projeto. Basicamente, consistia em unir os códigos de cada um que estava em suas respectivas branches em um arquivo principal, que seria a base para a próxima etapa.
 
 - Durante o desenvolvimento, foram estabelecidas regras de padronização, um conjunto de regras que os desenvolvedores deveriam seguir para facilitar a integração dos códigos. Caso tenha interesse, esse documento também está disponível.
-- 
+  
 Esse foi um breve resumo da organização do projeto, e talvez isso explique muita coisa desse repositorio.
 
 ## Licença de uso e acesso:
@@ -42,7 +42,7 @@ O projeto teve sucesso de acordo com a proposta inicial. Embora tenha sido traba
 
 ## Informações Gerais:
 - Nome Projeto: ConstruAdmin.
-- Membros: DevCarlos82675, linaazul, DiegoNaneve e Thauanpeixoto.
+- Membros: CarlosVC82675, linaazul, DiegoNaneve e Thauanpeixoto.
 - Funcionalidades: Gerenciamento de obras, gestão de usuários, controle de estoque, registro de atividades, geração de relatórios, anexação de arquivos e fotos.
 - Linguagem principal: PHP.
 - Outras Linguagens: html e css e javascript.
