@@ -1,6 +1,6 @@
-# TCC-Senai
+# ConstruAdmin
 
-Projeto feito como trabalho de conclusão do curso de desenvolvimento de sistemas do SENAI-Dendezeiros
+Sistema de gestão de obras
 
 Equipe envolvida: 
 
@@ -34,11 +34,11 @@ Esse foi um breve resumo da organização do projeto, e talvez isso explique mui
 
 ## Licença de uso e acesso:
 
-Não entendo muito sobre questões de licenciamento, esse projeto foi criado originalmente em um repositório privado durante o desenvolvimento. Agora que ele está finalizado finalizado, foi tornado público para proporcionar acesso a possíveis recrutadores e pessoas interessadas. No entanto, durante o desenvolvimento, enfrentamos um caso em que uma das equipes de nossa sala plagiou parcialmente nossa documentação. Portanto, este projeto é livre para acesso. No entanto, para quem tiver interesse na utilização do projeto, peço que entre em contato para ter acesso ao documento de utilização. Lembrando que este projeto não pertence apenas a uma pessoa, mas a um grupo. Nenhuma decisão comecial deve ser tomada sem a aprovação do grupo. Para facilitar esse processo, entre em contato comigo, que entrarei em contato com outros membros.
+Não entendo muito sobre questões de licenciamento, esse projeto foi criado originalmente em um repositório privado durante o desenvolvimento. Agora que ele está finalizado finalizado, foi tornado público para proporcionar acesso a possíveis recrutadores e pessoas interessadas. Portanto, este projeto é livre para acesso. No entanto, para quem tiver interesse na utilização do projeto, peço que entre em contato para ter acesso ao documento de utilização. Lembrando que este projeto não pertence apenas a uma pessoa, mas a um grupo. Nenhuma decisão comecial deve ser tomada sem a aprovação do grupo. Para facilitar esse processo, entre em contato comigo, que entrarei em contato com outros membros.
 
 ## Considerações finais:
 
-O projeto teve sucesso de acordo com a proposta inicial. Embora tenha sido trabalhoso e tenham ocorrido várias mudanças no caminho, tenho orgulho em dizer que ele está finalizado e que recebeu nota máxima da banca de TCC. Claro que há muitos pontos a serem melhorados, e talvez um dia possamos retornar com este projeto, refazendo-o completamente, usando talvez outra linguagem, seguindo novas regras de negócio e requisitos, aprimorando o banco, implementando outras ferramentas, etc.
+O projeto teve sucesso de acordo com a proposta inicial. Embora tenha sido trabalhoso e tenham ocorrido várias mudanças no caminho, tenho orgulho em dizer que ele está finalizado. Claro que há muitos pontos a serem melhorados, e talvez um dia possamos retornar com este projeto, refazendo-o completamente, usando talvez outra linguagem, seguindo novas regras de negócio e requisitos, aprimorando o banco, implementando outras ferramentas, etc.
 
 ## Informações Gerais:
 - Nome Projeto: ConstruAdmin.
